@@ -141,40 +141,198 @@
 
 // Q: Whether 1 preasent in an array or not ?
 
-#include <iostream>
+// #include <iostream>
+// using namespace std;
+
+// bool search(int arr[], int size, int key)
+// {
+//     for (int i = 0; i < size; i++)
+//     {
+//         if (key == arr[i])
+//         {
+//             return true;
+//         }
+//     }
+
+//     return false;
+// }
+
+// int main()
+// {
+//     int myArray[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+//     cout << "Enter the number you want to search in myArray: " << endl;
+//     int key;
+//     cin >> key;
+
+//     bool found = search(myArray, 10, key);
+
+//     if (!found)
+//     {
+//         cout << "key is Absend " << key << endl;
+//     }
+//     else
+//     {
+//         cout << " key is present "  << key << endl;
+//     }
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------------------------
+
+// Q: reverse an given array ?
+
+// #include <iostream>
+// using namespace std;
+
+// void reverse(int arr[],int n){
+// int start = 0;
+// int end = n-1;
+// while (start <= end)
+// {
+//     swap(arr[start], arr[end]);
+//     start++;
+//     end--;
+// }
+// }
+
+// void printArr(int arr[], int n)
+// {
+//     for (int i = 0; i < n; i++)
+//     {
+//         cout << arr[i];
+//     }
+//     cout << endl;
+// }
+
+// int main()
+// {
+
+//     int myArr[6] = {0, 1, 2, 3, 4, 5};
+//     int myBrr[5] = {0, 1, 2, 3, 4};
+
+
+//     reverse(myArr, 6);
+//     reverse(myBrr, 5);
+//     printArr(myArr, 6);
+//     printArr(myBrr, 5);
+// }
+
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Q: Swap alternatively in an array?
+
+// #include<iostream>
+// using namespace std;
+
+// int swapAlt(int arr[], int size) {
+//     int fNum;
+//     int sNum;
+//     for (int i = 0; i < size; i += 2) {
+//         if (i + 1 < size) {
+//             fNum = arr[i]; // Store the first number
+//             sNum = arr[i + 1]; // Store the second number
+//             arr[i] = sNum; // Assign the second number to the first position
+//             arr[i + 1] = fNum; // Assign the first number to the second position
+//         }
+//     }
+// }
+
+
+// int printArr (int arr[], int size){
+//     for (int i = 0; i < size; i++)
+//     {
+//         cout << arr[i];
+//     }
+    
+// }
+
+
+// int main (){
+//     int myArr[5] = {0,1,2,3,5};
+
+// swapAlt(myArr, 5);
+// printArr(myArr, 5);
+
+// }
+
+// ----------------------------------------------------------------------------------------------------------------
+
+// Q: Find unique element in an array ? 
+
+// #include<iostream>
+// using namespace std;
+
+// int checkUnique(int arr[], int size){
+//     int num = 0;
+//     for (int i = 0; i < size; i++)
+//     {
+//         num = num^arr[i];
+//     }
+//     return num;
+// }
+
+// int main(){
+//     int myArr[7] = { 0,0,1,2,3,1,2};
+//     int numb = checkUnique(myArr, 7);
+//         cout << numb;
+
+// }
+
+// --------------------------------------------------------------------------------------------------------------
+
+// Q: Retrun True is there is unique elements in an array ?
+
+// #include<iostream>
+// using namespace std;
+
+// bool checkUnique( int arr[], int size){
+// int num = 0;
+// for (int i = 0; i < size; i++)
+// {
+//    num^=arr[i];
+// }
+//     return num!=0;
+// }
+
+// int main(){
+//     int myArr[5] = {0,0,1,1,2};
+//     bool answer = checkUnique(myArr, 5);
+//     if(answer){
+//         cout << "Yes, unique number is present";
+//     } else {
+//         cout << " No, Unique number is not present ";
+//     }
+// }
+
+// ---------------------------------------------------------------------------------------------------------------
+
+// Q: Find the duplicate number in  an arr?
+
+#include<iostream>
 using namespace std;
 
-bool search(int arr[], int size, int key)
-{
+int findDuplicate(int arr[], int size){
+    int num = 0;
     for (int i = 0; i < size; i++)
     {
-        if (key == arr[i])
-        {
-            return true;
-        }
+        num^= arr[i];
     }
 
-    return false;
+    for (int i = 0; i < size; i++)
+    {
+        num^=i;
+    }
+    
+
+    return num;
+    
 }
 
-int main()
-{
-    int myArray[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-    cout << "Enter the number you want to search in myArray: " << endl;
-    int key;
-    cin >> key;
-
-    bool found = search(myArray, 10, key);
-
-    if (!found)
-    {
-        cout << "key is Absend " << key << endl;
-    }
-    else
-    {
-        cout << " key is present "  << key << endl;
-    }
-
-    return 0;
+int main(){
+    int myArr[6] = { 1,2, 2, 3, 4, 5};
+   int ans = findDuplicate(myArr,6);
+   cout << ans;
 }

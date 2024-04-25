@@ -179,54 +179,236 @@
 // Result: 4
 // Explanation: Here, the target is 0. We can see that 0 is present in the given rotated sorted array, nums. Thus, we get output as 4, which is the index at which 0 is present in the array.
 
+// #include <iostream>
+// using namespace std;
+
+// int indexOfTarget(int myArr[], int size, int target)
+// {
+//     int low = 0;
+//     int high = size - 1;
+//     int indexofTarget = -1;
+//     while (low <= high)
+//     {
+//         int mid = (low + high) / 2;
+
+//         if (myArr[mid] == target)
+//         {
+//             indexofTarget = mid;
+//             break;
+//         }
+//         if (myArr[low] == myArr[mid] && myArr[high] == myArr[mid])
+//         {
+//             low = low + 1;
+//             high = high + 1;
+//             continue;
+//         }
+
+//         if (myArr[low] <= myArr[mid])
+//         {
+//             if (myArr[low] <= target && target <= myArr[low])
+//             {
+//                 high = mid - 1;
+//             }
+//             else
+//             {
+//                 low = mid + 1;
+//             }
+//         }
+//         else
+//         {
+//             if (myArr[high] <= target && target <= myArr[high])
+//             {
+//                 low = mid + 1;
+//             }
+//             else
+//             {
+//                 high = mid - 1;
+//             }
+//         }
+//     }
+//     return indexofTarget;
+// }
+
+// int main()
+// {
+//     int myArr[8] = {4, 5, 6, 4, 0, 1, 2, 4};
+//     int target = 0;
+//     int ans = indexOfTarget(myArr, 8, target);
+//     cout << ans;
+// }
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Q: Given an integer array arr of size N, sorted in ascending order (with distinct values). Now the array is rotated between 1 to N times which is unknown. Find the minimum element in the array.
+
+// Pre-requisites: Search in Rotated Sorted Array I,  Search in Rotated Sorted Array II & Binary Search algorithm
+
+// Example
+// Input Format:
+//  arr = [4,5,6,7,0,1,2,3]
+// Result:
+//  0
+// Explanation:
+//  Here, the element 0 is the minimum element in the array.
+
+// #include<iostream>
+// #include<vector>
+// #include <climits>
+// using namespace std;
+
+// int mini(vector<int> arr){
+//     int low = 0;
+//     int high = arr.size()-1;
+//     int ans = INT_MAX;
+
+//     while (low <= high)
+//     {
+//         int mid = (low + high) / 2;
+
+//         if (arr[low] <= arr[high])
+//         {
+//             ans = min(ans,arr[low]);
+//             break;
+//         }
+
+//         if (arr[low] <= arr[mid])
+//         {
+//             ans = min(ans,arr[low]);
+//             low = mid + 1;
+//         } else {
+//             ans = min(ans,arr[mid]);
+//             high = mid - 1;
+//         }
+
+//     }
+//     return ans;
+// }
+
+// int main(){
+//     vector<int> arr={4,5,6,7,10,11,2,3};
+//     int findMini = mini(arr);
+//     cout << findMini;
+// }
+
+// ---------------------------------------------------------------------------------------------------------------
+
+// Q: Given an integer array arr of size N, sorted in ascending order (with distinct values). Now the array is rotated between 1 to N times which is unknown. Find how many times the array has been rotated.
+
+// Pre-requisites: Find minimum in Rotated Sorted Array,  Search in Rotated Sorted Array II & Binary Search algorithm
+
+// Examples
+// Example 1:
+// Input Format:
+//  arr = [4,5,6,7,0,1,2,3]
+// Result:
+//  4
+// Explanation:
+//  The original array should be [0,1,2,3,4,5,6,7]. So, we can notice that the array has been rotated 4 times.
+
+// #include <iostream>
+// #include <vector>
+// #include <climits>
+// using namespace std;
+
+// int findRotatePoint(vector<int> &arr)
+// {
+//     int low = 0;
+//     int high = arr.size() - 1;
+//     int ans = INT_MAX;
+//     int index = -1;
+
+//     while (low <= high)
+//     {
+//         int mid = (low + high) / 2;
+
+//         if (arr[low] <= arr[high])
+//         {
+//             ans = min(ans, arr[low]);
+//             index = low;
+//             break;
+//         }
+
+//         if (arr[low] <= arr[mid])
+//         {
+//             ans = min(ans, arr[low]);
+//             index = ans;
+//             low = mid + 1;
+//         }
+//         else
+//         {
+//             ans = min(ans, arr[mid]);
+//             high = mid - 1;
+//             index = ans;
+//         }
+//     }
+//     return index;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {4, 5, 6, 7, 8, 9, 2, 3};
+//     int mini = findRotatePoint(arr);
+//     cout << "it rototed at" << mini;
+
+// }
+
+// ----------------------------------------------------------------------------------------------------------------
+
+// Given an array of N integers. Every number in the array except one appears twice. Find the single number in the array.
+
+// Pre-requisite: Binary Search Algorithm
+
+// Example :
+// Input Format:
+//  arr[] = {1,1,2,2,3,3,4,5,5,6,6}
+// Result:
+//  4
+// Explanation:
+//  Only the number 4 appears once in the array.
+
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int rotatedSortTarget(int myArr[], int size, int target)
+int findSingle(vector<int> &arr)
 {
-    int low = 0;
-    int high = size - 1;
-    int findTarget = -1;
+    int size = arr.size() - 1;
+
+    if (size == 1)
+        return arr[0];
+    if (arr[0] != arr[1])
+        return arr[0];
+    if (arr[size - 1] != arr[size - 2])
+        return arr[size - 1];
+
+    int low = 1;
+    int high = size - 2;
 
     while (low <= high)
     {
         int mid = (low + high) / 2;
-        if (myArr[mid] == target)
+
+        if (arr[mid] != arr[mid - 1] && arr[mid] != arr[mid + 1])
         {
-            findTarget = mid;
-            break;
+            return arr[mid];
         }
 
-        if (myArr[low] <= myArr[mid])
+        if ((mid % 2 == 1 && arr[mid] == arr[mid - 1]) || (mid % 2 == 0 && arr[mid] == arr[mid + 1]))
         {
-            if (myArr[low] <= target && target <= myArr[mid])
-            {
-                high = mid - 1;
-            }
-            else
-            {
-                low = mid + 1;
-            }
+            low = mid + 1;
         }
         else
         {
-            if (myArr[mid] < target && target <= myArr[high])
-            {
-                low = mid + 1; // Target is in the right half
-            }
-            else
-            {
-                high = mid - 1; // Target is in the left half
-            }
+            high = mid - 1;
         }
     }
-    return findTarget;
+
+    return -1;
 }
 
 int main()
 {
-    int myArr[8] = {4, 5, 6, 7, 0, 1, 2, 3};
-    int target = 2;
-    int findTarget = rotatedSortTarget(myArr, 8, target);
-    cout << findTarget;
+    vector<int> arr = {1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6};
+    int single = findSingle(arr);
+    cout << single;
 }

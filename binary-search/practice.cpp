@@ -393,6 +393,8 @@ int findSingle(vector<int> &arr)
             return arr[mid];
         }
 
+      /* This part of the code is used to determine whether to move the search range to the left or
+      right based on the comparison of the middle element with its adjacent elements. */
         if ((mid % 2 == 1 && arr[mid] == arr[mid - 1]) || (mid % 2 == 0 && arr[mid] == arr[mid + 1]))
         {
             low = mid + 1;

@@ -366,51 +366,51 @@
 // Explanation:
 //  Only the number 4 appears once in the array.
 
-#include <iostream>
-#include <vector>
-using namespace std;
+// #include <iostream>
+// #include <vector>
+// using namespace std;
 
-int findSingle(vector<int> &arr)
-{
-    int size = arr.size() - 1;
+// int findSingle(vector<int> &arr)
+// {
+//     int size = arr.size() - 1;
 
-    if (size == 1)
-        return arr[0];
-    if (arr[0] != arr[1])
-        return arr[0];
-    if (arr[size - 1] != arr[size - 2])
-        return arr[size - 1];
+//     if (size == 1)
+//         return arr[0];
+//     if (arr[0] != arr[1])
+//         return arr[0];
+//     if (arr[size - 1] != arr[size - 2])
+//         return arr[size - 1];
 
-    int low = 1;
-    int high = size - 2;
+//     int low = 1;
+//     int high = size - 2;
 
-    while (low <= high)
-    {
-        int mid = (low + high) / 2;
+//     while (low <= high)
+//     {
+//         int mid = (low + high) / 2;
 
-        if (arr[mid] != arr[mid - 1] && arr[mid] != arr[mid + 1])
-        {
-            return arr[mid];
-        }
+//         if (arr[mid] != arr[mid - 1] && arr[mid] != arr[mid + 1])
+//         {
+//             return arr[mid];
+//         }
 
-      /* This part of the code is used to determine whether to move the search range to the left or
-      right based on the comparison of the middle element with its adjacent elements. */
-        if ((mid % 2 == 1 && arr[mid] == arr[mid - 1]) || (mid % 2 == 0 && arr[mid] == arr[mid + 1]))
-        {
-            low = mid + 1;
-        }
-        else
-        {
-            high = mid - 1;
-        }
-    }
+//       /* This part of the code is used to determine whether to move the search range to the left or
+//       right based on the comparison of the middle element with its adjacent elements. */
+//         if ((mid % 2 == 1 && arr[mid] == arr[mid - 1]) || (mid % 2 == 0 && arr[mid] == arr[mid + 1]))
+//         {
+//             low = mid + 1;
+//         }
+//         else
+//         {
+//             high = mid - 1;
+//         }
+//     }
 
-    return -1;
-}
+//     return -1;
+// }
 
-int main()
-{
-    vector<int> arr = {1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6};
-    int single = findSingle(arr);
-    cout << single;
-}
+// int main()
+// {
+//     vector<int> arr = {1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6};
+//     int single = findSingle(arr);
+//     cout << single;
+// }

@@ -129,40 +129,166 @@
 // Explanation:
 //  If Koko eats 5 bananas/hr, he will take 2, 3, 2, and 1 hour to eat the piles accordingly. So, he will take 8 hours to complete all the piles.
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int maxInOnePile(vector<int> &bananas)
+// {
+//     int maxPile = INT_MIN;
+//     for (int i = 0; i < bananas.size(); i++)
+//     {
+//         maxPile = max(maxPile, bananas[i]);
+//     }
+//     return maxPile;
+// }
+
+// int totalTime(vector<int> &bananas, int hour)
+// {
+//     int tTime = 0;
+//     for (int i = 0; i < bananas.size(); i++)
+//     {
+//         tTime += ceil(double(bananas[i]) / double(hour));
+//         // 7/8 + 15/8 + 6/8 + 3/8 = 1 + 2 + 1 + 1
+//     }
+//     return tTime;
+// }
+
+// int miniTime(vector<int> bananas, int hour)
+// {
+//     int low = 1, high = maxInOnePile(bananas);
+
+//     //apply binary search:
+//     while (low <= high) {
+//         int mid = (low + high) / 2;
+//         int totalH = totalTime(bananas, mid);
+//         if (totalH <= hour) {
+//             high = mid - 1;
+//         }
+//         else {
+//             low = mid + 1;
+//         }
+//     }
+//     return low;
+// }
+
+// int main()
+// {
+//     vector<int> bananas = {7, 15, 6, 3};
+//     int hour = 8;
+//     int ans = miniTime(bananas, hour);
+//         cout << "Koko should eat atleast " << ans << " bananas/hr.\n";
+
+// }
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Q: uou are given 'N’ roses and you are also given an array 'arr'  where 'arr[i]'  denotes that the 'ith' rose will bloom on the 'arr[i]th' day.
+
+// You can only pick already bloomed roses that are adjacent to make a bouquet.
+// You are also told that you require exactly 'k' adjacent bloomed roses to make a single bouquet.
+// Find the minimum number of days required to make at least ‘m' bouquets each containing 'k' roses. Return -1 if it is not possible.
+
+// Example 1:
+// Input Format:
+//  N = 8, arr[] = {7, 7, 7, 7, 13, 11, 12, 7}, m = 2, k = 3
+// m = no. of bouquets
+// k = no. of roses req. for 1 bouquets.
+// Result:
+//  12
+// Explanation:
+//  On the 12th the first 4 flowers and the last 3 flowers would have already bloomed. So, we can easily make 2 bouquets, one with the first 3 and another with the last 3 flowers.
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// bool possible(vector<int> &arr, int day, int m, int k) {
+//     int n = arr.size(); //size of the array
+//     int cnt = 0;
+//     int noOfB = 0;
+//     // count the number of bouquets:
+//     for (int i = 0; i < n; i++) {
+//         if (arr[i] <= day) {
+//             cnt++;
+//         }
+//         else {
+//             noOfB += (cnt / k);
+//             cnt = 0;
+//         }
+//     }
+//     noOfB += (cnt / k);
+//     return noOfB >= m;
+// }
+// int roseGarden(vector<int> arr, int k, int m) {
+//     long long val = m * 1ll * k * 1ll;
+//     int n = arr.size(); //size of the array
+//     if (val > n) return -1; //impossible case.
+//     //find maximum and minimum:
+//     int mini = INT_MAX, maxi = INT_MIN;
+//     for (int i = 0; i < n; i++) {
+//         mini = min(mini, arr[i]);
+//         maxi = max(maxi, arr[i]);
+//     }
+
+//     //apply binary search:
+//     int low = mini, high = maxi;
+//     while (low <= high) {
+//         int mid = (low + high) / 2;
+//         if (possible(arr, mid, m, k)) {
+//             high = mid - 1;
+//         }
+//         else low = mid + 1;
+//     }
+//     return low;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {7, 7, 7, 7, 13, 11, 12, 7};
+//     int k = 3;
+//     int m = 2;
+//     int ans = roseGarden(arr, k, m);
+//     if (ans == -1)
+//         cout << "We cannot make m bouquets.\n";
+//     else
+//         cout << "We can make bouquets on day " << ans << "\n";
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------------------------
+
+// Q: You are given an array of integers 'arr' and an integer i.e. a threshold value 'limit'. Your task is to find the smallest positive integer divisor, such that upon dividing all the elements of the given array by it, the sum of the division's result is less than or equal to the given threshold value.
+
+// Examples
+// Example 1:
+// Input Format:
+//  N = 5, arr[] = {1,2,3,4,5}, limit = 8
+// Result:
+//  3
+// Explanation:
+//  We can get a sum of 15(1 + 2 + 3 + 4 + 5) if we choose 1 as a divisor.
+// The sum is 9(1 + 1 + 2 + 2 + 3)  if we choose 2 as a divisor. Upon dividing all the elements of the array by 3, we get 1,1,1,2,2 respectively. Now, their sum is equal to 7 <= 8 i.e. the threshold value. So, 3 is the minimum possible answer.
+
+
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int maxInOnePile(vector<int> &bananas)
-{
-    int maxPile = INT_MIN;
-    for (int i = 0; i < bananas.size(); i++)
-    {
-        maxPile = max(maxPile, bananas[i]);
+int sumByD(vector<int> &arr, int mid) {
+    int sum = 0;
+    for (int i = 0; i < arr.size(); i++) {
+        sum += ceil((double)(arr[i]) / (double)(mid));
     }
-    return maxPile;
+    return sum;
 }
 
-int totalTime(vector<int> &bananas, int hour)
-{
-    int tTime = 0;
-    for (int i = 0; i < bananas.size(); i++)
-    {
-        tTime += ceil(double(bananas[i]) / double(hour));
-        // 7/8 + 15/8 + 6/8 + 3/8 = 1 + 2 + 1 + 1
-    }
-    return tTime;
-}
+int smallestDivisor(vector<int>& arr, int limit) {
+    if (arr.size() > limit) return -1;
+    int low = 1, high = *max_element(arr.begin(), arr.end());
 
-int miniTime(vector<int> bananas, int hour)
-{
-    int low = 1, high = maxInOnePile(bananas);
-
-    //apply binary search:
+    //Apply binary search:
     while (low <= high) {
         int mid = (low + high) / 2;
-        int totalH = totalTime(bananas, mid);
-        if (totalH <= hour) {
+        if (sumByD(arr, mid) <= limit) {
             high = mid - 1;
         }
         else {
@@ -174,9 +300,10 @@ int miniTime(vector<int> bananas, int hour)
 
 int main()
 {
-    vector<int> bananas = {7, 15, 6, 3};
-    int hour = 8;
-    int ans = miniTime(bananas, hour);
-        cout << "Koko should eat atleast " << ans << " bananas/hr.\n";
-
+    vector<int> arr = {1, 2, 3, 4, 5};
+    int limit = 8;
+    int ans = smallestDivisor(arr, limit);
+    cout << "The minimum divisor is: " << ans << "\n";
+    return 0;
 }
+

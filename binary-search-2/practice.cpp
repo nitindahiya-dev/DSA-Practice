@@ -268,42 +268,165 @@
 //  We can get a sum of 15(1 + 2 + 3 + 4 + 5) if we choose 1 as a divisor.
 // The sum is 9(1 + 1 + 2 + 2 + 3)  if we choose 2 as a divisor. Upon dividing all the elements of the array by 3, we get 1,1,1,2,2 respectively. Now, their sum is equal to 7 <= 8 i.e. the threshold value. So, 3 is the minimum possible answer.
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int sumByD(vector<int> &arr, int mid) {
+//     int sum = 0;
+//     for (int i = 0; i < arr.size(); i++) {
+//         sum += ceil((double)(arr[i]) / (double)(mid));
+//     }
+//     return sum;
+// }
+
+// int smallestDivisor(vector<int>& arr, int limit) {
+//     if (arr.size() > limit) return -1;
+//     int low = 1, high = *max_element(arr.begin(), arr.end());
+
+//     //Apply binary search:
+//     while (low <= high) {
+//         int mid = (low + high) / 2;
+//         if (sumByD(arr, mid) <= limit) {
+//             high = mid - 1;
+//         }
+//         else {
+//             low = mid + 1;
+//         }
+//     }
+//     return low;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5};
+//     int limit = 8;
+//     int ans = smallestDivisor(arr, limit);
+//     cout << "The minimum divisor is: " << ans << "\n";
+//     return 0;
+// }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+// You are the owner of a Shipment company. You use conveyor belts to ship packages from one port to another. The packages must be shipped within 'd' days.
+// The weights of the packages are given in an array 'of weights'. The packages are loaded on the conveyor belts every day in the same order as they appear in the array. The loaded weights must not exceed the maximum weight capacity of the ship.
+// Find out the least-weight capacity so that you can ship all the packages within 'd' days.
+
+// Examples
+// Example 1:
+// Input Format:
+//  N = 5, weights[] = {5,4,5,2,3,4,5,6}, d = 5
+// Result:
+//  9
+// Explanation:
+//  If the ship capacity is 9, the shipment will be done in the following manner:
+// Day         Weights            Total
+// 1        -       5, 4          -        9
+// 2        -       5, 2          -        7
+// 3        -       3, 4          -        7
+// 4        -       5             -        5
+// 5        -       6             -        6
+// So, the least capacity should be 9.
+
+
+
+
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int findDays(vector<int> &weights, int cap) {
+//     int days = 1; //First day.
+//     int load = 0;
+//     for (int i = 0; i < weights.size(); i++) {
+//         if (load + weights[i] > cap) {
+//             days += 1; //move to next day
+//             load = weights[i]; //load the weight.
+//         }
+//         else {
+//             //load the weight on the same day.
+//             load += weights[i];
+//         }
+//     }
+//     return days;
+// }
+
+// int leastWeightCapacity(vector<int> &weights, int d) {
+//     //Find the maximum and the summation:
+//     int low = *max_element(weights.begin(), weights.end());
+//     int high = accumulate(weights.begin(), weights.end(), 0);
+//     while (low <= high) {
+//         int mid = (low + high) / 2;
+//         int numberOfDays = findDays(weights, mid);
+//         if (numberOfDays <= d) {
+//             //eliminate right half
+//             high = mid - 1;
+//         }
+//         else {
+//             //eliminate left half
+//             low = mid + 1;
+//         }
+//     }
+//     return low;
+// }
+
+// int main()
+// {
+//     vector<int> weights = {5, 4, 5, 2, 3, 4, 5, 6};
+//     int d = 5;
+//     int ans = leastWeightCapacity(weights, d);
+//     cout << "The minimum capacity should be: " << ans << "\n";
+//     return 0;
+// }
+
 
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int sumByD(vector<int> &arr, int mid) {
-    int sum = 0;
-    for (int i = 0; i < arr.size(); i++) {
-        sum += ceil((double)(arr[i]) / (double)(mid));
+int findDays(vector<int> &weights, int cap){
+int days = 1;
+int load = 0;
+ for (int i = 0; i < weights.size(); i++)
+ {
+    if (load + weights[i] > cap)
+    {
+        days++;
+        load = weights[i];
+    } else {
+        load = load + weights[i];
     }
-    return sum;
+    
+ }
+ return days;
+ 
 }
 
-int smallestDivisor(vector<int>& arr, int limit) {
-    if (arr.size() > limit) return -1;
-    int low = 1, high = *max_element(arr.begin(), arr.end());
+int leastWeightCapacity(vector<int> &weights, int d) {
+    int low = *max_element(weights.begin(), weights.end());
+    int high = accumulate(weights.begin(), weights.end(), 0);
 
-    //Apply binary search:
-    while (low <= high) {
-        int mid = (low + high) / 2;
-        if (sumByD(arr, mid) <= limit) {
+    while (low < high)
+    {
+        int mid = (low + high)/2;
+        int numOfDays = findDays(weights, mid);
+        if (numOfDays <= d)
+        {
             high = mid - 1;
-        }
-        else {
+        } else {
             low = mid + 1;
         }
+        
     }
+    
     return low;
 }
 
+
 int main()
 {
-    vector<int> arr = {1, 2, 3, 4, 5};
-    int limit = 8;
-    int ans = smallestDivisor(arr, limit);
-    cout << "The minimum divisor is: " << ans << "\n";
+    vector<int> weights = {5, 4, 5, 2, 3, 4, 5, 6};
+    int d = 5;
+    int ans = leastWeightCapacity(weights, d);
+    cout << "The minimum capacity should be: " << ans << "\n";
     return 0;
 }
-

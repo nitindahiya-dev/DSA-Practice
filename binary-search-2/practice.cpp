@@ -329,45 +329,47 @@
 
 
 
-
-
 // #include <bits/stdc++.h>
 // using namespace std;
 
-// int findDays(vector<int> &weights, int cap) {
-//     int days = 1; //First day.
-//     int load = 0;
-//     for (int i = 0; i < weights.size(); i++) {
-//         if (load + weights[i] > cap) {
-//             days += 1; //move to next day
-//             load = weights[i]; //load the weight.
-//         }
-//         else {
-//             //load the weight on the same day.
-//             load += weights[i];
-//         }
+// int findDays(vector<int> &weights, int cap){
+// int days = 1;
+// int load = 0;
+//  for (int i = 0; i < weights.size(); i++)
+//  {
+//     if (load + weights[i] > cap)
+//     {
+//         days++;
+//         load = weights[i];
+//     } else {
+//         load = load + weights[i];
 //     }
-//     return days;
+    
+//  }
+//  return days;
+ 
 // }
 
 // int leastWeightCapacity(vector<int> &weights, int d) {
-//     //Find the maximum and the summation:
 //     int low = *max_element(weights.begin(), weights.end());
 //     int high = accumulate(weights.begin(), weights.end(), 0);
-//     while (low <= high) {
-//         int mid = (low + high) / 2;
-//         int numberOfDays = findDays(weights, mid);
-//         if (numberOfDays <= d) {
-//             //eliminate right half
+
+//     while (low < high)
+//     {
+//         int mid = (low + high)/2;
+//         int numOfDays = findDays(weights, mid);
+//         if (numOfDays <= d)
+//         {
 //             high = mid - 1;
-//         }
-//         else {
-//             //eliminate left half
+//         } else {
 //             low = mid + 1;
 //         }
+        
 //     }
+    
 //     return low;
 // }
+
 
 // int main()
 // {
@@ -379,54 +381,74 @@
 // }
 
 
+//----------------------------------------------------------------------------------------------------------------
+
+// You are given a strictly increasing array ‘vec’ and a positive integer 'k'. Find the 'kth' positive integer missing from 'vec'.
+
+// Example:
+// Input Format:
+//  vec[]={4,7,9,10}, k = 4
+// Result:
+//  5
+// Explanation:
+//  The missing numbers are 1, 2, 3, 5, 6, 8, 11, 12, ……, and so on. Since 'k' is 4, the fourth missing element is 5.
+
+
+
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int missingK(vector < int > vec, int n, int k) {
+//     int low = 0, high = n - 1;
+//     while (low <= high) {
+//         int mid = (low + high) / 2;
+//         int missing = vec[mid] - (mid + 1);
+//         if (missing < k) {
+//             low = mid + 1;
+//         }
+//         else {
+//             high = mid - 1;
+//         }
+//     }
+//     return k + high + 1;
+// }
+
+// int main()
+// {
+//     vector<int> vec = {4, 7, 9, 10};
+//     int n = 4, k = 4;
+//     int ans = missingK(vec, n, k);
+//     cout << "The missing number is: " << ans << "\n";
+//     return 0;
+// }
+
+
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int findDays(vector<int> &weights, int cap){
-int days = 1;
-int load = 0;
- for (int i = 0; i < weights.size(); i++)
- {
-    if (load + weights[i] > cap)
-    {
-        days++;
-        load = weights[i];
-    } else {
-        load = load + weights[i];
-    }
-    
- }
- return days;
- 
-}
 
-int leastWeightCapacity(vector<int> &weights, int d) {
-    int low = *max_element(weights.begin(), weights.end());
-    int high = accumulate(weights.begin(), weights.end(), 0);
-
-    while (low < high)
+int missingTarget(vector<int> arr, int target){
+    int low = 0 ; int high = arr.size() - 1;
+    while (low <= high)
     {
         int mid = (low + high)/2;
-        int numOfDays = findDays(weights, mid);
-        if (numOfDays <= d)
-        {
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
-        
+        int missing = arr[mid] - (mid + 1);
+        if (missing <= target) low = mid + 1;
+        else high = mid - 1;
+
     }
-    
-    return low;
+    return low + target;
 }
 
 
 int main()
 {
-    vector<int> weights = {5, 4, 5, 2, 3, 4, 5, 6};
-    int d = 5;
-    int ans = leastWeightCapacity(weights, d);
-    cout << "The minimum capacity should be: " << ans << "\n";
+    vector<int> arr = {4, 7, 9, 10};
+    int n = 4, target = 5;
+    int ans = missingTarget(arr, target);
+    cout << "The missing number is: " << ans << "\n";
     return 0;
 }
+

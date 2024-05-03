@@ -307,7 +307,7 @@
 
 //-----------------------------------------------------------------------------------------------------------------
 
-// You are the owner of a Shipment company. You use conveyor belts to ship packages from one port to another. The packages must be shipped within 'd' days.
+// Q: You are the owner of a Shipment company. You use conveyor belts to ship packages from one port to another. The packages must be shipped within 'd' days.
 // The weights of the packages are given in an array 'of weights'. The packages are loaded on the conveyor belts every day in the same order as they appear in the array. The loaded weights must not exceed the maximum weight capacity of the ship.
 // Find out the least-weight capacity so that you can ship all the packages within 'd' days.
 
@@ -327,8 +327,6 @@
 // 5        -       6             -        6
 // So, the least capacity should be 9.
 
-
-
 // #include <bits/stdc++.h>
 // using namespace std;
 
@@ -344,10 +342,10 @@
 //     } else {
 //         load = load + weights[i];
 //     }
-    
+
 //  }
 //  return days;
- 
+
 // }
 
 // int leastWeightCapacity(vector<int> &weights, int d) {
@@ -364,12 +362,11 @@
 //         } else {
 //             low = mid + 1;
 //         }
-        
+
 //     }
-    
+
 //     return low;
 // }
-
 
 // int main()
 // {
@@ -380,10 +377,9 @@
 //     return 0;
 // }
 
-
 //----------------------------------------------------------------------------------------------------------------
 
-// You are given a strictly increasing array ‘vec’ and a positive integer 'k'. Find the 'kth' positive integer missing from 'vec'.
+// Q: You are given a strictly increasing array ‘vec’ and a positive integer 'k'. Find the 'kth' positive integer missing from 'vec'.
 
 // Example:
 // Input Format:
@@ -392,9 +388,6 @@
 //  5
 // Explanation:
 //  The missing numbers are 1, 2, 3, 5, 6, 8, 11, 12, ……, and so on. Since 'k' is 4, the fourth missing element is 5.
-
-
-
 
 // #include <bits/stdc++.h>
 // using namespace std;
@@ -423,32 +416,154 @@
 //     return 0;
 // }
 
+// #include <bits/stdc++.h>
+// using namespace std;
 
+// int missingTarget(vector<int> arr, int target){
+//     int low = 0 ; int high = arr.size() - 1;
+//     while (low <= high)
+//     {
+//         int mid = (low + high)/2;
+//         int missing = arr[mid] - (mid + 1);
+//         if (missing <= target) low = mid + 1;
+//         else high = mid - 1;
+
+//     }
+//     return low + target;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {4, 7, 9, 10};
+//     int n = 4, target = 5;
+//     int ans = missingTarget(arr, target);
+//     cout << "The missing number is: " << ans << "\n";
+//     return 0;
+// }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+// Q: You are given an array 'arr' of size 'n' which denotes the position of stalls.
+// You are also given an integer 'k' which denotes the number of aggressive cows.
+// You are given the task of assigning stalls to 'k' cows such that the minimum distance between any two of them is the maximum possible.
+// Find the maximum possible minimum distance.
+// (distance b/w aggrasive cow must max b/w them ..... that's why they are asking mimimum distance b/w cow should be maximum)
+
+// Example:
+// Input Format:
+//  N = 6, k = 4, arr[] = {0,3,4,7,10,9}
+// Result:
+//  3
+// Explanation:
+//  The maximum possible minimum distance between any two cows will be 3 when 4 cows are placed at positions {0, 3, 7, 10}. Here the distances between cows are 3, 4, and 3 respectively. We cannot make the minimum distance greater than 3 in any ways.
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// bool canWePlace(vector<int> &stalls, int distance, int cow)
+// {
+//     int countCow = 1;
+//     int last = stalls[0];
+//     for (int i = 0; i < stalls.size(); i++)
+//     {
+//         if (stalls[i] - last >= distance)
+//         {
+//             countCow++;
+//             last = stalls[i];
+//         }
+//         if (countCow >= cow)
+//             return true;
+//     }
+//     return false;
+// }
+
+// int aggressiveCows(vector<int> &stalls, int cows)
+// {
+//     sort(stalls.begin(), stalls.end());
+//    int low = 1, high = stalls[stalls.size() - 1] - stalls[0];
+//     //apply binary search:
+//     while (low <= high) {
+//         int mid = (low + high) / 2;
+//         if (canWePlace(stalls, mid, cows) == true) {
+//             low = mid + 1;
+//         }
+//         else high = mid - 1;
+//     }
+//     return high;
+// }
+
+// int main()
+// {
+//     vector<int> stalls = {0, 3, 4, 7, 10, 9};
+//     int cows = 4;
+//     int ans = aggressiveCows(stalls, cows);
+//     cout << "The maximum possible minimum distance is: " << ans << "\n";
+//     return 0;
+// }
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Q: Given an array ‘arr of integer numbers, ‘ar[i]’ represents the number of pages in the ‘i-th’ book. There are a ‘m’ number of students, and the task is to allocate all the books to the students.
+// Allocate books in such a way that:
+
+// Each student gets at least one book.
+// Each book should be allocated to only one student.
+// Book allocation should be in a contiguous manner.
+// You have to allocate the book to ‘m’ students such that the maximum number of pages assigned to a student is minimum. If the allocation of books is not possible. return -1
+
+// Example:
+// Input Format:
+//  n = 4, m = 2, arr[] = {12, 34, 67, 90}
+// Result:
+//  113
+// Explanation:
+//  The allocation of books will be 12, 34, 67 | 90. One student will get the first 3 books and the other will get the last one.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-
-int missingTarget(vector<int> arr, int target){
-    int low = 0 ; int high = arr.size() - 1;
-    while (low <= high)
+int countStudents(vector<int> &arr, int pages)
+{
+    int students = 1;
+    long long pagesStudent = 0;
+    for (int i = 0; i < arr.size(); i++)
     {
-        int mid = (low + high)/2;
-        int missing = arr[mid] - (mid + 1);
-        if (missing <= target) low = mid + 1;
-        else high = mid - 1;
-
+        if (pagesStudent + arr[i] <= pages)
+        {
+            // add pages to current student
+            pagesStudent += arr[i];
+        }
+        else
+        {
+            // add pages to next student
+            students++;
+            pagesStudent = arr[i];
+        }
     }
-    return low + target;
+    return students;
 }
 
+int findPages(vector<int> &arr, int students)
+{
+    // book allocation impossible:
+    if (students > arr.size())
+        return -1;
+
+    for (int pages = *max_element(arr.begin(), arr.end()); pages <= accumulate(arr.begin(), arr.end(), 0); pages++)
+    {
+        if (countStudents(arr, pages) == students)
+        {
+            return pages;
+        }
+    }
+    return *max_element(arr.begin(), arr.end());
+}
 
 int main()
 {
-    vector<int> arr = {4, 7, 9, 10};
-    int n = 4, target = 5;
-    int ans = missingTarget(arr, target);
-    cout << "The missing number is: " << ans << "\n";
+    vector<int> arr = {25, 46, 28, 49, 24};
+    int students = 4;
+    int ans = findPages(arr, students);
+    cout << "The answer is: " << ans << "\n";
     return 0;
 }
-

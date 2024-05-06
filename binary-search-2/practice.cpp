@@ -519,51 +519,120 @@
 // Explanation:
 //  The allocation of books will be 12, 34, 67 | 90. One student will get the first 3 books and the other will get the last one.
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int countStudents(vector<int> &arr, int pages)
+// {
+//     int students = 1;
+//     long long pagesStudent = 0;
+//     for (int i = 0; i < arr.size(); i++)
+//     {
+//         if (pagesStudent + arr[i] <= pages)
+//         {
+//             // add pages to current student
+//             pagesStudent += arr[i];
+//         }
+//         else
+//         {
+//             // add pages to next student
+//             students++;
+//             pagesStudent = arr[i];
+//         }
+//     }
+//     return students;
+// }
+
+// int findPages(vector<int> &arr, int students)
+// {
+//     // book allocation impossible:
+//     if (students > arr.size())
+//         return -1;
+
+//     for (int pages = *max_element(arr.begin(), arr.end()); pages <= accumulate(arr.begin(), arr.end(), 0); pages++)
+//     {
+//         if (countStudents(arr, pages) == students)
+//         {
+//             return pages;
+//         }
+//     }
+//     return *max_element(arr.begin(), arr.end());
+// }
+
+// int main()
+// {
+//     vector<int> arr = {25, 46, 28, 49, 24};
+//     int students = 4;
+//     int ans = findPages(arr, students);
+//     cout << "The answer is: " << ans << "\n";
+//     return 0;
+// }
+
+//----------------------------------------------------------------------------------------------------------------
+
+// Given an integer array ‘A’ of size ‘N’ and an integer ‘K'. Split the array ‘A’ into ‘K’ non-empty subarrays such that the largest sum of any subarray is minimized. Your task is to return the minimized largest sum of the split.
+// A subarray is a contiguous part of the array.
+
+// Pre-requisite: BS-18. Allocate Books or Book Allocation | Hard Binary Search
+
+// Example :
+// Input Format:
+//  N = 5, a[] = {1,2,3,4,5}, k = 3
+// Result:
+//  6
+// Explanation:
+//  There are many ways to split the array a[] into k consecutive subarrays. The best way to do this is to split the array a[] into [1, 2, 3], [4], and [5], where the largest sum among the three subarrays is only 6.
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
-int countStudents(vector<int> &arr, int pages)
+int countPartitions(vector<int> &a, int maxSum)
 {
-    int students = 1;
-    long long pagesStudent = 0;
-    for (int i = 0; i < arr.size(); i++)
+    int partitions = 1;
+    long long subArraySum = 0;
+    for (int i = 0; i < a.size(); i++)
     {
-        if (pagesStudent + arr[i] <= pages)
+        if (subArraySum + a[i] <= maxSum)
         {
-            // add pages to current student
-            pagesStudent += arr[i];
+            subArraySum += a[i];
         }
         else
         {
-            // add pages to next student
-            students++;
-            pagesStudent = arr[i];
+            partitions++;
+            subArraySum = a[i];
         }
     }
-    return students;
+    return partitions;
 }
 
-int findPages(vector<int> &arr, int students)
+int largestSubarraySumMinimized(vector<int> &a, int dividedIn)
 {
-    // book allocation impossible:
-    if (students > arr.size())
-        return -1;
-
-    for (int pages = *max_element(arr.begin(), arr.end()); pages <= accumulate(arr.begin(), arr.end(), 0); pages++)
+    int low = *max_element(a.begin(), a.end());
+    int high = accumulate(a.begin(), a.end(), 0);
+    int result = -1;
+    while (low <= high)
     {
-        if (countStudents(arr, pages) == students)
+        int mid = (low + high) / 2;
+        int partitions = countPartitions(a, mid);
+        if (partitions <= dividedIn)
         {
-            return pages;
+            result = mid;
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
         }
     }
-    return *max_element(arr.begin(), arr.end());
+    return result;
 }
 
 int main()
 {
-    vector<int> arr = {25, 46, 28, 49, 24};
-    int students = 4;
-    int ans = findPages(arr, students);
+    vector<int> a = {10, 20, 30, 40};
+    int dividedIn = 2;
+    int ans = largestSubarraySumMinimized(a, dividedIn);
     cout << "The answer is: " << ans << "\n";
     return 0;
 }

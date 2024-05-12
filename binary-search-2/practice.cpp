@@ -584,55 +584,55 @@
 //  There are many ways to split the array a[] into k consecutive subarrays. The best way to do this is to split the array a[] into [1, 2, 3], [4], and [5], where the largest sum among the three subarrays is only 6.
 
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-int countPartitions(vector<int> &a, int maxSum)
-{
-    int partitions = 1;
-    long long subArraySum = 0;
-    for (int i = 0; i < a.size(); i++)
-    {
-        if (subArraySum + a[i] <= maxSum)
-        {
-            subArraySum += a[i];
-        }
-        else
-        {
-            partitions++;
-            subArraySum = a[i];
-        }
-    }
-    return partitions;
-}
+// int countPartitions(vector<int> &a, int maxSum)
+// {
+//     int partitions = 1;
+//     long long subArraySum = 0;
+//     for (int i = 0; i < a.size(); i++)
+//     {
+//         if (subArraySum + a[i] <= maxSum)
+//         {
+//             subArraySum += a[i];
+//         }
+//         else
+//         {
+//             partitions++;
+//             subArraySum = a[i];
+//         }
+//     }
+//     return partitions;
+// }
 
-int largestSubarraySumMinimized(vector<int> &a, int dividedIn)
-{
-    int low = *max_element(a.begin(), a.end());
-    int high = accumulate(a.begin(), a.end(), 0);
-    int result = -1;
-    while (low <= high)
-    {
-        int mid = (low + high) / 2;
-        int partitions = countPartitions(a, mid);
-        if (partitions <= dividedIn)
-        {
-            result = mid;
-            high = mid - 1;
-        }
-        else
-        {
-            low = mid + 1;
-        }
-    }
-    return result;
-}
+// int largestSubarraySumMinimized(vector<int> &a, int dividedIn)
+// {
+//     int low = *max_element(a.begin(), a.end());
+//     int high = accumulate(a.begin(), a.end(), 0);
+//     int result = -1;
+//     while (low <= high)
+//     {
+//         int mid = (low + high) / 2;
+//         int partitions = countPartitions(a, mid);
+//         if (partitions <= dividedIn)
+//         {
+//             result = mid;
+//             high = mid - 1;
+//         }
+//         else
+//         {
+//             low = mid + 1;
+//         }
+//     }
+//     return result;
+// }
 
-int main()
-{
-    vector<int> a = {10, 20, 30, 40};
-    int dividedIn = 2;
-    int ans = largestSubarraySumMinimized(a, dividedIn);
-    cout << "The answer is: " << ans << "\n";
-    return 0;
-}
+// int main()
+// {
+//     vector<int> a = {10, 20, 30, 40};
+//     int dividedIn = 2;
+//     int ans = largestSubarraySumMinimized(a, dividedIn);
+//     cout << "The answer is: " << ans << "\n";
+//     return 0;
+// }

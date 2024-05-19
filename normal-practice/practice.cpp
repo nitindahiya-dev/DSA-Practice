@@ -197,39 +197,138 @@
 // Output: 6 7 1 2 3 4 5
 // Explanation: array is rotated to right by 2 position .
 
-#include <iostream>
-using namespace std;
-void Rotatetoright(int arr[], int n, int k)
-{
-    if (n == 0)
-        return;
-    k = k % n;
-    if (k > n)
-        return;
-    int temp[k];
-    for (int i = n - k; i < n; i++)
-    {
-        temp[i - n + k] = arr[i];
-    }
-    for (int i = n - k - 1; i >= 0; i--)
-    {
-        arr[i + k] = arr[i];
-    }
-    for (int i = 0; i < k; i++)
-    {
-        arr[i] = temp[i];
-    }
-}
-int main()
-{
-    int n = 7;
-    int arr[] = {1, 2, 3, 4, 5, 6, 7};
-    int k = 2;
-    Rotatetoright(arr, n, k);
-    cout << "After Rotating the elements to right " << endl;
-    for (int i = 0; i < n; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    return 0;
-}
+// #include <iostream>
+// using namespace std;
+// void Rotatetoright(int arr[], int n, int k)
+// {
+//     if (n == 0)
+//         return;
+//     k = k % n;
+//     if (k > n)
+//         return;
+//     int temp[k];
+//     for (int i = n - k; i < n; i++)
+//     {
+//         temp[i - n + k] = arr[i];
+//     }
+//     for (int i = n - k - 1; i >= 0; i--)
+//     {
+//         arr[i + k] = arr[i];
+//     }
+//     for (int i = 0; i < k; i++)
+//     {
+//         arr[i] = temp[i];
+//     }
+// }
+// int main()
+// {
+//     int n = 7;
+//     int arr[] = {1, 2, 3, 4, 5, 6, 7};
+//     int k = 2;
+//     Rotatetoright(arr, n, k);
+//     cout << "After Rotating the elements to right " << endl;
+//     for (int i = 0; i < n; i++)
+//     {
+//         cout << arr[i] << " ";
+//     }
+//     return 0;
+// }
+
+//---------------------------------------------------------------------------------------------------------------
+
+// Q: You are given an array of integers, your task is to move all the zeros in the array to the end of the array and move non-negative integers to the front by maintaining their order.
+
+// Example 1:
+// Input:
+//  1 ,0 ,2 ,3 ,0 ,4 ,0 ,1
+// Output:
+//  1 ,2 ,3 ,4 ,1 ,0 ,0 ,0
+// Explanation:
+//  All the zeros are moved to the end and non-negative integers are moved to front by maintaining order
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// vector<int> find_ans(vector<int> arr, int n)
+// {
+//     vector<int> cage;
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         if(arr[i] != 0){
+//             cage.push_back(a[i]);
+//         }
+//     }
+
+//     int non_zero = cage.size();
+
+//     for (int i = 0; i < non_zero; i++)
+//     {
+//         arr[i] = cage[i];
+//     }
+
+//     for (int i = non_zero ; i < n; i++)
+//     {
+//         arr[i] = 0;
+//     }
+
+//     return a;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 0, 2, 3, 2, 0, 0, 4, 5, 1};
+//     vector<int> ans = find_ans(arr, 10);
+
+//     for (auto &it : ans)
+//     {
+//         cout << it << " ";
+//     }
+//     cout << endl;
+// }
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// Q: Given an array, and an element num the task is to find if num is present in the given array or not. If present print the index of the element or print -1.
+
+// Example :
+// Input: arr[]= 1 2 3 4 5, num = 3
+// Output: 2
+// Explanation: 3 is present in the 2nd index
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int find_ans(vector<int> arr, int n, int target)
+// {
+//     int low = 0, high = n - 1;
+//     while (low <= high)
+//     {
+//         int mid = (low + high) / 2;
+//         if (arr[mid] == target)
+//         {
+//             return mid;
+//         }
+//         if (arr[mid] < target)
+//         {
+//             low = mid + 1;
+//         }
+//         else
+//         {
+//             high = mid - 1;
+//         }
+//     }
+//     return -1;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5};
+//     int ans = find_ans(arr, 5, 5);
+//     if (!ans)
+//         -1;
+//     else
+//         cout << " Your Answer is: " << ans;
+// }
+
+

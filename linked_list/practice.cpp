@@ -57,54 +57,171 @@
 
 // ------------------------------------------------------------------------------------------------------------------
 
-// Q: Delete head from the array?
-#include <bits/stdc++.h>
-using namespace std;
+// Q: convert array to linklist?
 
-class Node {
-public:
-    int val;
-    Node* next;
-    Node(int x) : val(x), next(NULL) {}
-};
+// #include <bits/stdc++.h>
+// using namespace std;
 
-Node* remove_head(Node* head) {
-    if (head == NULL) {
-        return head;
-    }
-    Node* temp = head;
-    head = head->next;
-    delete temp;
-    return head;
-}
+// class Node {
+//     public:
+//     int val;
+//     Node* next;
+//     Node(int x) : val(x), next(NULL){}
+// };
 
-void print(Node* head) {
-    Node* curr = head;
-    while (curr != NULL) {
-        cout << curr->val << " -> ";
-        curr = curr->next;
-    }
-    cout << "null" << endl;
-}
+// Node* arrtoll(vector<int> arr){
+//     if(arr.empty()) return NULL;
+//     Node* head = new Node(arr[0]);
+//     Node* curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr ->next;
+//     }
+//     return head;
+// }
 
-Node* create_linked_list(vector<int>& arr) {
-    if (arr.empty()) return NULL;
-    Node* head = new Node(arr[0]);
-    Node* curr = head;
-    for (size_t i = 1; i < arr.size(); ++i) {
-        curr->next = new Node(arr[i]);
-        curr = curr->next;
-    }
-    return head;
-}
+// void print(Node* head){
+//     Node* curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr-> next;
+//     }
 
-int main() {
-    vector<int> arr = {12, 5, 7, 6};
-    Node* head = create_linked_list(arr);
-    cout << "Original List: ";
-    print(head);
-    head = remove_head(head);
-    cout << "After Removing Head: ";
-    print(head);
-    return 0;
-}
+//     cout << "NULL" << endl;
+
+// }
+
+// int main(){
+//     vector<int> arr = { 12, 5, 6, 7, 5};
+//     Node* head = arrtoll(arr);
+//     print(head);
+// }
+
+// ------------------------------------------------------------------------------------------------------------------
+
+// Q: Delete head from the linklist?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int x) : val(x), next(NULL) {}
+// };
+
+// Node *arrtoll(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     }
+//     return head;
+// }
+
+// Node *remove_head(Node *head)
+// {
+//     if (head == NULL)
+//         return head;
+
+//     Node *temp = head;
+//     head = head->next;
+//     delete temp;
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+
+//     cout << "NULL" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {12, 5, 6, 7, 5};
+//     Node *head = arrtoll(arr);
+//     print(head);
+//     head = remove_head(head);
+//     print(head);
+// }
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Q: Delete last element from linklist ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int x) : val(x), next(NULL) {}
+// };
+
+// Node *arrtoall(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     }
+//     return head;
+// }
+
+// Node* removelast(Node *head)
+// {
+//     if (head == NULL || head->next == NULL)
+//         return NULL;
+
+//     Node *temp = head;
+//     while (temp->next->next != NULL)
+//     {
+//         temp = temp->next;
+//     }
+//     delete temp->next;
+//     temp->next = nullptr;
+
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {12, 5, 6, 7, 5};
+//     Node *convert = arrtoall(arr);
+//     print(convert);
+//     Node *rmlast = removelast(convert);
+//     print(rmlast);
+// }

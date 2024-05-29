@@ -225,3 +225,157 @@
 //     Node *rmlast = removelast(convert);
 //     print(rmlast);
 // }
+
+// --------------------------------------------------------------------------------------------------------------
+
+// Q: remove any element from the linklist ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(NULL) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     }
+//     return head;
+// }
+
+// Node *del_K(Node *head, int k)
+// {
+//     if (head == NULL) return head;
+//     if (k == 1)
+//     {
+//         head = head->next;
+//         return head;
+//     }
+
+//     int countt = 0;
+//     Node* temp = head;
+//     Node* prev = NULL;
+
+// while (temp != NULL)
+// {
+//     countt++;
+//     if(countt == k){
+//         prev->next = prev->next->next;
+//         delete(temp);
+//         break;
+//     }
+//     prev = temp;
+//     temp = temp-> next;
+// }
+
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "Nulll~" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *convert = convert_it(arr);
+//     print(convert);
+//     Node *delete_target = del_K(convert, 3);
+//     print(delete_target);
+// }
+
+// --------------------------------------------------------------------------------------------------------------
+
+// Q: remove any element from the linklist ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(NULL) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     }
+//     return head;
+// }
+
+// Node *del_K(Node *head, int el)
+// {
+//     if (head == NULL)
+//         return head;
+//     if (head->val == el)
+//     {
+//         head = head->next;
+//         return head;
+//     }
+
+//     Node *temp = head;
+//     Node *prev = NULL;
+
+//     while (temp != NULL)
+//     {
+//         if (temp->val == el)
+//         {
+//             prev->next = prev->next->next;
+//             delete (temp);
+//             break;
+//         }
+//         prev = temp;
+//         temp = temp->next;
+//     }
+
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "Nulll~" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 13, 6};
+//     Node *convert = convert_it(arr);
+//     print(convert);
+//     Node *delete_target = del_K(convert, 13);
+//     print(delete_target);
+// }

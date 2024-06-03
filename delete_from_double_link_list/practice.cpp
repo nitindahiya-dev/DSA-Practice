@@ -249,31 +249,67 @@
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-#include<bits/stdc++.h>
-using namespace std;
+// Q: delete the targeted element?
 
-class Node {
-    public:
-    int val;
-    Node* next;
-    Node* back;
-    Node(int v): val(v), next(nullptr), back(nullptr){}
-};
+// #include <bits/stdc++.h>
+// using namespace std;
 
-Node* convert(vector<int> arr){
-    if(arr.empty()) return nullptr;
-    Node* head = new Node(arr[0]);
-    Node* prev = head;
-    for (size_t i = 0; i < count; i++)
-    {
-        /* code */
-    }
-    
-}
+// class Node {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
 
-int main(){
-    vector<int> arr = {1,2,3,4,5,6};
-    Node* head = convert(arr);
-    delete_target(head->next->next);
-    print(head;)
-}
+// Node* convert(vector<int> arr) {
+//     if (arr.empty())
+//         return nullptr;
+//     Node *head = new Node(arr[0]);
+//     Node *prev = head;
+//     for (int i = 1; i < arr.size(); i++) {
+//         Node *temp = new Node(arr[i]);
+//         prev->next = temp;
+//         temp->back = prev;
+//         prev = temp;
+//     }
+//     return head;
+// }
+
+// Node* delete_target(Node* head, Node* target) {
+//     if (target == nullptr)
+//         return head;
+
+//     // If the target is the head node
+//     if (target == head) {
+//         Node* newHead = head->next;
+//         delete head;
+//         return newHead;
+//     }
+
+//     // If the target is in the middle or at the end
+//     if (target->back != nullptr)
+//         target->back->next = target->next;
+
+//     if (target->next != nullptr)
+//         target->next->back = target->back;
+
+//     delete target;
+//     return head;
+// }
+
+// void print(Node *head) {
+//     while (head != nullptr) {
+//         cout << head->val << "->";
+//         head = head->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main() {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *head = convert(arr);
+//     head = delete_target(head, head->next->next); // Deleting the node with value 3
+//     print(head);
+//     return 0;
+// }

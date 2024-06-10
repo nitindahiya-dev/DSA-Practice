@@ -224,7 +224,7 @@
 //     fast = fast->next->next;
 // }
 // return slow;
-    
+
 // }
 
 // void print(Node* head){
@@ -289,18 +289,18 @@
 // -------------------- brute force --------------------
 
 // Node* reverse_it(Node* head){
-//     Node* temp = head;  
-//     stack<int> st;     
+//     Node* temp = head;
+//     stack<int> st;
 //     while (temp != nullptr) {
-//         st.push(temp->val); 
-//         temp = temp->next;    
+//         st.push(temp->val);
+//         temp = temp->next;
 //     }
-//     temp = head; 
-    
+//     temp = head;
+
 //     while (temp != nullptr) {
-//         temp->val = st.top();  
-//         st.pop();              
-//         temp = temp->next;     
+//         temp->val = st.top();
+//         st.pop();
+//         temp = temp->next;
 //     }
 // }
 
@@ -334,10 +334,7 @@
 //     return head;
 // }
 
-
 // -------------------- Optimal approach --------------------
-
-
 
 // void print(Node* head){
 //     while (head != nullptr)
@@ -356,11 +353,320 @@
 //     print(head);
 
 // brute force
-    //  reverse_it(head);
-    // cout << "reverse Linked List: ";
-    // print(head);
+//  reverse_it(head);
+// cout << "reverse Linked List: ";
+// print(head);
 // //optimal apporach
 //     head = reverse_it(head);
 //     cout << "reverse Linked List: ";
 //     print(head);
 //}
+
+// --------------------------------------------------------------------------------------------------
+
+// Q: Detect a Cycle in a Linked List?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+//     Node *head = new Node(arr[0]);
+//     Node *prev = head;
+//     for (int i = 1; i < arr.size(); i++) // Start from index 1
+//     {
+//         Node *temp = new Node(arr[i]);
+//         prev->next = temp;
+//         temp->back = prev;
+//         prev = temp;
+//     }
+//     return head;
+// }
+
+// bool check_loop(Node *head)
+// {
+//     Node *slow = head;
+//     Node *fast = head;
+
+//     while (fast != nullptr && fast->next != nullptr) // Correct condition
+//     {
+//         slow = slow->next;
+//         fast = fast->next->next;
+
+//         if (slow == fast) return true;
+//     }
+//     return false;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *head = convert_it(arr);
+//     bool ans = check_loop(head);
+//     if(ans)
+//     {
+//         cout << "Yes, it is a loop" << endl;
+//     }
+//     else
+//     {
+//         cout << "No, it isn't a loop" << endl;
+//     }
+//     return 0; // Proper return statement
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// Q: find the starting point of the loop in linkedList ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+//     Node *head = new Node(arr[0]);
+//     Node *prev = head;
+//     for (int i = 1; i < arr.size(); i++) // Start from index 1
+//     {
+//         Node *temp = new Node(arr[i]);
+//         prev->next = temp;
+//         temp->back = prev;
+//         prev = temp;
+//     }
+//     return head;
+// }
+
+// Node *find_node(Node *head)
+// {
+//     Node *slow = head;
+//     Node *fast = head;
+
+//     // Check for loop condition
+//     while (fast != nullptr && fast->next != nullptr)
+//     {
+//         slow = slow->next;
+//         fast = fast->next->next;
+
+//         if (slow == fast)
+//         {
+//             // Loop detected
+//             slow = head;
+//             while (slow != fast)
+//             {
+//                 slow = slow->next;
+//                 fast = fast->next;
+//             }
+//             // Return the starting node of the loop
+//             return slow;
+//         }
+//     }
+
+//     // No loop detected
+//     return NULL;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *head = convert_it(arr);
+
+//     Node *loopStartNode = find_node(head);
+
+//     if (loopStartNode)
+//     {
+//         cout << "Loop detected. Starting node of the loop is: " << loopStartNode->val << endl;
+//     }
+//     else
+//     {
+//         cout << "No loop detected in the linked list." << endl;
+//     }
+
+//     return 0; // Proper return statement
+// }
+
+// ----------------------------------------------------------------------------------------------------
+
+// Q: find the length of linkedList?
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+//     Node *head = new Node(arr[0]);
+//     Node *prev = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *temp = new Node(arr[i]);
+//         prev->next = temp;
+//         temp->back = prev;
+//         prev = temp;
+//     }
+//     return head;
+// }
+
+// int find_length(Node *head)
+// {
+//     Node *slow = head;
+//     Node *fast = head;
+//     while (fast != nullptr && fast->next != nullptr)
+//     {
+//         slow = slow->next;
+//         fast = fast->next->next;
+
+//         if (slow == fast)
+//         {
+//             int counter = 1;
+//             Node *temp = slow;
+//             while (temp->next != slow)
+//             {
+//                 counter++;
+//                 temp = temp->next;
+//             }
+//             return counter;
+//         }
+//     }
+//     return 0; // No loop
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *head = convert_it(arr);
+
+//     // Creating a loop for testing
+//     head->next->next->next->next->next->next = head->next->next;
+
+//     int length = find_length(head);
+//     if (length > 0)
+//     {
+//         cout << "Loop detected. Length of the loop is: " << length << endl;
+//     }
+//     else
+//     {
+//         cout << "No loop detected in the linked list." << endl;
+//     }
+
+//     return 0; // Proper return statement
+// }
+
+// --------------------------------------------------------------------------------------------------
+
+// Q: Check if a LinkedList is Palindrome or Not ?
+// eg: 1 - 2 - 3 - 3 - 2 - 1;
+// eg: 1 - 2 - 3 - 2 - 1;
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// // Function to reverse a linked list and return the new head
+// Node* reverse(Node* head) {
+//     Node* prev = nullptr;
+//     Node* current = head;
+//     while (current != nullptr) {
+//         Node* next = current->next;
+//         current->next = prev;
+//         prev = current;
+//         current = next;
+//     }
+//     return prev;
+// }
+
+// Node* convert_it(vector<int> arr) {
+//     if (arr.empty()) return NULL;
+//     Node* head = new Node(arr[0]);
+//     Node* prev = head;
+
+//     for (int i = 1; i < arr.size(); i++) {
+//         Node* temp = new Node(arr[i]);
+//         prev->next = temp;
+//         temp->back = prev;
+//         prev = temp;
+//     }
+//     return head;
+// }
+
+// bool is_palindrome(Node* head) {
+//     if (!head || !head->next) return true;
+
+//     // Find the middle of the linked list
+//     Node* slow = head;
+//     Node* fast = head;
+//     while (fast->next != nullptr && fast->next->next != nullptr) {
+//         slow = slow->next;
+//         fast = fast->next->next;
+//     }
+
+//     // Reverse the second half
+//     Node* second_half = reverse(slow->next);
+
+//     // Compare the first half and the reversed second half
+//     Node* first_half = head;
+//     Node* second_half_copy = second_half;
+//     bool palindrome = true;
+//     while (second_half_copy != nullptr) {
+//         if (first_half->val != second_half_copy->val) {
+//             palindrome = false;
+//             break;
+//         }
+//         first_half = first_half->next;
+//         second_half_copy = second_half_copy->next;
+//     }
+
+//     // Restore the original list (reverse the second half back)
+//     slow->next = reverse(second_half);
+
+//     return palindrome;
+// }
+
+// int main() {
+//     vector<int> arr = {1, 2, 3, 2, 1};
+//     Node* head = convert_it(arr);
+
+//     if (is_palindrome(head)) {
+//         cout << "Yes, it is a palindrome" << endl;
+//     } else {
+//         cout << "No, it isn't a palindrome" << endl;
+//     }
+//     return 0;
+// }

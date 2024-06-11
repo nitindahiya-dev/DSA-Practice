@@ -670,3 +670,145 @@
 //     }
 //     return 0;
 // }
+
+// --------------------------------------------------------------------------------------------------
+
+// Q: seperate it in odd and even linkedlist?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
+
+//     Node *head = new Node(arr[0]);
+//     Node *current = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         current->next = new Node(arr[i]);
+//         current = current->next;
+//     }
+//     return head;
+// }
+
+// Node *fix_it(Node *head)
+// {
+//     if (head == nullptr || head->next == nullptr)
+//         return NULL;
+
+//     Node *odd = head;
+//     Node *even = head->next;
+//     Node *newHead = even;
+//     while (even != nullptr && even->next != nullptr)
+//     {
+//         odd->next = odd->next->next;
+//         even->next = even->next->next;
+
+//         odd = odd->next;
+//         even = even->next;
+//     }
+
+//     odd->next = newHead;
+
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     while (head != nullptr)
+//     {
+//         cout << head->val << "->";
+//         head = head->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *head = convert_it(arr);
+//     print(head);
+//     Node *ans = fix_it(head);
+//     print(ans);
+// }
+
+// ----------------------------------------------------------------------------------------------------
+
+// Q: delete the nth node from the end?
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// class Node{
+//     public :
+//     int data;
+//     Node* next;
+//     Node(int d) : data(d), next(nullptr){}
+// };
+
+// Node* convert_it(vector<int> arr){
+//     Node* head = new Node(arr[0]);
+//     Node* current = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         current->next = new Node(arr[i]);
+//         current = current->next;
+//     }
+//     return head;
+    
+// }
+
+// Node* fix_it(Node* head, int N) {
+//     // Create two pointers, fast and slow
+//     Node* fast = head;
+//     Node* slow = head;
+
+//     // Move the fast pointer N nodes ahead
+//     for (int i = 0; i < N; i++)
+//         fast = fast->next;
+
+//     // If fast becomes NULL,
+//     // the Nth node from the end is the head
+//     if (fast == NULL)
+//         return head->next;
+
+//     // Move both pointers until fast reaches the end
+//     while (fast->next != NULL) {
+//         fast = fast->next;
+//         slow = slow->next;
+//     }
+
+//     // Delete the Nth node from the end
+//     Node* delNode = slow->next;
+//     slow->next = slow->next->next;
+//     delete delNode;
+//     return head;
+// }
+
+
+// void print(Node* head){
+//     while (head != nullptr)
+//     {
+//         cout << head->data << "->";
+//         head = head->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main(){
+//     vector<int> arr = {1,2,3,4,5,6};
+//     Node* head = convert_it(arr);
+//     print(head);
+//     Node* ans = fix_it(head,3);
+//     print(ans);
+// }

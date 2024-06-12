@@ -765,7 +765,7 @@
 //         current = current->next;
 //     }
 //     return head;
-    
+
 // }
 
 // Node* fix_it(Node* head, int N) {
@@ -795,7 +795,6 @@
 //     return head;
 // }
 
-
 // void print(Node* head){
 //     while (head != nullptr)
 //     {
@@ -812,3 +811,69 @@
 //     Node* ans = fix_it(head,3);
 //     print(ans);
 // }
+
+// ----------------------------------------------------------------------------------------------------
+
+// Q: convert linkedlist into array ?
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    int val;
+    Node *next;
+    Node(int v) : val(v), next(nullptr) {}
+};
+
+Node *convert_it(vector<int> arr)
+{
+    if (arr.empty())
+        return NULL;
+
+    Node *head = new Node(arr[0]);
+    Node *current = head;
+    for (int i = 1; i < arr.size(); i++)
+    {
+        current->next = new Node(arr[i]);
+        current = current->next;
+    }
+
+    return head;
+}
+
+vector<int> convert_back(Node *head)
+{
+    vector<int> arr;
+    while (head != NULL)
+    {
+        arr.push_back(head->val);
+        head = head->next;
+    }
+    return arr;
+    
+}
+
+void print(Node *head)
+{
+    while (head != nullptr)
+    {
+        cout << head->val << "->";
+        head = head->next;
+    }
+    cout << "null" << endl;
+}
+
+int main()
+{
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    Node *head = convert_it(arr);
+    print(head);
+    vector<int> ans = convert_back(head);
+        for (int i = 0; i < ans.size(); i++)
+        {
+            cout << ans[i] << " ";
+        }
+        cout << endl;
+}

@@ -816,64 +816,191 @@
 
 // Q: convert linkedlist into array ?
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-class Node
-{
-public:
-    int val;
-    Node *next;
-    Node(int v) : val(v), next(nullptr) {}
-};
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(nullptr) {}
+// };
 
-Node *convert_it(vector<int> arr)
-{
-    if (arr.empty())
-        return NULL;
+// Node *convert_it(vector<int> arr)
+// {
+//     if (arr.empty())
+//         return NULL;
 
-    Node *head = new Node(arr[0]);
-    Node *current = head;
-    for (int i = 1; i < arr.size(); i++)
-    {
-        current->next = new Node(arr[i]);
-        current = current->next;
-    }
+//     Node *head = new Node(arr[0]);
+//     Node *current = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         current->next = new Node(arr[i]);
+//         current = current->next;
+//     }
 
-    return head;
-}
+//     return head;
+// }
 
-vector<int> convert_back(Node *head)
-{
-    vector<int> arr;
-    while (head != NULL)
-    {
-        arr.push_back(head->val);
-        head = head->next;
-    }
-    return arr;
+// vector<int> convert_back(Node *head)
+// {
+//     vector<int> arr;
+//     while (head != NULL)
+//     {
+//         arr.push_back(head->val);
+//         head = head->next;
+//     }
+//     return arr;
     
-}
+// }
 
-void print(Node *head)
-{
-    while (head != nullptr)
-    {
-        cout << head->val << "->";
-        head = head->next;
-    }
-    cout << "null" << endl;
-}
+// void print(Node *head)
+// {
+//     while (head != nullptr)
+//     {
+//         cout << head->val << "->";
+//         head = head->next;
+//     }
+//     cout << "null" << endl;
+// }
 
-int main()
-{
-    vector<int> arr = {1, 2, 3, 4, 5, 6};
-    Node *head = convert_it(arr);
-    print(head);
-    vector<int> ans = convert_back(head);
-        for (int i = 0; i < ans.size(); i++)
-        {
-            cout << ans[i] << " ";
-        }
-        cout << endl;
-}
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *head = convert_it(arr);
+//     print(head);
+//     vector<int> ans = convert_back(head);
+//         for (int i = 0; i < ans.size(); i++)
+//         {
+//             cout << ans[i] << " ";
+//         }
+//         cout << endl;
+// }
+
+// --------------------------------------------------------------------------------------------------
+
+
+// #include <iostream>
+// #include <queue>
+
+// using namespace std;
+
+// // Definition of the Node class
+// class Node {
+// public:
+//     int val;
+//     Node *right, *down;
+//     Node(int value) : val(value), right(nullptr), down(nullptr) {}
+// };
+
+// // Function to create a 2D linked list
+// void create2DLinkedList(Node*& root) {
+//     // First row
+//     root = new Node(3);
+//     root->right = new Node(5);
+//     root->right->right = new Node(7);
+
+//     // Second row
+//     root->down = new Node(4);
+//     root->down->right = new Node(6);
+//     root->down->right->right = new Node(8);
+
+//     // Third row
+//     root->down->down = new Node(1);
+//     root->down->down->right = new Node(2);
+//     root->down->down->right->right = new Node(9);
+// }
+
+// // Function to print the 2D linked list
+// void print2DLinkedList(Node* root) {
+//     while (root != nullptr) {
+//         Node* col = root;
+//         while (col != nullptr) {
+//             cout << col->val;
+//             if (col->right != nullptr) cout << " -> ";
+//             col = col->right;
+//         }
+//         cout << endl;
+//         root = root->down;
+//     }
+// }
+
+// // Function to flatten the 2D linked list into a single linked list
+// Node* flatten2DLinkedList(Node* root) {
+//     if (root == nullptr) return nullptr;
+
+//     Node* flatHead = nullptr;
+//     Node* flatTail = nullptr;
+
+    
+//     while (root != nullptr) {
+//         while (root != nullptr) {
+//             Node* newNode = new Node(root->val);
+//             if (flatHead == nullptr) {
+//                 flatHead = flatTail = newNode;
+//             } else {
+//                 flatTail->right = newNode;
+//                 flatTail = newNode;
+//             }
+//             root = root->right;
+//         }
+//         root = root->down;
+//     }
+
+//     return flatHead;
+// }
+
+// // Function to print the flattened linked list
+// void printFlattenedLinkedList(Node* head) {
+//     while (head != nullptr) {
+//         cout << head->val;
+//         if (head->right != nullptr) cout << " -> ";
+//         head = head->right;
+//     }
+//     cout << endl;
+// }
+
+// // Function to sort the flattened linked list using a min-heap
+// Node* sortFlattenedLinkedList(Node* head) {
+//     if (head == nullptr) return nullptr;
+
+//     priority_queue<int, vector<int>, greater<int>> minHeap;
+
+//     Node* current = head;
+//     while (current != nullptr) {
+//         minHeap.push(current->val);
+//         current = current->right;
+//     }
+
+//     Node* sortedHead = new Node(minHeap.top());
+//     minHeap.pop();
+//     Node* sortedTail = sortedHead;
+
+//     while (!minHeap.empty()) {
+//         Node* newNode = new Node(minHeap.top());
+//         minHeap.pop();
+//         sortedTail->right = newNode;
+//         sortedTail = newNode;
+//     }
+
+//     return sortedHead;
+// }
+
+// int main() {
+//     Node* root;
+//     create2DLinkedList(root);
+
+//     cout << "Original 2D Linked List:" << endl;
+//     print2DLinkedList(root);
+
+//     Node* flatHead = flatten2DLinkedList(root);
+//     cout << "Flattened Linked List:" << endl;
+//     printFlattenedLinkedList(flatHead);
+
+//     Node* sortedHead = sortFlattenedLinkedList(flatHead);
+//     cout << "Sorted Flattened Linked List:" << endl;
+//     printFlattenedLinkedList(sortedHead);
+
+//     return 0;
+// }

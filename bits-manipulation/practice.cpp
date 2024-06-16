@@ -241,7 +241,6 @@
 //         return "0";  // Special case for zero
 //     }
 
-
 //     string binary_str = "";
 //     while (n > 0)
 //     {
@@ -296,3 +295,133 @@
 //     cout << "After change back to number: " << ans2 << endl;
 // }
 
+// -------------------------------------------------------------------------------------------------
+
+// toggle ith bit using shift
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int toggle_ith_bit(int n, int i)
+// {
+//     n = n ^ (1 << i);
+//     return n;
+// }
+
+// int main()
+// {
+//     int input = 13;
+//     int i = 2;
+
+//     int toggled_input = toggle_ith_bit(input, i);
+//     cout << "Number after toggling " << i << "th bit: " << toggled_input << endl;
+
+//     return 0;
+// }
+// -------------------------------------------------------------------------------------------------
+
+// toggle ith bit using shift
+// 1 << i
+// then do xor toggle that specific bit
+
+// N = 13
+// i = 2
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// Function to convert an integer to its binary string representation
+// string convert_it(int n)
+// {
+//     if (n == 0)
+//         return "0";
+
+//     string binary_str = "";
+//     while (n > 0)
+//     {
+//         if (n % 2 == 1)
+//         {
+//             binary_str += '1';
+//         }
+//         else
+//         {
+//             binary_str += '0';
+//         }
+//         n /= 2;
+//     }
+//     reverse(binary_str.begin(), binary_str.end());
+//     return binary_str;
+// }
+
+// Function to toggle the ith bit of a number
+// int toggle_ith_bit(int n, int i)
+// {
+    // Create a ith_bit with only the ith bit set
+    // int ith_bit = 1 << i;
+    // Toggle the ith bit using XOR
+//     n ^= ith_bit;
+//     return n;
+// }
+
+// int main()
+// {
+//     int input = 13;
+//     int i = 2;
+
+    // cout << "Original number: " << input << endl;
+    // string output = convert_it(input);
+    // cout << "Binary of " << input << " is: " << output << endl;
+
+    // int toggled_input = toggle_ith_bit(input, i);
+    // cout << "Number after toggling " << i << "th bit: " << toggled_input << endl;
+    // string toggled_output = convert_it(toggled_input);
+    // cout << "Binary after toggling " << i << "th bit: " << toggled_output << endl;
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// remove the last set
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//     int input = 40;
+//     int ans = 40 & (40-1);
+//     cout << ans;
+// }
+
+// ----------------------------------------------------------------------------------------------
+// number is power of 2 or not?
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//     int input = 32;
+//     int ans = 32 & (32-1);
+//     cout << ans;
+// }
+// ----------------------------------------------------------------------------------------------
+// count number of set bits
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int check(int n){
+//     int counter = 0;
+//     while (n!=0)
+//     {
+//         n = n & (n - 1);
+//         counter++; 
+//     }
+//     return counter;
+// }
+
+// int main(){
+//     int input = 321510;
+//     int ans = check(input);
+//     cout << ans;
+// }

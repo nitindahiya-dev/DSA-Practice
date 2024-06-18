@@ -356,9 +356,9 @@
 // Function to toggle the ith bit of a number
 // int toggle_ith_bit(int n, int i)
 // {
-    // Create a ith_bit with only the ith bit set
-    // int ith_bit = 1 << i;
-    // Toggle the ith bit using XOR
+// Create a ith_bit with only the ith bit set
+// int ith_bit = 1 << i;
+// Toggle the ith bit using XOR
 //     n ^= ith_bit;
 //     return n;
 // }
@@ -368,14 +368,14 @@
 //     int input = 13;
 //     int i = 2;
 
-    // cout << "Original number: " << input << endl;
-    // string output = convert_it(input);
-    // cout << "Binary of " << input << " is: " << output << endl;
+// cout << "Original number: " << input << endl;
+// string output = convert_it(input);
+// cout << "Binary of " << input << " is: " << output << endl;
 
-    // int toggled_input = toggle_ith_bit(input, i);
-    // cout << "Number after toggling " << i << "th bit: " << toggled_input << endl;
-    // string toggled_output = convert_it(toggled_input);
-    // cout << "Binary after toggling " << i << "th bit: " << toggled_output << endl;
+// int toggled_input = toggle_ith_bit(input, i);
+// cout << "Number after toggling " << i << "th bit: " << toggled_input << endl;
+// string toggled_output = convert_it(toggled_input);
+// cout << "Binary after toggling " << i << "th bit: " << toggled_output << endl;
 
 //     return 0;
 // }
@@ -415,7 +415,7 @@
 //     while (n!=0)
 //     {
 //         n = n & (n - 1);
-//         counter++; 
+//         counter++;
 //     }
 //     return counter;
 // }
@@ -425,3 +425,62 @@
 //     int ans = check(input);
 //     cout << ans;
 // }
+
+// --------------------------------------------------------------------------------------------
+
+// Minimum Bit Flips to Convert Number
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main() {
+//     int input = 10;
+//     int goal = 7;
+
+//     int num = input ^ goal;
+//     int count = 0;
+
+//     while (num) {
+//         num = num & num - 1;
+//         count++;
+//     }
+
+//     cout << count << endl;
+//     return 0;
+// }
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> subsequences(string str)
+{
+    vector<string> v;
+    // Total number of subsets (2^n)
+
+    for (int nums = 1; nums < 1 << str.length(); nums++)
+    {
+        string s = "";
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (nums & (1 << i))
+            {
+                s += str[i];
+            }
+        }
+        v.push_back(s);
+    }
+    return v;
+}
+
+int main()
+{
+    string input = "abc";
+    vector<string> result = subsequences(input);
+
+    for (const string &subseq : result)
+    {
+        cout << subseq << endl;
+    }
+
+    return 0;
+}

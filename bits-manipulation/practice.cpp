@@ -449,38 +449,65 @@
 //     return 0;
 // }
 
+// --------------------------------------------------------------------------------------------
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// vector<string> subsequences(string str)
+// {
+//     vector<string> v;
+//     // Total number of subsets (2^n)
+
+//     for (int nums = 1; nums < 1 << str.length(); nums++)
+//     {
+//         string s = "";
+//         for (int i = 0; i < str.length(); i++)
+//         {
+//             if (nums & (1 << i))
+//             {
+//                 s += str[i];
+//             }
+//         }
+//         v.push_back(s);
+//     }
+//     return v;
+// }
+
+// int main()
+// {
+//     string input = "abc";
+//     vector<string> result = subsequences(input);
+
+//     for (const string &subseq : result)
+//     {
+//         cout << subseq << endl;
+//     }
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------
+
+// Q: find the single element ?
+
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<string> subsequences(string str)
-{
-    vector<string> v;
-    // Total number of subsets (2^n)
-
-    for (int nums = 1; nums < 1 << str.length(); nums++)
-    {
-        string s = "";
-        for (int i = 0; i < str.length(); i++)
-        {
-            if (nums & (1 << i))
-            {
-                s += str[i];
-            }
-        }
-        v.push_back(s);
-    }
-    return v;
-}
-
 int main()
 {
-    string input = "abc";
-    vector<string> result = subsequences(input);
+    int arr[] = { 1, 2, 3, 3, 2 };
 
-    for (const string &subseq : result)
+    int temp = 0;
+
+    int size = sizeof(arr) / sizeof(arr[0]);  // Get the size of the array
+
+    for (int i = 0; i < size; i++)
     {
-        cout << subseq << endl;
+        temp = temp ^ arr[i];
     }
+
+    cout << temp << endl;  // Print the result to verify
 
     return 0;
 }

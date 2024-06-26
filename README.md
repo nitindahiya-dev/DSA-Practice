@@ -5,3 +5,4 @@ My DSA Journey 👨‍💻 : 16 - 04 - 2024
 => Bit Manipulation Done ✅ <br>
 => Recursion Done ✅ <br>
 => Graph Done ✅ <br>
+=> Binary tree Done ✅ <br>

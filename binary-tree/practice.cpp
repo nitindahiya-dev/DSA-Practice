@@ -156,43 +156,103 @@
 
 // --------------------------------------------------------------------------------------------
 
-// breath order travesal
-#include <bits/stdc++.h>
+// breath order travesal( Level Order Traversal )
+
+    //     1
+    //    / \
+    //   2   3
+    //  / \ / \
+    // 4  5 6  7
+
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     Node* left;
+//     Node* right;
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// void levelOrderTraversal(Node* root) {
+//     if (root == nullptr) return;
+
+//     queue<Node*> q;
+//     q.push(root);
+
+//     while (!q.empty()) {
+//         Node* current = q.front();
+//         q.pop();
+//         cout << current->data << " ";
+
+//         if (current->left != nullptr) {
+//             q.push(current->left);
+//         }
+
+//         if (current->right != nullptr) {
+//             q.push(current->right);
+//         }
+//     }
+// }
+
+// int main() {
+//     // Creating a simple binary tree
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     cout << "Level order traversal: ";
+//     levelOrderTraversal(root);
+
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------------
+
+// Iterative Preorder Traversal in Binary Tree
+
+#include<bits/stdc++.h>
 using namespace std;
 
-struct Node {
+struct Node{
     int data;
-    Node* left;
-    Node* right;
-    Node(int val) {
+    struct Node* left;
+    struct Node* right;
+
+    Node(int val){
         data = val;
         left = right = nullptr;
     }
 };
 
-void levelOrderTraversal(Node* root) {
-    if (root == nullptr) return;
+vector<int> fn(Node* root){
+    vector<int> preorder;
+    if(root == nullptr) return preorder;
 
-    queue<Node*> q;
-    q.push(root);
+    stack<Node*> st;
+    st.push(root);
 
-    while (!q.empty()) {
-        Node* current = q.front();
-        q.pop();
-        cout << current->data << " ";
+    while (!st.empty())
+    {
+        root = st.top();
+        st.pop();
+        preorder.push_back(root->data);
 
-        if (current->left != nullptr) {
-            q.push(current->left);
-        }
-
-        if (current->right != nullptr) {
-            q.push(current->right);
-        }
+        if(root->left != NULL) st.push(root->right);
+        if(root->right != NULL) st.push(root->left);
     }
+    return preorder;
 }
 
 int main() {
-    // Creating a simple binary tree
     Node* root = new Node(1);
     root->left = new Node(2);
     root->right = new Node(3);
@@ -202,7 +262,12 @@ int main() {
     root->right->right = new Node(7);
 
     cout << "Level order traversal: ";
-    levelOrderTraversal(root);
+    cout << "Preorder traversal: ";
+    vector<int> result = fn(root);
+    for (int val : result) {
+        cout << val << " ";
+    }
+    cout << endl;
 
     return 0;
 }

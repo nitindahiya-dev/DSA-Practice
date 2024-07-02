@@ -333,7 +333,6 @@
 
 // Iterative Postorder Traversal using 2 stacks [left right root]
 
-
 //     1
 //    / \
 //   2   3
@@ -399,55 +398,195 @@
 
 // Iterative Postorder Traversal using 1 stacks [left right root]
 
-
 //     1
 //    / \
 //   2   3
 //  / \ / \
 // 4  5 6  7
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node *left;
+//     struct Node *right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// vector<int> fn(Node* root) {
+//     vector<int> postorder;
+//     if (root == nullptr) return postorder;
+
+//     stack<Node*> st;
+//     Node* curr = root;
+//     Node* lastVisited = nullptr;
+
+//     while (!st.empty() || curr != nullptr) {
+//         if (curr != nullptr) {
+//             st.push(curr);
+//             curr = curr->left;
+//         } else {
+//             Node* topNode = st.top();
+//             if (topNode->right != nullptr && lastVisited != topNode->right) {
+//                 curr = topNode->right;
+//             } else {
+//                 postorder.push_back(topNode->data);
+//                 lastVisited = topNode;
+//                 st.pop();
+//             }
+//         }
+//     }
+
+//     return postorder;
+// }
+
+// int main() {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<int> result = fn(root);
+//     for (int val : result) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+//     return 0;
+// }
+
+// ---------------------------------------------------------------------------------------------------
+
+// Preorder Inorder Postorder Traversals in One Traversals..!!
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// void fn(Node* root, vector<int>& pre, vector<int>& in, vector<int>& post) {
+//     if (root == nullptr) return;
+
+//     stack<pair<Node*, int>> st;
+//     st.push({root, 1});
+
+//     while (!st.empty()) {
+//         auto item = st.top();
+//         st.pop();
+
+//         // This is part of pre-order
+//         // Increment 1 to 2
+//         // Push the left side of the tree
+//         if (item.second == 1) {
+//             pre.push_back(item.first->data);
+//             item.second++;
+//             st.push(item);
+
+//             if (item.first->left != nullptr) {
+//                 st.push({item.first->left, 1});
+//             }
+//         }
+//         // This is a part of in-order
+//         // Increment 2 to 3
+//         // Push the right side of the tree
+//         else if (item.second == 2) {
+//             in.push_back(item.first->data);
+//             item.second++;
+//             st.push(item);
+
+//             if (item.first->right != nullptr) {
+//                 st.push({item.first->right, 1});
+//             }
+//         }
+//         // Don't push item back again
+//         else {
+//             post.push_back(item.first->data);
+//         }
+//     }
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<int> pre, in, post;
+//     fn(root, pre, in, post);
+
+//     cout << "Preorder traversal: ";
+//     for (int val : pre) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     cout << "Inorder traversal: ";
+//     for (int val : in) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     cout << "Postorder traversal: ";
+//     for (int val : post) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+
+// ----------------------------------------------------------------------------------------------------
+//  Maximum Depth in Binary Tree
+
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
+struct Node
+{
     int data;
     struct Node *left;
     struct Node *right;
 
-    Node(int val) {
+    Node(int val)
+    {
         data = val;
         left = right = nullptr;
     }
 };
 
-vector<int> fn(Node* root) {
-    vector<int> postorder;
-    if (root == nullptr) return postorder;
+// Renaming fn to maxDepth for clarity
+int maxDepth(Node *root)
+{
+    if (root == NULL)
+        return 0;
 
-    stack<Node*> st;
-    Node* curr = root;
-    Node* lastVisited = nullptr;
+    int lh = maxDepth(root->left);
+    int rh = maxDepth(root->right);
 
-    while (!st.empty() || curr != nullptr) {
-        if (curr != nullptr) {
-            st.push(curr);
-            curr = curr->left;
-        } else {
-            Node* topNode = st.top();
-            if (topNode->right != nullptr && lastVisited != topNode->right) {
-                curr = topNode->right;
-            } else {
-                postorder.push_back(topNode->data);
-                lastVisited = topNode;
-                st.pop();
-            }
-        }
-    }
-
-    return postorder;
+    return 1 + max(lh, rh);
 }
 
-int main() {
+int main()
+{
     Node *root = new Node(1);
     root->left = new Node(2);
     root->right = new Node(3);
@@ -456,10 +595,6 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    vector<int> result = fn(root);
-    for (int val : result) {
-        cout << val << " ";
-    }
-    cout << endl;
+    cout << "Maximum Depth of the tree: " << maxDepth(root) << endl;
     return 0;
 }

@@ -557,6 +557,52 @@
 // ----------------------------------------------------------------------------------------------------
 //  Maximum Depth in Binary Tree
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node
+// {
+//     int data;
+//     struct Node *left;
+//     struct Node *right;
+
+//     Node(int val)
+//     {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// // Renaming fn to maxDepth for clarity
+// int maxDepth(Node *root)
+// {
+//     if (root == NULL)
+//         return 0;
+
+//     int lh = maxDepth(root->left);
+//     int rh = maxDepth(root->right);
+
+//     return 1 + max(lh, rh);
+// }
+
+// int main()
+// {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     cout << "Maximum Depth of the tree: " << maxDepth(root) << endl;
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------------
+
+// determine if a binary tree is balanced or not ?
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -573,16 +619,18 @@ struct Node
     }
 };
 
-// Renaming fn to maxDepth for clarity
-int maxDepth(Node *root)
+int fn(Node *root)
 {
     if (root == NULL)
         return 0;
 
-    int lh = maxDepth(root->left);
-    int rh = maxDepth(root->right);
+    int lh = fn(root->left);
+    int rh = fn(root->right);
+    if (lh == -1 && rh == -1)
+        return -1;
 
-    return 1 + max(lh, rh);
+    if (abs(lh - rh > 1))
+        return -1;
 }
 
 int main()
@@ -595,6 +643,11 @@ int main()
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    cout << "Maximum Depth of the tree: " << maxDepth(root) << endl;
+    int ans = fn(root);
+    if(ans == -1) {
+        cout << "this is not a balanced binary tree";
+    } else {
+        cout << "this is a balanced binary tree";
+    }
     return 0;
 }

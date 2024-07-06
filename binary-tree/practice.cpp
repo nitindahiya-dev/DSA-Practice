@@ -655,6 +655,111 @@
 // -------------------------------------------------------------------------------------------------
 
 // determine diameter of binary tree ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// int height(Node* root, int& diameter) {
+//     if (!root)
+//         return 0;
+
+//     int lh = height(root->left, diameter);
+//     int rh = height(root->right, diameter);
+
+//     diameter = max(diameter, lh + rh);
+//     return 1 + max(lh, rh);
+// }
+
+// int diameter(Node* root) {
+//     int diameter = 0;
+//     height(root, diameter);
+//     return diameter;
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     int ans = diameter(root);
+//     cout << "The diameter of the binary tree is: " << ans << endl;
+
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------------
+
+// determine Max sum of path in binary tree?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node
+// {
+//     int data;
+//     struct Node *left;
+//     struct Node *right;
+
+//     Node(int val)
+//     {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// int max_path_down(Node *root, int &max_sum)
+// {
+//     if (!root)
+//         return 0;
+
+//     int left = max(0, max_path_down(root->left, max_sum));
+//     int right = max(0, max_path_down(root->right, max_sum));
+
+//     max_sum = max(max_sum, left + right + root->data);
+//     return max(left, right) + root->data;
+// }
+
+// int max_path_sum(Node *root)
+// {
+//     int max_sum = INT_MIN;
+//     max_path_down(root, max_sum);
+//     return max_sum;
+// }
+
+// int main()
+// {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     cout << "Maximum Path Sum: " << max_path_sum(root) << endl;
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------------
+
+// Check it two trees are Identical or Not ?
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -669,35 +774,29 @@ struct Node {
     }
 };
 
-int height(Node* root, int& diameter) {
-    if (!root)
-        return 0;
+bool is_same_tree(Node *p, Node *q) {
+    if (p == nullptr || q == nullptr)
+        return p == q;
 
-    int lh = height(root->left, diameter);
-    int rh = height(root->right, diameter);
-
-    diameter = max(diameter, lh + rh);
-    return 1 + max(lh, rh);
+    return (p->data == q->data)
+        && is_same_tree(p->left, q->left)
+        && is_same_tree(p->right, q->right);
 }
-
-int diameter(Node* root) {
-    int diameter = 0;
-    height(root, diameter);
-    return diameter;
-}
-
 
 int main() {
-    Node* root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    Node* root1 = new Node(1);
+    root1->left = new Node(2);
+    root1->right = new Node(3);
 
-    int ans = diameter(root);
-    cout << "The diameter of the binary tree is: " << ans << endl;
+    Node* root2 = new Node(1);
+    root2->left = new Node(2);
+    root2->right = new Node(3);
+
+    if (is_same_tree(root1, root2)) {
+        cout << "The trees are identical." << endl;
+    } else {
+        cout << "The trees are not identical." << endl;
+    }
 
     return 0;
 }

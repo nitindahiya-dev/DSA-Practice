@@ -760,6 +760,129 @@
 
 // Check it two trees are Identical or Not ?
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// bool is_same_tree(Node *p, Node *q) {
+//     if (p == nullptr || q == nullptr)
+//         return p == q;
+
+//     return (p->data == q->data)
+//         && is_same_tree(p->left, q->left)
+//         && is_same_tree(p->right, q->right);
+// }
+
+// int main() {
+//     Node* root1 = new Node(1);
+//     root1->left = new Node(2);
+//     root1->right = new Node(3);
+
+//     Node* root2 = new Node(1);
+//     root2->left = new Node(2);
+//     root2->right = new Node(3);
+
+//     if (is_same_tree(root1, root2)) {
+//         cout << "The trees are identical." << endl;
+//     } else {
+//         cout << "The trees are not identical." << endl;
+//     }
+
+//     return 0;
+// }
+
+
+
+// --------------------------------------------------------------------------------------------------
+
+// Zig - Zag and spiral traversel ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// vector<vector<int>> zig_zag_level_order(Node* root) {
+//     vector<vector<int>> result;
+//     if (root == NULL) return result;
+
+//     queue<Node*> node_queue;
+//     node_queue.push(root);
+//     bool left_to_right = true;
+
+//     while (!node_queue.empty()) {
+//         int size = node_queue.size();
+//         vector<int> row(size);
+
+//         for (int i = 0; i < size; i++) {
+//             Node* node = node_queue.front();
+//             node_queue.pop();
+
+//             int index = left_to_right ? i : size - 1 - i;
+//             row[index] = node->data;
+
+//             if (node->left) {
+//                 node_queue.push(node->left);
+//             }
+
+//             if (node->right) {
+//                 node_queue.push(node->right);
+//             }
+//         }
+
+//         left_to_right = !left_to_right;
+//         result.push_back(row);
+//     }
+
+//     return result;
+// }
+
+// void print_zig_zag_order(vector<vector<int>> result) {
+//     for (const auto& level : result) {
+//         for (int val : level) {
+//             cout << val << " ";
+//         }
+//         cout << endl;
+//     }
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<vector<int>> result = zig_zag_level_order(root);
+//     print_zig_zag_order(result);
+
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------
+
+// Boundary traversal
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -774,29 +897,65 @@ struct Node {
     }
 };
 
-bool is_same_tree(Node *p, Node *q) {
-    if (p == nullptr || q == nullptr)
-        return p == q;
+bool isLeaf(Node* node) {
+    return !node->left && !node->right;
+}
 
-    return (p->data == q->data)
-        && is_same_tree(p->left, q->left)
-        && is_same_tree(p->right, q->right);
+void add_left_boundary(Node* root, vector<int>& res) {
+    Node* cur = root->left;
+    while (cur) {
+        if (!isLeaf(cur)) res.push_back(cur->data);
+        if (cur->left) cur = cur->left;
+        else cur = cur->right;
+    }
+}
+
+void add_right_boundary(Node* root, vector<int>& res) {
+    Node* cur = root->right;
+    vector<int> temp;
+    while (cur) {
+        if (!isLeaf(cur)) temp.push_back(cur->data);
+        if (cur->right) cur = cur->right;
+        else cur = cur->left;
+    }
+    for (int i = temp.size() - 1; i >= 0; --i) {
+        res.push_back(temp[i]);
+    }
+}
+
+void add_leaves(Node* root, vector<int>& res) {
+    if (isLeaf(root)) {
+        res.push_back(root->data);
+        return;
+    }
+    if (root->left) add_leaves(root->left, res);
+    if (root->right) add_leaves(root->right, res);
+}
+
+vector<int> print_boundary(Node* root) {
+    vector<int> res;
+    if (!root) return res;
+    if (!isLeaf(root)) res.push_back(root->data);
+    add_left_boundary(root, res);
+    add_leaves(root, res);
+    add_right_boundary(root, res);
+    return res;
 }
 
 int main() {
-    Node* root1 = new Node(1);
-    root1->left = new Node(2);
-    root1->right = new Node(3);
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+    root->right->left = new Node(6);
+    root->right->right = new Node(7);
 
-    Node* root2 = new Node(1);
-    root2->left = new Node(2);
-    root2->right = new Node(3);
-
-    if (is_same_tree(root1, root2)) {
-        cout << "The trees are identical." << endl;
-    } else {
-        cout << "The trees are not identical." << endl;
+    vector<int> boundary = print_boundary(root);
+    for (int val : boundary) {
+        cout << val << " ";
     }
+    cout << endl;
 
     return 0;
 }

@@ -883,7 +883,93 @@
 // -------------------------------------------------------------------------------------------
 
 // Boundary traversal
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// bool isLeaf(Node* node) {
+//     return !node->left && !node->right;
+// }
+
+// void add_left_boundary(Node* root, vector<int>& res) {
+//     Node* cur = root->left;
+//     while (cur) {
+//         if (!isLeaf(cur)) res.push_back(cur->data);
+//         if (cur->left) cur = cur->left;
+//         else cur = cur->right;
+//     }
+// }
+
+// void add_right_boundary(Node* root, vector<int>& res) {
+//     Node* cur = root->right;
+//     vector<int> temp;
+//     while (cur) {
+//         if (!isLeaf(cur)) temp.push_back(cur->data);
+//         if (cur->right) cur = cur->right;
+//         else cur = cur->left;
+//     }
+//     for (int i = temp.size() - 1; i >= 0; --i) {
+//         res.push_back(temp[i]);
+//     }
+// }
+
+// void add_leaves(Node* root, vector<int>& res) {
+//     if (isLeaf(root)) {
+//         res.push_back(root->data);
+//         return;
+//     }
+//     if (root->left) add_leaves(root->left, res);
+//     if (root->right) add_leaves(root->right, res);
+// }
+
+// vector<int> print_boundary(Node* root) {
+//     vector<int> res;
+//     if (!root) return res;
+//     if (!isLeaf(root)) res.push_back(root->data);
+//     add_left_boundary(root, res);
+//     add_leaves(root, res);
+//     add_right_boundary(root, res);
+//     return res;
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<int> boundary = print_boundary(root);
+//     for (int val : boundary) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+
+
+// -------------------------------------------------------------------------------------------
+
+// Vertical Order Traversal of Binary Tree
+
+#include <iostream>
+#include <map>
+#include <queue>
+#include <set>
+#include <vector>
 using namespace std;
 
 struct Node {
@@ -897,49 +983,38 @@ struct Node {
     }
 };
 
-bool isLeaf(Node* node) {
-    return !node->left && !node->right;
-}
+vector<vector<int>> vertical_traversal(Node* root) {
+    // map<x-coordinate, map<y-coordinate, multiset of node values>>
+    map<int, map<int, multiset<int>>> nodes;
+    // queue of pairs {node, {x-coordinate, y-coordinate}}
+    queue<pair<Node*, pair<int, int>>> todo;
+    todo.push({root, {0, 0}}); 
 
-void add_left_boundary(Node* root, vector<int>& res) {
-    Node* cur = root->left;
-    while (cur) {
-        if (!isLeaf(cur)) res.push_back(cur->data);
-        if (cur->left) cur = cur->left;
-        else cur = cur->right;
-    }
-}
+    while (!todo.empty()) {
+        auto p = todo.front();
+        todo.pop();
 
-void add_right_boundary(Node* root, vector<int>& res) {
-    Node* cur = root->right;
-    vector<int> temp;
-    while (cur) {
-        if (!isLeaf(cur)) temp.push_back(cur->data);
-        if (cur->right) cur = cur->right;
-        else cur = cur->left;
-    }
-    for (int i = temp.size() - 1; i >= 0; --i) {
-        res.push_back(temp[i]);
-    }
-}
+        Node* node = p.first;
+        int x = p.second.first, y = p.second.second;
+        nodes[x][y].insert(node->data);
 
-void add_leaves(Node* root, vector<int>& res) {
-    if (isLeaf(root)) {
-        res.push_back(root->data);
-        return;
+        if (node->left) {
+            todo.push({node->left, {x-1, y+1}});
+        }
+        if (node->right) {
+            todo.push({node->right, {x+1, y+1}});
+        }
     }
-    if (root->left) add_leaves(root->left, res);
-    if (root->right) add_leaves(root->right, res);
-}
 
-vector<int> print_boundary(Node* root) {
-    vector<int> res;
-    if (!root) return res;
-    if (!isLeaf(root)) res.push_back(root->data);
-    add_left_boundary(root, res);
-    add_leaves(root, res);
-    add_right_boundary(root, res);
-    return res;
+    vector<vector<int>> ans;
+    for (auto p : nodes) {
+        vector<int> col;
+        for (auto q : p.second) {
+            col.insert(col.end(), q.second.begin(), q.second.end());
+        }
+        ans.push_back(col);
+    }
+    return ans;
 }
 
 int main() {
@@ -951,11 +1026,13 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    vector<int> boundary = print_boundary(root);
-    for (int val : boundary) {
-        cout << val << " ";
+    vector<vector<int>> result = vertical_traversal(root);
+    for (const auto& vec : result) {
+        for (int val : vec) {
+            cout << val << " ";
+        }
+        cout << endl;
     }
-    cout << endl;
 
     return 0;
 }

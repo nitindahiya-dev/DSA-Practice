@@ -965,11 +965,155 @@
 
 // Vertical Order Traversal of Binary Tree
 
-#include <iostream>
-#include <map>
-#include <queue>
-#include <set>
-#include <vector>
+// #include <iostream>
+// #include <map>
+// #include <queue>
+// #include <set>
+// #include <vector>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// vector<vector<int>> vertical_traversal(Node* root) {
+//     // map<x-coordinate, map<y-coordinate, multiset of node values>>
+//     map<int, map<int, multiset<int>>> nodes;
+//     // queue of pairs {node, {x-coordinate, y-coordinate}}
+//     queue<pair<Node*, pair<int, int>>> todo;
+//     todo.push({root, {0, 0}}); 
+
+//     while (!todo.empty()) {
+//         auto p = todo.front();
+//         todo.pop();
+
+//         Node* node = p.first;
+//         int x = p.second.first, y = p.second.second;
+//         nodes[x][y].insert(node->data);
+
+//         if (node->left) {
+//             todo.push({node->left, {x-1, y+1}});
+//         }
+//         if (node->right) {
+//             todo.push({node->right, {x+1, y+1}});
+//         }
+//     }
+
+//     vector<vector<int>> ans;
+//     for (auto p : nodes) {
+//         vector<int> col;
+//         for (auto q : p.second) {
+//             col.insert(col.end(), q.second.begin(), q.second.end());
+//         }
+//         ans.push_back(col);
+//     }
+//     return ans;
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<vector<int>> result = vertical_traversal(root);
+//     for (const auto& vec : result) {
+//         for (int val : vec) {
+//             cout << val << " ";
+//         }
+//         cout << endl;
+//     }
+
+//     return 0;
+// }
+
+
+// -------------------------------------------------------------------------------------------
+
+// Top view of Binary tree
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// vector<int> top_view(Node* root) {
+//     vector<int> ans;
+//     if (root == nullptr) return ans; // Check if the tree is empty
+
+//     map<int, int> mpp; // To store the first node at each horizontal distance
+//     queue<pair<Node*, int>> q; // Queue to store nodes and their horizontal distances
+//     q.push({root, 0});
+
+//     while (!q.empty()) {
+//         auto it = q.front();
+//         q.pop();
+
+//         Node* node = it.first;
+//         int line = it.second;
+
+//         if (mpp.find(line) == mpp.end()) // If this horizontal distance is not yet in the map
+//             mpp[line] = node->data;
+
+//         if (node->left != nullptr) // Add left child to the queue with horizontal distance - 1
+//             q.push({node->left, line - 1});
+//         if (node->right != nullptr) // Add right child to the queue with horizontal distance + 1
+//             q.push({node->right, line + 1});
+//     }
+
+//     for (auto it : mpp) {
+//         ans.push_back(it.second); // Collecting the top view nodes in the answer vector
+//     }
+//     return ans;
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<int> topView = top_view(root); // Corrected function call
+
+//     for (int val : topView) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+
+
+
+// -------------------------------------------------------------------------------------------
+
+
+// bottom view of Binary tree
+
+
+#include <bits/stdc++.h>
 using namespace std;
 
 struct Node {
@@ -983,36 +1127,32 @@ struct Node {
     }
 };
 
-vector<vector<int>> vertical_traversal(Node* root) {
-    // map<x-coordinate, map<y-coordinate, multiset of node values>>
-    map<int, map<int, multiset<int>>> nodes;
-    // queue of pairs {node, {x-coordinate, y-coordinate}}
-    queue<pair<Node*, pair<int, int>>> todo;
-    todo.push({root, {0, 0}}); 
+vector<int> bottom_view(Node* root) {
+    vector<int> ans;
+    if (root == nullptr) return ans; // Check if the tree is empty
 
-    while (!todo.empty()) {
-        auto p = todo.front();
-        todo.pop();
+    map<int, int> mpp; // To store the last node at each horizontal distance
+    queue<pair<Node*, int>> q; // Queue to store nodes and their horizontal distances
+    q.push({root, 0});
 
-        Node* node = p.first;
-        int x = p.second.first, y = p.second.second;
-        nodes[x][y].insert(node->data);
+    while (!q.empty()) {
+        auto it = q.front();
+        q.pop();
 
-        if (node->left) {
-            todo.push({node->left, {x-1, y+1}});
-        }
-        if (node->right) {
-            todo.push({node->right, {x+1, y+1}});
-        }
+        Node* node = it.first;
+        int line = it.second;
+
+        // Update the map with the current node's data at its horizontal distance
+        mpp[line] = node->data;
+
+        if (node->left != nullptr) // Add left child to the queue with horizontal distance - 1
+            q.push({node->left, line - 1});
+        if (node->right != nullptr) // Add right child to the queue with horizontal distance + 1
+            q.push({node->right, line + 1});
     }
 
-    vector<vector<int>> ans;
-    for (auto p : nodes) {
-        vector<int> col;
-        for (auto q : p.second) {
-            col.insert(col.end(), q.second.begin(), q.second.end());
-        }
-        ans.push_back(col);
+    for (auto it : mpp) {
+        ans.push_back(it.second); // Collecting the bottom view nodes in the answer vector
     }
     return ans;
 }
@@ -1026,13 +1166,16 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    vector<vector<int>> result = vertical_traversal(root);
-    for (const auto& vec : result) {
-        for (int val : vec) {
-            cout << val << " ";
-        }
-        cout << endl;
+    vector<int> bottomView = bottom_view(root);
+
+    for (int val : bottomView) {
+        cout << val << " ";
     }
+    cout << endl;
 
     return 0;
 }
+
+
+
+// -------------------------------------------------------------------------------------------

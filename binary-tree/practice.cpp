@@ -801,8 +801,6 @@
 //     return 0;
 // }
 
-
-
 // --------------------------------------------------------------------------------------------------
 
 // Zig - Zag and spiral traversel ?
@@ -960,7 +958,6 @@
 //     return 0;
 // }
 
-
 // -------------------------------------------------------------------------------------------
 
 // Vertical Order Traversal of Binary Tree
@@ -988,7 +985,7 @@
 //     map<int, map<int, multiset<int>>> nodes;
 //     // queue of pairs {node, {x-coordinate, y-coordinate}}
 //     queue<pair<Node*, pair<int, int>>> todo;
-//     todo.push({root, {0, 0}}); 
+//     todo.push({root, {0, 0}});
 
 //     while (!todo.empty()) {
 //         auto p = todo.front();
@@ -1036,7 +1033,6 @@
 
 //     return 0;
 // }
-
 
 // -------------------------------------------------------------------------------------------
 
@@ -1105,60 +1101,248 @@
 //     return 0;
 // }
 
-
-
 // -------------------------------------------------------------------------------------------
-
 
 // bottom view of Binary tree
 
+// #include <bits/stdc++.h>
+// using namespace std;
 
-#include <bits/stdc++.h>
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// vector<int> bottom_view(Node* root) {
+//     vector<int> ans;
+//     if (root == nullptr) return ans; // Check if the tree is empty
+
+//     map<int, int> mpp; // To store the last node at each horizontal distance
+//     queue<pair<Node*, int>> q; // Queue to store nodes and their horizontal distances
+//     q.push({root, 0});
+
+//     while (!q.empty()) {
+//         auto it = q.front();
+//         q.pop();
+
+//         Node* node = it.first;
+//         int line = it.second;
+
+//         // Update the map with the current node's data at its horizontal distance
+//         mpp[line] = node->data;
+
+//         if (node->left != nullptr) // Add left child to the queue with horizontal distance - 1
+//             q.push({node->left, line - 1});
+//         if (node->right != nullptr) // Add right child to the queue with horizontal distance + 1
+//             q.push({node->right, line + 1});
+//     }
+
+//     for (auto it : mpp) {
+//         ans.push_back(it.second); // Collecting the bottom view nodes in the answer vector
+//     }
+//     return ans;
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<int> bottomView = bottom_view(root);
+
+//     for (int val : bottomView) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------
+
+// Right View of binary tree.
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node *left;
+//     struct Node *right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// void right_view(Node *root, int lvl, int &max_level, vector<int> &result) {
+//     if (root == nullptr) return;
+
+//     if (lvl > max_level) {
+//         result.push_back(root->data);
+//         max_level = lvl;
+//     }
+
+//     right_view(root->right, lvl + 1, max_level, result);
+//     right_view(root->left, lvl + 1, max_level, result);
+// }
+
+// vector<int> right_view(Node *root) {
+//     vector<int> result;
+//     int max_level = -1;
+//     right_view(root, 0, max_level, result);
+//     return result;
+// }
+
+// int main() {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<int> rightView = right_view(root);
+
+//     for (int val : rightView) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------
+
+// left view of binary tree
+
+// #include <iostream>
+// #include <vector>
+// using namespace std;
+
+// struct Node
+// {
+//     int data;
+//     struct Node *left;
+//     struct Node *right;
+
+//     Node(int val)
+//     {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// void left_view(Node *root, int lvl, int &max_level, vector<int> &res)
+// {
+//     if (root == nullptr) return;
+
+//     // Check if the current level is greater than the max_level seen so far
+//     if (lvl > max_level) {
+//         // This is the first node we encounter at this level
+//         res.push_back(root->data);
+//         max_level = lvl;
+//     }
+
+//     // Recursively traverse the left and right subtrees
+//     left_view(root->left, lvl + 1, max_level, res);
+//     left_view(root->right, lvl + 1, max_level, res);
+// }
+
+// vector<int> leftView(Node *root)
+// {
+//     vector<int> res;
+//     int max_level = -1;
+//     int lvl = 0;
+
+//     left_view(root, lvl, max_level, res);
+//     return res;
+// }
+
+// int main()
+// {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     vector<int> leftViewNodes = leftView(root);
+
+//     cout << "Left View of Binary Tree: ";
+//     for (int val : leftViewNodes)
+//     {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------
+
+// L26. Print Root to Node Path in Binary Tree
+#include <iostream>
+#include <vector>
 using namespace std;
 
-struct Node {
+struct Node
+{
     int data;
-    struct Node* left;
-    struct Node* right;
+    struct Node *left;
+    struct Node *right;
 
-    Node(int val) {
+    Node(int val)
+    {
         data = val;
         left = right = nullptr;
     }
 };
 
-vector<int> bottom_view(Node* root) {
-    vector<int> ans;
-    if (root == nullptr) return ans; // Check if the tree is empty
+bool get_path(Node* root, vector<int> &arr, int x){
+    if(root == nullptr) return false;
 
-    map<int, int> mpp; // To store the last node at each horizontal distance
-    queue<pair<Node*, int>> q; // Queue to store nodes and their horizontal distances
-    q.push({root, 0});
+    arr.push_back(root->data);
 
-    while (!q.empty()) {
-        auto it = q.front();
-        q.pop();
-
-        Node* node = it.first;
-        int line = it.second;
-
-        // Update the map with the current node's data at its horizontal distance
-        mpp[line] = node->data;
-
-        if (node->left != nullptr) // Add left child to the queue with horizontal distance - 1
-            q.push({node->left, line - 1});
-        if (node->right != nullptr) // Add right child to the queue with horizontal distance + 1
-            q.push({node->right, line + 1});
+    if(root->data == x){
+        return true;
     }
 
-    for (auto it : mpp) {
-        ans.push_back(it.second); // Collecting the bottom view nodes in the answer vector
+    if(get_path(root->left, arr, x) || get_path(root->right, arr, x)){
+        return true;
     }
-    return ans;
+
+    // If neither left nor right subtree contains x, remove current node from path
+    arr.pop_back();
+    return false;
 }
 
-int main() {
-    Node* root = new Node(1);
+vector<int> getPath(Node *A, int B){
+    vector<int> arr;
+
+    if(A == nullptr) return arr;
+
+    get_path(A, arr, B);
+    return arr;
+}
+
+int main()
+{
+    Node *root = new Node(1);
     root->left = new Node(2);
     root->right = new Node(3);
     root->left->left = new Node(4);
@@ -1166,16 +1350,18 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    vector<int> bottomView = bottom_view(root);
+    int targetNode = 5;
+    vector<int> path = getPath(root, targetNode);
 
-    for (int val : bottomView) {
-        cout << val << " ";
+    if (!path.empty()) {
+        cout << "Path to node " << targetNode << ": ";
+        for (int val : path) {
+            cout << val << " ";
+        }
+        cout << endl;
+    } else {
+        cout << "Node " << targetNode << " not found in the tree." << endl;
     }
-    cout << endl;
 
     return 0;
 }
-
-
-
-// -------------------------------------------------------------------------------------------

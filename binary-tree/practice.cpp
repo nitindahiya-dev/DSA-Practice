@@ -1295,54 +1295,184 @@
 
 // --------------------------------------------------------------------------------------------
 
-// L26. Print Root to Node Path in Binary Tree
+// Print Root to Node Path in Binary Tree
+
+// #include <iostream>
+// #include <vector>
+// using namespace std;
+
+// struct Node
+// {
+//     int data;
+//     struct Node *left;
+//     struct Node *right;
+
+//     Node(int val)
+//     {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// bool get_path(Node* root, vector<int> &arr, int x){
+//     if(root == nullptr) return false;
+
+//     arr.push_back(root->data);
+
+//     if(root->data == x){
+//         return true;
+//     }
+
+//     if(get_path(root->left, arr, x) || get_path(root->right, arr, x)){
+//         return true;
+//     }
+
+//     // If neither left nor right subtree contains x, remove current node from path
+//     arr.pop_back();
+//     return false;
+// }
+
+// vector<int> getPath(Node *A, int B){
+//     vector<int> arr;
+
+//     if(A == nullptr) return arr;
+
+//     get_path(A, arr, B);
+//     return arr;
+// }
+
+// int main()
+// {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     int targetNode = 5;
+//     vector<int> path = getPath(root, targetNode);
+
+//     if (!path.empty()) {
+//         cout << "Path to node " << targetNode << ": ";
+//         for (int val : path) {
+//             cout << val << " ";
+//         }
+//         cout << endl;
+//     } else {
+//         cout << "Node " << targetNode << " not found in the tree." << endl;
+//     }
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------
+
+// find lowest common ancestor
+
+// #include <iostream>
+// using namespace std;
+
+// struct Node
+// {
+//     int data;
+//     struct Node *left;
+//     struct Node *right;
+
+//     Node(int val)
+//     {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// Node* lowest_common_ancestor(Node* root, Node* p, Node* q) {
+//     if (root == nullptr || root == p || root == q) return root;
+
+//     Node* left = lowest_common_ancestor(root->left, p, q);
+//     Node* right = lowest_common_ancestor(root->right, p, q);
+
+//     if (left == nullptr) return right;
+//     if (right == nullptr) return left;
+//     return root;
+// }
+
+// int main()
+// {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     Node* p = root->left->left; // Node 4
+//     Node* q = root->left->right; // Node 5
+
+//     Node* lca = lowest_common_ancestor(root, p, q);
+
+//     if (lca != nullptr) {
+//         cout << "Lowest Common Ancestor of " << p->data << " and " << q->data << " is " << lca->data << endl;
+//     } else {
+//         cout << "Lowest Common Ancestor not found." << endl;
+//     }
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------
+
+// find maximum width of the binary tree
+
 #include <iostream>
-#include <vector>
+#include <queue>
 using namespace std;
 
-struct Node
-{
+struct Node {
     int data;
-    struct Node *left;
-    struct Node *right;
+    Node* left;
+    Node* right;
 
-    Node(int val)
-    {
+    Node(int val) {
         data = val;
         left = right = nullptr;
     }
 };
 
-bool get_path(Node* root, vector<int> &arr, int x){
-    if(root == nullptr) return false;
+int width_of_binary_tree(Node* root) {
+    if (!root) return 0;
 
-    arr.push_back(root->data);
+    int ans = 0;
 
-    if(root->data == x){
-        return true;
+    queue<pair<Node*, int>> q;
+    q.push({root, 0});
+
+    while (!q.empty()) {
+        int size = q.size();
+        int mmin = q.front().second; // Minimum index at the current level
+        int first, last;
+
+        for (int i = 0; i < size; i++) {
+            int cur_id = q.front().second - mmin; // Normalize the index
+            Node* node = q.front().first;
+            q.pop();
+
+            if (i == 0) first = cur_id;
+            if (i == size - 1) last = cur_id;
+
+            if (node->left) q.push({node->left, cur_id * 2 + 1});
+            if (node->right) q.push({node->right, cur_id * 2 + 2});
+        }
+        ans = max(ans, last - first + 1);
     }
-
-    if(get_path(root->left, arr, x) || get_path(root->right, arr, x)){
-        return true;
-    }
-
-    // If neither left nor right subtree contains x, remove current node from path
-    arr.pop_back();
-    return false;
+    return ans;
 }
 
-vector<int> getPath(Node *A, int B){
-    vector<int> arr;
 
-    if(A == nullptr) return arr;
-
-    get_path(A, arr, B);
-    return arr;
-}
-
-int main()
-{
-    Node *root = new Node(1);
+int main() {
+    Node* root = new Node(1);
     root->left = new Node(2);
     root->right = new Node(3);
     root->left->left = new Node(4);
@@ -1350,18 +1480,11 @@ int main()
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    int targetNode = 5;
-    vector<int> path = getPath(root, targetNode);
+    Node* p = root->left->left;  // Node 4
+    Node* q = root->left->right; // Node 5
 
-    if (!path.empty()) {
-        cout << "Path to node " << targetNode << ": ";
-        for (int val : path) {
-            cout << val << " ";
-        }
-        cout << endl;
-    } else {
-        cout << "Node " << targetNode << " not found in the tree." << endl;
-    }
+    int width = width_of_binary_tree(root);
+    cout << "Maximum width of the binary tree is " << width << endl;
 
     return 0;
 }

@@ -1426,14 +1426,80 @@
 
 // find maximum width of the binary tree
 
-#include <iostream>
-#include <queue>
+// #include <iostream>
+// #include <queue>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     Node* left;
+//     Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// int width_of_binary_tree(Node* root) {
+//     if (!root) return 0;
+
+//     int ans = 0;
+
+//     queue<pair<Node*, int>> q;
+//     q.push({root, 0});
+
+//     while (!q.empty()) {
+//         int size = q.size();
+//         int mmin = q.front().second; // Minimum index at the current level
+//         int first, last;
+
+//         for (int i = 0; i < size; i++) {
+//             int cur_id = q.front().second - mmin; // Normalize the index
+//             Node* node = q.front().first;
+//             q.pop();
+
+//             if (i == 0) first = cur_id;
+//             if (i == size - 1) last = cur_id;
+
+//             if (node->left) q.push({node->left, cur_id * 2 + 1});
+//             if (node->right) q.push({node->right, cur_id * 2 + 2});
+//         }
+//         ans = max(ans, last - first + 1);
+//     }
+//     return ans;
+// }
+
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     Node* p = root->left->left;  // Node 4
+//     Node* q = root->left->right; // Node 5
+
+//     int width = width_of_binary_tree(root);
+//     cout << "Maximum width of the binary tree is " << width << endl;
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------------
+
+// Children Sum Property in binary tree
+
+#include <bits/stdc++.h>
 using namespace std;
 
 struct Node {
     int data;
-    Node* left;
-    Node* right;
+    struct Node* left;
+    struct Node* right;
 
     Node(int val) {
         data = val;
@@ -1441,35 +1507,47 @@ struct Node {
     }
 };
 
-int width_of_binary_tree(Node* root) {
-    if (!root) return 0;
+void reorder(Node* root) {
+    if (root == nullptr) return;
 
-    int ans = 0;
-
-    queue<pair<Node*, int>> q;
-    q.push({root, 0});
-
-    while (!q.empty()) {
-        int size = q.size();
-        int mmin = q.front().second; // Minimum index at the current level
-        int first, last;
-
-        for (int i = 0; i < size; i++) {
-            int cur_id = q.front().second - mmin; // Normalize the index
-            Node* node = q.front().first;
-            q.pop();
-
-            if (i == 0) first = cur_id;
-            if (i == size - 1) last = cur_id;
-
-            if (node->left) q.push({node->left, cur_id * 2 + 1});
-            if (node->right) q.push({node->right, cur_id * 2 + 2});
-        }
-        ans = max(ans, last - first + 1);
+    int child = 0;
+    if (root->left) {
+        child += root->left->data;
     }
-    return ans;
+    if (root->right) {
+        child += root->right->data;
+    }
+
+    if (child >= root->data) {
+        root->data = child;
+    } else {
+        if (root->left) {
+            root->left->data = root->data;
+        } else if (root->right) {
+            root->right->data = root->data;
+        }
+    }
+
+    reorder(root->left);
+    reorder(root->right);
+
+    int tot = 0;
+    if (root->left) tot += root->left->data;
+    if (root->right) tot += root->right->data;
+    if (root->left || root->right) root->data = tot;
 }
 
+void changed_tree(Node* root) {
+    reorder(root);
+}
+
+void printInorder(Node* node) {
+    if (node == nullptr) return;
+
+    printInorder(node->left);
+    cout << node->data << " ";
+    printInorder(node->right);
+}
 
 int main() {
     Node* root = new Node(1);
@@ -1480,11 +1558,11 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    Node* p = root->left->left;  // Node 4
-    Node* q = root->left->right; // Node 5
+    changed_tree(root);
 
-    int width = width_of_binary_tree(root);
-    cout << "Maximum width of the binary tree is " << width << endl;
+    cout << "Changed binary tree in inorder traversal: ";
+    printInorder(root);
+    cout << endl;
 
     return 0;
 }

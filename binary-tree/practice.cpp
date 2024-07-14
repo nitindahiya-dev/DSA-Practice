@@ -1493,6 +1493,188 @@
 
 // Children Sum Property in binary tree
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// void reorder(Node* root) {
+//     if (root == nullptr) return;
+
+//     int child = 0;
+//     if (root->left) {
+//         child += root->left->data;
+//     }
+//     if (root->right) {
+//         child += root->right->data;
+//     }
+
+//     if (child >= root->data) {
+//         root->data = child;
+//     } else {
+//         if (root->left) {
+//             root->left->data = root->data;
+//         } else if (root->right) {
+//             root->right->data = root->data;
+//         }
+//     }
+
+//     reorder(root->left);
+//     reorder(root->right);
+
+//     int tot = 0;
+//     if (root->left) tot += root->left->data;
+//     if (root->right) tot += root->right->data;
+//     if (root->left || root->right) root->data = tot;
+// }
+
+// void changed_tree(Node* root) {
+//     reorder(root);
+// }
+
+// void printInorder(Node* node) {
+//     if (node == nullptr) return;
+
+//     printInorder(node->left);
+//     cout << node->data << " ";
+//     printInorder(node->right);
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     changed_tree(root);
+
+//     cout << "Changed binary tree in inorder traversal: ";
+//     printInorder(root);
+//     cout << endl;
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// Mininmum time taken to burn the binary tree from a Node/ leaf Node
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// int find_max_distance(map<Node*, Node*>& mpp, Node* target) {
+//     queue<Node*> q;
+//     q.push(target);
+
+//     map<Node*, int> visited;
+//     visited[target] = 1;
+//     int maxi = 0;
+
+//     while (!q.empty()) {
+//         int size = q.size();
+//         int flag = 0;  // Flag to check if any node is burned at this level
+
+//         for (int i = 0; i < size; i++) {
+//             auto node = q.front();
+//             q.pop();
+
+//             if (node->left && !visited[node->left]) {
+//                 flag = 1;
+//                 visited[node->left] = 1;
+//                 q.push(node->left);
+//             }
+//             if (node->right && !visited[node->right]) {
+//                 flag = 1;
+//                 visited[node->right] = 1;
+//                 q.push(node->right);
+//             }
+//             if (mpp[node] && !visited[mpp[node]]) {
+//                 flag = 1;
+//                 visited[mpp[node]] = 1;
+//                 q.push(mpp[node]);
+//             }
+//         }
+
+//         if (flag) maxi++;
+//     }
+
+//     return maxi;
+// }
+
+// Node* bfs_to_map_parent(Node* root, map<Node*, Node*>& mpp, int start) {
+//     queue<Node*> q;
+//     q.push(root);
+//     Node* res = nullptr;
+
+//     while (!q.empty()) {
+//         Node* node = q.front();
+//         q.pop();
+
+//         if (node->data == start) res = node;
+
+//         if (node->left) {
+//             mpp[node->left] = node;
+//             q.push(node->left);
+//         }
+//         if (node->right) {
+//             mpp[node->right] = node;
+//             q.push(node->right);
+//         }
+//     }
+
+//     return res;
+// }
+
+// int time_to_burn_tree(Node* root, int start) {
+//     map<Node*, Node*> mpp;
+//     Node* target = bfs_to_map_parent(root, mpp, start);
+//     int maxi = find_max_distance(mpp, target);
+//     return maxi;
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     int start = 5; // Change this value to the node where fire starts
+//     int time = time_to_burn_tree(root, start);
+//     cout << "Time to burn the tree starting from node " << start << " is: " << time << " units" << endl;
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// Minimum time taken to burn the binary tree from a Node/leaf Node
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -1507,46 +1689,33 @@ struct Node {
     }
 };
 
-void reorder(Node* root) {
-    if (root == nullptr) return;
-
-    int child = 0;
-    if (root->left) {
-        child += root->left->data;
+int find_left_height(Node* root) {
+    int high = 0;
+    while (root) {
+        high++;
+        root = root->left;
     }
-    if (root->right) {
-        child += root->right->data;
-    }
-
-    if (child >= root->data) {
-        root->data = child;
-    } else {
-        if (root->left) {
-            root->left->data = root->data;
-        } else if (root->right) {
-            root->right->data = root->data;
-        }
-    }
-
-    reorder(root->left);
-    reorder(root->right);
-
-    int tot = 0;
-    if (root->left) tot += root->left->data;
-    if (root->right) tot += root->right->data;
-    if (root->left || root->right) root->data = tot;
+    return high;
 }
 
-void changed_tree(Node* root) {
-    reorder(root);
+int find_right_height(Node* root) {
+    int high = 0;
+    while (root) {
+        high++;
+        root = root->right;
+    }
+    return high;
 }
 
-void printInorder(Node* node) {
-    if (node == nullptr) return;
+int count_nodes(Node* root) {
+    if (root == nullptr) return 0;
 
-    printInorder(node->left);
-    cout << node->data << " ";
-    printInorder(node->right);
+    int lh = find_left_height(root);
+    int rh = find_right_height(root);
+
+    if (lh == rh) return (1 << lh) - 1;
+
+    return 1 + count_nodes(root->left) + count_nodes(root->right);
 }
 
 int main() {
@@ -1558,11 +1727,8 @@ int main() {
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    changed_tree(root);
-
-    cout << "Changed binary tree in inorder traversal: ";
-    printInorder(root);
-    cout << endl;
+    int total_nodes = count_nodes(root);
+    cout << "Total number of nodes in the complete binary tree: " << total_nodes << endl;
 
     return 0;
 }

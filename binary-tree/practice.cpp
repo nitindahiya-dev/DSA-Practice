@@ -1470,7 +1470,6 @@
 //     return ans;
 // }
 
-
 // int main() {
 //     Node* root = new Node(1);
 //     root->left = new Node(2);
@@ -1675,60 +1674,185 @@
 
 // Minimum time taken to burn the binary tree from a Node/leaf Node
 
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     int data;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int val) {
+//         data = val;
+//         left = right = nullptr;
+//     }
+// };
+
+// int find_left_height(Node* root) {
+//     int high = 0;
+//     while (root) {
+//         high++;
+//         root = root->left;
+//     }
+//     return high;
+// }
+
+// int find_right_height(Node* root) {
+//     int high = 0;
+//     while (root) {
+//         high++;
+//         root = root->right;
+//     }
+//     return high;
+// }
+
+// int count_nodes(Node* root) {
+//     if (root == nullptr) return 0;
+
+//     int lh = find_left_height(root);
+//     int rh = find_right_height(root);
+
+//     if (lh == rh) return (1 << lh) - 1;
+
+//     return 1 + count_nodes(root->left) + count_nodes(root->right);
+// }
+
+// int main() {
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     int total_nodes = count_nodes(root);
+//     cout << "Total number of nodes in the complete binary tree: " << total_nodes << endl;
+
+//     return 0;
+// }
+
+// -----------------------------------------------------------------------------------------------
+
+// Construct a Binary tree from Preorder and inorder !!
+// inorder = [ 9, 3, 15, 20, 7 ]
+// preorder = [ 3, 9, 20, 15, 7 ]
+
+// #include <vector>
+// #include <map>
+// #include <iostream>
+// using namespace std;
+
+// // Definition for a binary tree node.
+// struct Node {
+//     int val;
+//     Node *left;
+//     Node *right;
+//     Node(int x) : val(x), left(NULL), right(NULL) {}
+// };
+
+// Node* buildTreeHelper(vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd, map<int, int> &inMap) {
+//     if (preStart > preEnd || inStart > inEnd)
+//         return NULL;
+
+//     Node* root = new Node(preorder[preStart]);
+//     int inRoot = inMap[root->val];
+//     int numLeft = inRoot - inStart;
+
+//     root->left = buildTreeHelper(preorder, preStart + 1, preStart + numLeft, inorder, inStart, inRoot - 1, inMap);
+//     root->right = buildTreeHelper(preorder, preStart + numLeft + 1, preEnd, inorder, inRoot + 1, inEnd, inMap);
+
+//     return root;
+// }
+
+// Node* buildTree(vector<int> &preorder, vector<int> &inorder) {
+//     map<int, int> inMap;
+//     for (int i = 0; i < inorder.size(); i++) {
+//         inMap[inorder[i]] = i;
+//     }
+//     return buildTreeHelper(preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1, inMap);
+// }
+
+// // Helper function to print the tree in inorder traversal
+// void printInorder(Node* root) {
+//     if (!root) return;
+//     printInorder(root->left);
+//     cout << root->val << " ";
+//     printInorder(root->right);
+// }
+
+// int main() {
+//     vector<int> inorder = {9, 3, 15, 20, 7};
+//     vector<int> preorder = {3, 9, 20, 15, 7};
+
+//     Node* root = buildTree(preorder, inorder);
+
+//     cout << "Inorder traversal of the constructed tree: ";
+//     printInorder(root);
+
+//     return 0;
+// }
+
+// -----------------------------------------------------------------------------------------------
+
+// Construct a Binary tree from Preorder and inorder !!
+// inorder = [ 9, 3, 15, 20, 7 ]
+// preorder = [ 3, 9, 20, 15, 7 ]
+#include <vector>
+#include <map>
+#include <iostream>
 using namespace std;
 
+// Definition for a binary tree node.
 struct Node {
-    int data;
-    struct Node* left;
-    struct Node* right;
-
-    Node(int val) {
-        data = val;
-        left = right = nullptr;
-    }
+    int val;
+    Node *left;
+    Node *right;
+    Node(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-int find_left_height(Node* root) {
-    int high = 0;
-    while (root) {
-        high++;
-        root = root->left;
-    }
-    return high;
+Node* buildTreePostIn(vector<int> &postorder, int postStart, int postEnd, vector<int> &inorder, int inStart, int inEnd, map<int, int> &inMap) {
+    if (postStart > postEnd || inStart > inEnd)
+        return NULL;
+
+    Node* root = new Node(postorder[postEnd]);
+    int inRoot = inMap[root->val];
+    int numLeft = inRoot - inStart;
+
+    root->left = buildTreePostIn(postorder, postStart, postStart + numLeft - 1, inorder, inStart, inRoot - 1, inMap);
+    root->right = buildTreePostIn(postorder, postStart + numLeft, postEnd - 1, inorder, inRoot + 1, inEnd, inMap);
+
+    return root;
 }
 
-int find_right_height(Node* root) {
-    int high = 0;
-    while (root) {
-        high++;
-        root = root->right;
+Node* buildTree(vector<int> &postorder, vector<int> &inorder) {
+    if (inorder.size() > postorder.size())
+        return NULL;
+
+    map<int, int> inMap;
+    for (int i = 0; i < inorder.size(); i++) {
+        inMap[inorder[i]] = i;
     }
-    return high;
+
+    return buildTreePostIn(postorder, 0, postorder.size() - 1, inorder, 0, inorder.size() - 1, inMap);
 }
 
-int count_nodes(Node* root) {
-    if (root == nullptr) return 0;
-
-    int lh = find_left_height(root);
-    int rh = find_right_height(root);
-
-    if (lh == rh) return (1 << lh) - 1;
-
-    return 1 + count_nodes(root->left) + count_nodes(root->right);
+// Helper function to print the tree in inorder traversal
+void printInorder(Node* root) {
+    if (!root) return;
+    printInorder(root->left);
+    cout << root->val << " ";
+    printInorder(root->right);
 }
 
 int main() {
-    Node* root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    vector<int> inorder = {9, 3, 15, 20, 7};
+    vector<int> postorder = {9, 15, 7, 20, 3};
 
-    int total_nodes = count_nodes(root);
-    cout << "Total number of nodes in the complete binary tree: " << total_nodes << endl;
+    Node* root = buildTree(postorder, inorder);
+
+    cout << "Inorder traversal of the constructed tree: ";
+    printInorder(root);
 
     return 0;
 }

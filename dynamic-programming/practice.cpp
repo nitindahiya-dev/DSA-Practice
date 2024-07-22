@@ -126,30 +126,64 @@
 // }
 
 // Tabulation
-#include<bits/stdc++.h>
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int frog_jump(int n, vector<int> &heights){
+//     int prev1 = 0;
+//     int prev2 = 0;
+//     for (int i = 1; i < n; i++)
+//     {
+//         int fs = prev1 + abs(heights[i] - heights[i-1]);
+//         int ss = INT_MAX;
+//         if (i > 1) ss = prev2 + abs(heights[i] - heights[i-2]);
+
+//         int curr = min(fs,ss);
+//         prev2 = prev1;
+//         prev1 = curr;
+//     }
+//     return prev1;  
+//}
+
+
+// int main() {
+//     int n = 6;  // Example input
+//     vector<int> heights = {30, 10, 60, 10, 60, 50};
+//     cout << frog_jump(n, heights) << endl;
+//     return 0;
+// }
+
+// -----------------------------------------------------------------------------------------------
+
+// for if frog can jump kth jumps
+
+#include <bits/stdc++.h>
 using namespace std;
 
-int frog_jump(int n, vector<int> &heights){
-    int prev1 = 0;
-    int prev2 = 0;
-    for (int i = 1; i < n; i++)
-    {
-        int fs = prev1 + abs(heights[i] - heights[i-1]);
-        int ss = INT_MAX;
-        if (i > 1) ss = prev2 + abs(heights[i] - heights[i-2]);
+int helper(int n, int k, vector<int> &heights) {
+	if(n == 0) return 0;
 
-        int curr = min(fs,ss);
-        prev2 = prev1;
-        prev1 = curr;
-    }
-    return prev1;
-    
+	int minSteps = INT_MAX;
+
+	for(int j=1; j<=k; j++) {
+		int l = INT_MAX;
+		if(n-j >= 0)
+			l = helper(n-j, k, heights) + abs(heights[n] - heights[n-j]);
+		minSteps = min(minSteps, l);
+	}
+
+	return minSteps;
 }
 
+int frogKJump(int n, int k, vector<int> &heights) {
+	return helper(n-1, k, heights);
+}
 
-int main() {
-    int n = 6;  // Example input
-    vector<int> heights = {30, 10, 60, 10, 60, 50};
-    cout << frog_jump(n, heights) << endl;
-    return 0;
+int main(){
+	vector<int> heights;
+	heights = {10, 20, 30, 10};
+	cout << frogKJump(4, 2, heights);
+	cout << endl;
+	heights = {10, 50, 10};
+	cout << frogKJump(3, 2, heights);
 }

@@ -157,33 +157,98 @@
 
 // for if frog can jump kth jumps
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int helper(int n, int k, vector<int> &heights) {
+// 	if(n == 0) return 0;
+
+// 	int minSteps = INT_MAX;
+
+// 	for(int j=1; j<=k; j++) {
+// 		int l = INT_MAX;
+// 		if(n-j >= 0)
+// 			l = helper(n-j, k, heights) + abs(heights[n] - heights[n-j]);
+// 		minSteps = min(minSteps, l);
+// 	}
+
+// 	return minSteps;
+// }
+
+// int frogKJump(int n, int k, vector<int> &heights) {
+// 	return helper(n-1, k, heights);
+// }
+
+// int main(){
+// 	vector<int> heights;
+// 	heights = {10, 20, 30, 10};
+// 	cout << frogKJump(4, 2, heights);
+// 	cout << endl;
+// 	heights = {10, 50, 10};
+// 	cout << frogKJump(3, 2, heights);
+// }
+
+// -----------------------------------------------------------------------------------------------
+
+// Maximum Sum of Non-Adjacent Elements
+
+// recursion
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int f(int index, vector<int> &num, vector<int> &dp){
+//     if(index == 0) return num[index];
+//     if(index < 0) return 0;
+    
+//     if(dp[index] != -1) return dp[index];
+    
+//     int pick = num[index] + f(index - 2, num, dp);
+//     int non_pick = 0 + f(index - 1, num, dp);
+    
+//     return dp[index] = max(pick, non_pick);
+// }
+
+// int max_non_adj(vector<int> &num){
+//     int n = num.size();
+//     vector<int> dp(n, -1);
+//     return f(n-1, num, dp);
+// }
+
+// int main(){
+//     vector<int> num = {3, 2, 5, 10, 7};
+//     cout << max_non_adj(num) << endl;  // Output: 15
+//     return 0;
+// }
+
+// tabulation approach
 #include <bits/stdc++.h>
 using namespace std;
 
-int helper(int n, int k, vector<int> &heights) {
-	if(n == 0) return 0;
+int max_non_adj(vector<int> &num) {
+    int n = num.size();
+    if (n == 0) return 0;         // Edge case: empty list
+    if (n == 1) return num[0];    // Edge case: single element
 
-	int minSteps = INT_MAX;
+    int num_1 = num[0];
+    int num_2 = 0;
 
-	for(int j=1; j<=k; j++) {
-		int l = INT_MAX;
-		if(n-j >= 0)
-			l = helper(n-j, k, heights) + abs(heights[n] - heights[n-j]);
-		minSteps = min(minSteps, l);
-	}
+    for(int i = 1; i < n; ++i) {
+        int take = num[i];
+        if(i > 1) take += num_2;
+        
+        int not_take = 0 + num_1;
+        
+        int curr = max(take, not_take);
+        num_2 = num_1;
+        num_1 = curr;  // Correctly update num_1 to curr
+    }
 
-	return minSteps;
+    return num_1;
 }
 
-int frogKJump(int n, int k, vector<int> &heights) {
-	return helper(n-1, k, heights);
-}
-
-int main(){
-	vector<int> heights;
-	heights = {10, 20, 30, 10};
-	cout << frogKJump(4, 2, heights);
-	cout << endl;
-	heights = {10, 50, 10};
-	cout << frogKJump(3, 2, heights);
+int main() {
+    vector<int> num = {3, 2, 5, 10, 7};
+    cout << max_non_adj(num) << endl;  // Output: 15
+    return 0;
 }

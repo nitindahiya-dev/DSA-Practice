@@ -41,7 +41,7 @@
 //     }
 //     cout << prev;
 //     return 0;
-    
+
 // }
 
 // -------------------------------------------------------------------------------------------------
@@ -142,9 +142,8 @@
 //         prev2 = prev1;
 //         prev1 = curr;
 //     }
-//     return prev1;  
+//     return prev1;
 //}
-
 
 // int main() {
 //     int n = 6;  // Example input
@@ -200,12 +199,12 @@
 // int f(int index, vector<int> &num, vector<int> &dp){
 //     if(index == 0) return num[index];
 //     if(index < 0) return 0;
-    
+
 //     if(dp[index] != -1) return dp[index];
-    
+
 //     int pick = num[index] + f(index - 2, num, dp);
 //     int non_pick = 0 + f(index - 1, num, dp);
-    
+
 //     return dp[index] = max(pick, non_pick);
 // }
 
@@ -221,34 +220,178 @@
 //     return 0;
 // }
 
-// tabulation approach
+// // tabulation approach
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int max_non_adj(vector<int> &num) {
+//     int n = num.size();
+//     if (n == 0) return 0;         // Edge case: empty list
+//     if (n == 1) return num[0];    // Edge case: single element
+
+//     int num_1 = num[0];
+//     int num_2 = 0;
+
+//     for(int i = 1; i < n; ++i) {
+//         int take = num[i];
+//         if(i > 1) take += num_2;
+
+//         int not_take = 0 + num_1;
+
+//         int curr = max(take, not_take);
+//         num_2 = num_1;
+//         num_1 = curr;  // Correctly update num_1 to curr
+//     }
+
+//     return num_1;
+// }
+
+// int main() {
+//     vector<int> num = {3, 2, 5, 10, 7};
+//     cout << max_non_adj(num) << endl;  // Output: 15
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------------
+
+// House Robber 2
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int adj_sum(vector<int> &nums) {
+//     int n = nums.size();
+//     if (n == 0) return 0;
+//     if (n == 1) return nums[0];
+
+//     int prev1 = nums[0];
+//     int prev2 = 0;
+
+//     for (int i = 1; i < n; i++) { // Start from 1 to avoid double counting nums[0]
+//         int take = nums[i];
+//         if (i > 1) take += prev2;
+
+//         int notTake = 0 + prev1;
+//         int curr = max(take, notTake);
+
+//         prev2 = prev1;
+//         prev1 = curr;
+//     }
+//     return prev1;
+// }
+
+// int house_robber(vector<int> &valueinhouse) {
+//     if (valueinhouse.size() == 1) return valueinhouse[0];
+
+//     vector<int> temp1, temp2;
+//     for (int i = 0; i < valueinhouse.size(); i++) {
+//         if (i != 0) temp1.push_back(valueinhouse[i]);
+//         if (i != valueinhouse.size() - 1) temp2.push_back(valueinhouse[i]);
+//     }
+
+//     return max(adj_sum(temp1), adj_sum(temp2));
+// }
+
+// int main() {
+//     vector<int> valueinhouse = {2, 3, 2};
+//     cout << house_robber(valueinhouse) << endl; // Output should be 3
+
+//     valueinhouse = {1, 2, 3, 1};
+//     cout << house_robber(valueinhouse) << endl; // Output should be 4
+
+//     valueinhouse = {1, 2, 3};
+//     cout << house_robber(valueinhouse) << endl; // Output should be 3
+
+//     return 0;
+// }
+
+// -----------------------------------------------------------------------------------------------
+
+// Ninja's Training [2D Concept]
+
+// recursion
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int f(int day, int last, vector<vector<int>> &points, vector<vector<int>> &dp)
+// {
+//     if (day == 0)
+//     {
+//         int maxi = 0;
+//         for (int task = 0; task < 3; task++)
+//         {
+//             if (task != last)
+//                 maxi = max(maxi, points[0][task]);
+//         }
+//         return maxi;
+//     }
+
+//     if (dp[day][last] != -1)
+//         return dp[day][last];
+
+//     int maxi = 0;
+//     for (int task = 0; task < 3; task++)
+//     {
+//         if (task != last)
+//         {
+//             int point = points[day][task] + f(day - 1, task, points, dp);
+//             maxi = max(maxi, point);
+//         }
+//     }
+//     return dp[day][last] = maxi;
+// }
+
+// int ninja_training(int n, vector<vector<int>> &points)
+// {
+//     vector<vector<int>> dp(n, vector<int>(4, -1));
+//     return f(n - 1, 3, points, dp);
+// }
+
+// int main()
+// {
+//     int n = 3;
+//     vector<vector<int>> points = {{10, 40, 70}, {20, 50, 80}, {30, 60, 90}};
+//     cout << ninja_training(n, points) << endl;
+//     return 0;
+// }
+
+// tabulation#include <bits/stdc++.h>
+
 #include <bits/stdc++.h>
 using namespace std;
 
-int max_non_adj(vector<int> &num) {
-    int n = num.size();
-    if (n == 0) return 0;         // Edge case: empty list
-    if (n == 1) return num[0];    // Edge case: single element
+int ninja_training(int n, vector<vector<int>> &points)
+{
+    vector<int> prev(4, 0);
 
-    int num_1 = num[0];
-    int num_2 = 0;
+    prev[0] = max(points[0][1], points[0][2]);
+    prev[1] = max(points[0][0], points[0][2]);
+    prev[2] = max(points[0][0], points[0][1]);
+    prev[3] = max(points[0][0], max(points[0][1], points[0][2]));
 
-    for(int i = 1; i < n; ++i) {
-        int take = num[i];
-        if(i > 1) take += num_2;
-        
-        int not_take = 0 + num_1;
-        
-        int curr = max(take, not_take);
-        num_2 = num_1;
-        num_1 = curr;  // Correctly update num_1 to curr
+    for (int day = 1; day < n; day++)
+    {
+        vector<int> temp(4, 0);
+        for (int last = 0; last < 4; last++)
+        {
+            for (int task = 0; task < 3; task++)
+            {
+                if (task != last)
+                {
+                    temp[last] = max(temp[last], points[day][task] + prev[task]);
+                }
+            }
+        }
+        prev = temp;
     }
 
-    return num_1;
+    return prev[3];
 }
 
-int main() {
-    vector<int> num = {3, 2, 5, 10, 7};
-    cout << max_non_adj(num) << endl;  // Output: 15
+int main()
+{
+    int n = 3;
+    vector<vector<int>> points = {{10, 40, 70}, {20, 50, 80}, {30, 60, 90}};
+    cout << ninja_training(n, points) << endl;
     return 0;
 }

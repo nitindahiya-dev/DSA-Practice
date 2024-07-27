@@ -357,41 +357,114 @@
 
 // tabulation#include <bits/stdc++.h>
 
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int ninja_training(int n, vector<vector<int>> &points)
+// {
+//     vector<int> prev(4, 0);
+
+//     prev[0] = max(points[0][1], points[0][2]);
+//     prev[1] = max(points[0][0], points[0][2]);
+//     prev[2] = max(points[0][0], points[0][1]);
+//     prev[3] = max(points[0][0], max(points[0][1], points[0][2]));
+
+//     for (int day = 1; day < n; day++)
+//     {
+//         vector<int> temp(4, 0);
+//         for (int last = 0; last < 4; last++)
+//         {
+//             for (int task = 0; task < 3; task++)
+//             {
+//                 if (task != last)
+//                 {
+//                     temp[last] = max(temp[last], points[day][task] + prev[task]);
+//                 }
+//             }
+//         }
+//         prev = temp;
+//     }
+
+//     return prev[3];
+// }
+
+// int main()
+// {
+//     int n = 3;
+//     vector<vector<int>> points = {{10, 40, 70}, {20, 50, 80}, {30, 60, 90}};
+//     cout << ninja_training(n, points) << endl;
+//     return 0;
+// }
+
+// -----------------------------------------------------------------------------------------
+
+// Grid Unique Paths | Learn Everything about DP on Grids
+
+// recursion
+// #include <iostream>
+// #include <vector>
+// using namespace std;
+
+// int f(int i, int j, vector<vector<int>> &dp) {
+//     if (i == 0 && j == 0) {
+//         return 1;
+//     }
+
+//     if (i < 0 || j < 0) {
+//         return 0;
+//     }
+
+//     if (dp[i][j] != -1) {
+//         return dp[i][j];
+//     }
+
+//     int up = f(i - 1, j, dp);
+//     int left = f(i, j - 1, dp);
+
+//     return dp[i][j] = up + left;
+// }
+
+// int unique_path(int m, int n) {
+//     vector<vector<int>> dp(m, vector<int>(n, -1));
+//     return f(m - 1, n - 1, dp);
+// }
+
+// int main() {
+//     int m = 3, n = 3;
+//     cout << unique_path(m, n) << endl;  // Output should be 6
+//     return 0;
+// }
+
+// tabulation
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int ninja_training(int n, vector<vector<int>> &points)
-{
-    vector<int> prev(4, 0);
+int unique_path(int m, int n) {
+    vector<int> prev(n, 0);
 
-    prev[0] = max(points[0][1], points[0][2]);
-    prev[1] = max(points[0][0], points[0][2]);
-    prev[2] = max(points[0][0], points[0][1]);
-    prev[3] = max(points[0][0], max(points[0][1], points[0][2]));
-
-    for (int day = 1; day < n; day++)
-    {
-        vector<int> temp(4, 0);
-        for (int last = 0; last < 4; last++)
-        {
-            for (int task = 0; task < 3; task++)
-            {
-                if (task != last)
-                {
-                    temp[last] = max(temp[last], points[day][task] + prev[task]);
-                }
+    for (int i = 0; i < m; i++) {
+        vector<int> cur(n, 0);
+        for (int j = 0; j < n; j++) {
+            if (i == 0 && j == 0) {
+                cur[j] = 1;
+            } else {
+                int up = 0;
+                int left = 0;
+                if (i > 0) up = prev[j];
+                if (j > 0) left = cur[j - 1];
+                cur[j] = up + left;
             }
         }
-        prev = temp;
+        prev = cur;
     }
 
-    return prev[3];
+    // The answer is in the bottom-right cell
+    return prev[n - 1];
 }
 
-int main()
-{
-    int n = 3;
-    vector<vector<int>> points = {{10, 40, 70}, {20, 50, 80}, {30, 60, 90}};
-    cout << ninja_training(n, points) << endl;
+int main() {
+    int m = 3, n = 3;
+    cout << unique_path(m, n) << endl;  // Output should be 6
     return 0;
 }

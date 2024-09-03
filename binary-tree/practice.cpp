@@ -1798,61 +1798,63 @@
 // Construct a Binary tree from Preorder and inorder !!
 // inorder = [ 9, 3, 15, 20, 7 ]
 // preorder = [ 3, 9, 20, 15, 7 ]
-#include <vector>
-#include <map>
-#include <iostream>
-using namespace std;
+// #include <vector>
+// #include <map>
+// #include <iostream>
+// using namespace std;
 
-// Definition for a binary tree node.
-struct Node {
-    int val;
-    Node *left;
-    Node *right;
-    Node(int x) : val(x), left(NULL), right(NULL) {}
-};
+// // Definition for a binary tree node.
+// struct Node {
+//     int val;
+//     Node *left;
+//     Node *right;
+//     Node(int x) : val(x), left(NULL), right(NULL) {}
+// };
 
-Node* buildTreePostIn(vector<int> &postorder, int postStart, int postEnd, vector<int> &inorder, int inStart, int inEnd, map<int, int> &inMap) {
-    if (postStart > postEnd || inStart > inEnd)
-        return NULL;
+// Node* buildTreePostIn(vector<int> &postorder, int postStart, int postEnd, vector<int> &inorder, int inStart, int inEnd, map<int, int> &inMap) {
+//     if (postStart > postEnd || inStart > inEnd)
+//         return NULL;
 
-    Node* root = new Node(postorder[postEnd]);
-    int inRoot = inMap[root->val];
-    int numLeft = inRoot - inStart;
+//     Node* root = new Node(postorder[postEnd]);
+//     int inRoot = inMap[root->val];
+//     int numLeft = inRoot - inStart;
 
-    root->left = buildTreePostIn(postorder, postStart, postStart + numLeft - 1, inorder, inStart, inRoot - 1, inMap);
-    root->right = buildTreePostIn(postorder, postStart + numLeft, postEnd - 1, inorder, inRoot + 1, inEnd, inMap);
+//     root->left = buildTreePostIn(postorder, postStart, postStart + numLeft - 1, inorder, inStart, inRoot - 1, inMap);
+//     root->right = buildTreePostIn(postorder, postStart + numLeft, postEnd - 1, inorder, inRoot + 1, inEnd, inMap);
 
-    return root;
-}
+//     return root;
+// }
 
-Node* buildTree(vector<int> &postorder, vector<int> &inorder) {
-    if (inorder.size() > postorder.size())
-        return NULL;
+// Node* buildTree(vector<int> &postorder, vector<int> &inorder) {
+//     if (inorder.size() > postorder.size())
+//         return NULL;
 
-    map<int, int> inMap;
-    for (int i = 0; i < inorder.size(); i++) {
-        inMap[inorder[i]] = i;
-    }
+//     map<int, int> inMap;
+//     for (int i = 0; i < inorder.size(); i++) {
+//         inMap[inorder[i]] = i;
+//     }
 
-    return buildTreePostIn(postorder, 0, postorder.size() - 1, inorder, 0, inorder.size() - 1, inMap);
-}
+//     return buildTreePostIn(postorder, 0, postorder.size() - 1, inorder, 0, inorder.size() - 1, inMap);
+// }
 
-// Helper function to print the tree in inorder traversal
-void printInorder(Node* root) {
-    if (!root) return;
-    printInorder(root->left);
-    cout << root->val << " ";
-    printInorder(root->right);
-}
+// // Helper function to print the tree in inorder traversal
+// void printInorder(Node* root) {
+//     if (!root) return;
+//     printInorder(root->left);
+//     cout << root->val << " ";
+//     printInorder(root->right);
+// }
 
-int main() {
-    vector<int> inorder = {9, 3, 15, 20, 7};
-    vector<int> postorder = {9, 15, 7, 20, 3};
+// int main() {
+//     vector<int> inorder = {9, 3, 15, 20, 7};
+//     vector<int> postorder = {9, 15, 7, 20, 3};
 
-    Node* root = buildTree(postorder, inorder);
+//     Node* root = buildTree(postorder, inorder);
 
-    cout << "Inorder traversal of the constructed tree: ";
-    printInorder(root);
+//     cout << "Inorder traversal of the constructed tree: ";
+//     printInorder(root);
 
-    return 0;
-}
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------------   

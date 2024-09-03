@@ -203,73 +203,121 @@
 // --------------------------------------------------------------------------------------------------------------
 
 // Q: add element before given element?
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(NULL) {};
+//     Node(int v, Node* n) : val(v), next(n) {};
+// };
+
+// Node *convert_it(vector<int> arr) {
+//     if (arr.empty())
+//         return NULL;
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++) {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     }
+//     return head;
+// }
+
+// Node *add_number(Node *head, int el, int val) {
+//     // If the list is empty, just return a new node with the element
+//     if (head == NULL) {
+//         return new Node(el);
+//     }
+
+//     // If the head needs to be the new element, handle it separately
+//     if (head->val == val) {
+//         return new Node(el, head);
+//     }
+
+//     Node *temp = head;
+//     while (temp->next != NULL) {
+//         if (temp->next->val == val) {
+//             Node *newNode = new Node(el, temp->next);
+//             temp->next = newNode;
+//             return head;
+//         }
+//         temp = temp->next;
+//     }
+
+//     // If the value is not found, add to the end of the list
+//     temp->next = new Node(el);
+
+//     return head;
+// }
+
+// void print(Node *head) {
+//     Node *curr = head;
+//     while (curr != NULL) {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main() {
+//     vector<int> arr = {1, 2, 3, 4, 6};
+//     Node *convert = convert_it(arr);
+//     print(convert);
+
+//     // Insert 5 before 6
+//     Node *ans = add_number(convert, 5, 6);
+//     print(ans);
+
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------------------------
+
+// Q: Find the head of the linklist?
+
 #include <bits/stdc++.h>
 using namespace std;
 
-class Node {
+class Node
+{
 public:
     int val;
     Node *next;
     Node(int v) : val(v), next(NULL) {};
-    Node(int v, Node* n) : val(v), next(n) {};
+    Node(int v, Node *n) : val(v), next(n) {} // Added constructor for `insert_head`
 };
 
-Node *convert_it(vector<int> arr) {
+Node *convert_it(vector<int> arr)
+{
     if (arr.empty())
         return NULL;
-    Node *head = new Node(arr[0]);
-    Node *curr = head;
-    for (int i = 1; i < arr.size(); i++) {
-        curr->next = new Node(arr[i]);
-        curr = curr->next;
+
+    Node* head = new Node(arr[0]);
+    Node* nextNode = head;
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        Node* temp = new Node(arr[i]);
+        nextNode->next = temp;
+        nextNode = temp;
     }
     return head;
+    
 }
 
-Node *add_number(Node *head, int el, int val) {
-    // If the list is empty, just return a new node with the element
-    if (head == NULL) {
-        return new Node(el);
+int main()
+{
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    Node* head = convert_it(arr);
+    // cout << head->val;
+
+    while (head)
+    {
+        cout << head->val << "->" << " ";
+        head = head->next;
     }
-
-    // If the head needs to be the new element, handle it separately
-    if (head->val == val) {
-        return new Node(el, head);
-    }
-
-    Node *temp = head;
-    while (temp->next != NULL) {
-        if (temp->next->val == val) {
-            Node *newNode = new Node(el, temp->next);
-            temp->next = newNode;
-            return head;
-        }
-        temp = temp->next;
-    }
-
-    // If the value is not found, add to the end of the list
-    temp->next = new Node(el);
-
-    return head;
-}
-
-void print(Node *head) {
-    Node *curr = head;
-    while (curr != NULL) {
-        cout << curr->val << "->";
-        curr = curr->next;
-    }
-    cout << "null" << endl;
-}
-
-int main() {
-    vector<int> arr = {1, 2, 3, 4, 6};
-    Node *convert = convert_it(arr);
-    print(convert);
-
-    // Insert 5 before 6
-    Node *ans = add_number(convert, 5, 6);
-    print(ans);
-
-    return 0;
+    
 }

@@ -393,61 +393,125 @@
 
 // Q: Insert value before head in linklist ?
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-class Node
-{
-public:
-    int val;
-    Node *next;
-    Node(int v) : val(v), next(NULL) {};
-};
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(NULL) {};
+// };
 
-// Convert a vector into a linked list
-Node *convert_it(vector<int> arr)
-{
-    Node *head = new Node(arr[0]);
-    Node *curr = head;
+// // Convert a vector into a linked list
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
 
-    for (int i = 1; i < arr.size(); i++)
-    {
-        curr->next = new Node(arr[i]);
-        curr = curr->next;
-    }
-    return head;
-}
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     }
+//     return head;
+// }
 
-// Insert a value before the head
-Node* insert_before_head(Node *head, int new_val){
-    Node* new_head = new Node(new_val);  // Create new node with the new value
-    new_head->next = head;               // Point the new node's next to the current head
-    return new_head;                     // Return the new head
-}
+// // Insert a value before the head
+// Node* insert_before_head(Node *head, int new_val){
+//     Node* new_head = new Node(new_val);  // Create new node with the new value
+//     new_head->next = head;               // Point the new node's next to the current head
+//     return new_head;                     // Return the new head
+// }
 
-// Function to print the linked list
-void print(Node *head)
-{
-    Node *curr = head;
-    while (curr != NULL)
-    {
-        cout << curr->val << "->";
-        curr = curr->next;
-    }
-    cout << "null" << endl;
-}
+// // Function to print the linked list
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
 
-int main()
-{
-    vector<int> arr = {1, 2, 3, 4, 5, 6};
-    Node *convert = convert_it(arr);
-    cout << "before adding \n";
-    // Inserting 0 before the head of the list
-    print(convert);
-    convert = insert_before_head(convert, 0);
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *convert = convert_it(arr);
+//     cout << "before adding \n";
+//     // Inserting 0 before the head of the list
+//     print(convert);
+//     convert = insert_before_head(convert, 0);
 
-    cout << "after adding \n";
-    // Print the updated list
-    print(convert);
-    return 0;
-}
+//     cout << "after adding \n";
+//     // Print the updated list
+//     print(convert);
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------------------
+
+// Q: Add the element in the last of the linklist?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(nullptr) {};
+// };
+
+// Node* convert_it(vector<int> arr){
+//     Node* head = new Node(arr[0]);
+//     Node* curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     };
+//     return head;
+// }
+
+// void print(Node* head){
+//     Node* curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr=curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node* add_in_last(Node* head, int x){
+//     Node* last_elm = new Node(x);
+    
+//     if (head == nullptr) {
+//         // If the list is empty, make the new node the head
+//         return last_elm;
+//     }
+
+//     Node* curr = head;
+//     while (curr->next != nullptr) {   // Traverse to the last node
+//         curr = curr->next;
+//     }
+//     curr->next = last_elm;  // Add the new node at the end
+    
+//     return head;  // Return the head of the list
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node* convert = convert_it(arr);
+//     cout << "Before Adding \n";
+//     print(convert);
+//     add_in_last(convert, 7);
+//     cout << "After Adding \n";
+//     print(convert);
+// }

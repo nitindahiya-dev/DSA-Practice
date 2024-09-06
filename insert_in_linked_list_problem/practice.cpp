@@ -490,7 +490,7 @@
 
 // Node* add_in_last(Node* head, int x){
 //     Node* last_elm = new Node(x);
-    
+
 //     if (head == nullptr) {
 //         // If the list is empty, make the new node the head
 //         return last_elm;
@@ -501,7 +501,7 @@
 //         curr = curr->next;
 //     }
 //     curr->next = last_elm;  // Add the new node at the end
-    
+
 //     return head;  // Return the head of the list
 // }
 
@@ -515,3 +515,151 @@
 //     cout << "After Adding \n";
 //     print(convert);
 // }
+
+// --------------------------------------------------------------------------------------------------------
+
+// Q: Convert the array into linklist and then replace it one Node ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node(int v) : val(v), next(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         curr->next = new Node(arr[i]);
+//         curr = curr->next;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+
+//     cout << "null" << endl;
+// }
+// // Replace the value of a specific node in the linked list
+// Node *replace_it(Node *head, int place, int num)
+// {
+//     Node *curr = head;
+//     int count = 1;
+
+//     while (curr != NULL)
+//     {
+//         if (count == place) // When at the specified position
+//         {
+//             curr->val = num; // Replace the value of the node
+//             break;
+//         }
+//         count++;
+//         curr = curr->next; // Progress through the list
+//     }
+//     return head; // Return the updated head
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *convert = convert_it(arr);
+//     print(convert);
+//     replace_it(convert, 3, 10);
+//     print(convert);
+// }
+
+// -----------------------------------------------------------------------------------------------------------
+
+// Q: Insert element in linkList?
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    int val;
+    Node *next;
+    Node(int v) : val(v), next(nullptr) {}
+};
+
+Node *convert_it(vector<int> arr)
+{
+    Node *head = new Node(arr[0]);
+    Node *curr = head;
+    for (int i = 1; i < arr.size(); i++)
+    {
+        curr->next = new Node(arr[i]);
+        curr = curr->next;
+    }
+    return head;
+}
+
+void print(Node *head)
+{
+    Node *curr = head;
+    while (curr != NULL)
+    {
+        cout << curr->val << "->";
+        curr = curr->next;
+    }
+    cout << "null" << endl;
+}
+
+// Insert a new node at a specific position in the linked list
+Node *add_el(Node *head, int num, int place)
+{
+    if (place == 1) // Special case to insert before the head
+    {
+        Node *new_head = new Node(num);
+        new_head->next = head;
+        return new_head;
+    }
+
+    Node *curr = head;
+    int count = 1;
+
+    // Traverse to the node before the insertion point
+    while (curr != NULL && count < place - 1)
+    {
+        curr = curr->next;
+        count++;
+    }
+
+    if (curr == NULL) {
+        cout << "Position out of range." << endl;
+        return head;
+    }
+
+    // Insert new node after `curr`
+    Node *new_node = new Node(num);
+    new_node->next = curr->next;
+    curr->next = new_node;
+
+    return head;
+}
+
+int main()
+{
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    Node *convert = convert_it(arr);
+    print(convert);
+
+    add_el(convert, 15, 3);
+    print(convert);
+}

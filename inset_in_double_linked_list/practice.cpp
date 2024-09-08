@@ -404,63 +404,216 @@
 
 // -----------------------------------------------------------------------------------------------------------
 
-// Q: Adding element in double LinkList?
+// Q: Adding element on head in double LinkList?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node{
+// public:
+//     int val;
+//     Node* next;
+//     Node* back;
+//     Node(int v): val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node* convert(vector<int> arr) {
+//     if (arr.empty()) return nullptr;  // Handle empty input
+
+//     Node* head = new Node(arr[0]);
+//     Node* curr = head;
+
+//     for (int i = 1; i < arr.size(); i++) {
+//         Node* newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+
+//     return head;
+// }
+
+// void print(Node* head) {
+//     Node* curr = head;
+//     while (curr != nullptr) {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node* add_new_head(Node* head, int x) {
+//     Node* newHead = new Node(x);   // Create new node as the new head
+//     newHead->next = head;          // Set the next pointer of the new head to the old head
+
+//     if (head != nullptr) {         // If the old head exists, set its back pointer
+//         head->back = newHead;
+//     }
+
+//     return newHead;  // Return the new head, since it is now the start of the list
+// }
+
+// int main() {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node* dll = convert(arr);
+//     cout << "Original list: " << endl;
+//     print(dll);
+
+//     dll = add_new_head(dll, 10);  // Update head to the new head
+//     cout << "After adding new head: " << endl;
+//     print(dll);
+
+//     return 0;
+// }
+
+// ---------------------------------------------------------------------------------------------------------
+
+// Q: Add element in the last in double linkList?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {};
+// };
+
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *new_elm = new Node(arr[i]);
+//         curr->next = new_elm;
+//         new_elm->back = curr;
+//         curr = new_elm;
+//     }
+//     return head;
+// }
+
+// Node *add_el(Node *head, int x)
+// {
+//     Node *curr = head;
+
+//     while (curr != nullptr)
+//     {
+//         if (curr->next == NULL)
+//         {
+//             Node *newNode = new Node(x);
+//             newNode->back = curr;
+//             curr->next = newNode;
+//             curr = newNode;
+//         }
+//         curr = curr->next;
+//     }
+//     return curr;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *ans = convert(arr);
+//     cout << "Before Addition";
+//     print(ans);
+//     cout << "After Addition";
+//     add_el(ans, 100);
+//     print(ans);
+// }
+
+// --------------------------------------------------------------------------------------------------------
+
+// Q: Delete the last element of the double linklist?
+
 #include <bits/stdc++.h>
 using namespace std;
 
-class Node{
+class Node
+{
 public:
     int val;
-    Node* next;
-    Node* back;
-    Node(int v): val(v), next(nullptr), back(nullptr) {}
+    Node *next;
+    Node *back;
+    Node(int v) : val(v), next(nullptr), back(nullptr) {}
 };
 
-Node* convert(vector<int> arr) {
-    if (arr.empty()) return nullptr;  // Handle empty input
+// Function to convert an array to a doubly linked list
+Node *convert(vector<int> arr)
+{
+    if (arr.empty()) return nullptr;  // Handle empty array case
 
-    Node* head = new Node(arr[0]);
-    Node* curr = head;
+    Node *head = new Node(arr[0]);    // Initialize the head node
+    Node *curr = head;
 
-    for (int i = 1; i < arr.size(); i++) {
-        Node* newNode = new Node(arr[i]);
-        curr->next = newNode;
-        newNode->back = curr;
-        curr = newNode;
+    for (int i = 1; i < arr.size(); i++)
+    {
+        Node *new_node = new Node(arr[i]);
+        curr->next = new_node;
+        new_node->back = curr;
+        curr = new_node;
     }
-
     return head;
 }
 
-void print(Node* head) {
+// Function to remove the last element from the doubly linked list
+Node* remove_last(Node* head) {
+    if (head == nullptr || head->next == nullptr) return nullptr;  
     Node* curr = head;
-    while (curr != nullptr) {
+    
+    // Traverse to the last node
+    while (curr->next != nullptr) {
+        curr = curr->next;
+    }
+
+    // Now, curr is the last node, delete it
+    curr->back->next = nullptr;  // Set second-to-last node's next to nullptr
+    delete curr;
+
+    return head;  // Return the updated head
+}
+
+// Function to print the doubly linked list
+void print(Node *head)
+{
+    Node *curr = head;
+    while (curr != nullptr)
+    {
         cout << curr->val << "->";
         curr = curr->next;
     }
     cout << "null" << endl;
 }
 
-Node* add_new_head(Node* head, int x) {
-    Node* newHead = new Node(x);   // Create new node as the new head
-    newHead->next = head;          // Set the next pointer of the new head to the old head
+int main()
+{
+    vector<int> arr = {1, 2, 3, 4, 5, 6};  // Example array
+    Node *dll = convert(arr);               // Convert array to doubly linked list
 
-    if (head != nullptr) {         // If the old head exists, set its back pointer
-        head->back = newHead;
-    }
-
-    return newHead;  // Return the new head, since it is now the start of the list
-}
-
-int main() {
-    vector<int> arr = {1, 2, 3, 4, 5, 6};
-    Node* dll = convert(arr);
-    cout << "Original list: " << endl;
+    cout << "Before Removal" << endl;
     print(dll);
 
-    dll = add_new_head(dll, 10);  // Update head to the new head
-    cout << "After adding new head: " << endl;
-    print(dll);
+    dll = remove_last(dll);  // Remove the last element
 
-    return 0;
+    cout << "After Removal" << endl;
+    print(dll);  // Print the list after removal
 }
+
+
+// Add, remove at any number, replace any number;
+// before and after head, tail and any number;

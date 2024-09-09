@@ -541,6 +541,206 @@
 
 // Q: Delete the last element of the double linklist?
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// // Function to convert an array to a doubly linked list
+// Node *convert(vector<int> arr)
+// {
+//     if (arr.empty()) return nullptr;  // Handle empty array case
+
+//     Node *head = new Node(arr[0]);    // Initialize the head node
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *new_node = new Node(arr[i]);
+//         curr->next = new_node;
+//         new_node->back = curr;
+//         curr = new_node;
+//     }
+//     return head;
+// }
+
+// // Function to remove the last element from the doubly linked list
+// Node* remove_last(Node* head) {
+//     if (head == nullptr || head->next == nullptr) return nullptr;
+//     Node* curr = head;
+
+//     // Traverse to the last node
+//     while (curr->next != nullptr) {
+//         curr = curr->next;
+//     }
+
+//     // Now, curr is the last node, delete it
+//     curr->back->next = nullptr;  // Set second-to-last node's next to nullptr
+//     delete curr;
+
+//     return head;  // Return the updated head
+// }
+
+// // Function to print the doubly linked list
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != nullptr)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};  // Example array
+//     Node *dll = convert(arr);               // Convert array to doubly linked list
+
+//     cout << "Before Removal" << endl;
+//     print(dll);
+
+//     dll = remove_last(dll);  // Remove the last element
+
+//     cout << "After Removal" << endl;
+//     print(dll);  // Print the list after removal
+// }
+
+// Q: Add and remove any element from double double linkList ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {};
+// };
+
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// Node *add_el(Node *head, int el, int place)
+// {
+//     Node *curr = head;
+//     Node *newNode = new Node(el);
+//     int count = 0;
+
+//     if (place == 0)
+//     {
+//         newNode->next = head;
+//         head->back = newNode;
+//         head = newNode;
+//         return head;
+//     }
+
+//     while (curr != NULL && count < place - 1)
+//     {
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     if (curr != NULL)
+//     {
+//         newNode->next = curr->next;
+//         newNode->back = curr;
+
+//         if (curr->next != NULL)
+//         {
+//             curr->next->back = newNode;
+//         }
+//         curr->next = newNode;
+//     }
+
+//     return head;
+// }
+
+// Node *remove_el(Node *head, int place)
+// {
+//     if (place == 0) {
+//         // Special case for removing the head
+//         Node *temp = head;
+//         head = head->next;
+//         if (head != NULL) {
+//             head->back = NULL;
+//         }
+//         delete temp;
+//         return head;
+//     }
+
+//     Node *curr = head;
+//     int count = 0;
+
+//     // Traverse the list to find the element at the given position
+//     while (curr != NULL && count < place) {
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     if (curr != NULL) {
+//         // Update the links of neighboring nodes
+//         if (curr->back != NULL) {
+//             curr->back->next = curr->next;
+//         }
+//         if (curr->next != NULL) {
+//             curr->next->back = curr->back;
+//         }
+//         delete curr;
+//     }
+
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *ans = convert(arr);
+//     cout << "before Addition" << endl;
+//     print(ans);
+//     cout << "After Addition" << endl;
+//     add_el(ans, 100, 3);
+//     print(ans);
+//     cout << "After Removal" << endl;
+//     remove_el(ans, 3);
+//     print(ans);
+// }
+
+// -------------------------------------------------------------------------------------------------------------------------------
+
+// Q: Add and remove before and after head ?
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -550,49 +750,27 @@ public:
     int val;
     Node *next;
     Node *back;
-    Node(int v) : val(v), next(nullptr), back(nullptr) {}
+    Node(int v) : val(v), next(nullptr), back(nullptr) {};
 };
 
-// Function to convert an array to a doubly linked list
 Node *convert(vector<int> arr)
 {
-    if (arr.empty()) return nullptr;  // Handle empty array case
-
-    Node *head = new Node(arr[0]);    // Initialize the head node
+    Node *head = new Node(arr[0]);
     Node *curr = head;
-
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *new_node = new Node(arr[i]);
-        curr->next = new_node;
-        new_node->back = curr;
-        curr = new_node;
+        Node *newNode = new Node(arr[i]);
+        curr->next = newNode;
+        newNode->back = curr;
+        curr = newNode;
     }
     return head;
 }
 
-// Function to remove the last element from the doubly linked list
-Node* remove_last(Node* head) {
-    if (head == nullptr || head->next == nullptr) return nullptr;  
-    Node* curr = head;
-    
-    // Traverse to the last node
-    while (curr->next != nullptr) {
-        curr = curr->next;
-    }
-
-    // Now, curr is the last node, delete it
-    curr->back->next = nullptr;  // Set second-to-last node's next to nullptr
-    delete curr;
-
-    return head;  // Return the updated head
-}
-
-// Function to print the doubly linked list
 void print(Node *head)
 {
     Node *curr = head;
-    while (curr != nullptr)
+    while (curr != NULL)
     {
         cout << curr->val << "->";
         curr = curr->next;
@@ -600,20 +778,44 @@ void print(Node *head)
     cout << "null" << endl;
 }
 
-int main()
+Node *add_before_head(Node *head, int el)
 {
-    vector<int> arr = {1, 2, 3, 4, 5, 6};  // Example array
-    Node *dll = convert(arr);               // Convert array to doubly linked list
-
-    cout << "Before Removal" << endl;
-    print(dll);
-
-    dll = remove_last(dll);  // Remove the last element
-
-    cout << "After Removal" << endl;
-    print(dll);  // Print the list after removal
+    Node *newNode = new Node(el);
+    newNode->next = head;
+    head->back = newNode;
+    head = newNode;
+    return head;
 }
 
+Node *add_after_tail(Node *head, int el)
+{
+    Node *curr = head;
+    Node *elm = new Node(el);
+    while (curr->next != NULL)
+    {
+        curr= curr->next;
+    }
+        curr->next = elm;
+        elm->back = curr;
+        elm->next = nullptr;
+    
+    
+    return head;
+}
+
+int main()
+{
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    Node *ans = convert(arr);
+    cout << "before doing anything: ";
+    print(ans);
+    ans = add_before_head(ans, 10);
+    cout << "after adding element before head: ";
+    print(ans);
+    ans = add_after_tail(ans, 10);
+    cout << "after add element after tail: ";
+    print(ans);
+}
 
 // Add, remove at any number, replace any number;
 // before and after head, tail and any number;

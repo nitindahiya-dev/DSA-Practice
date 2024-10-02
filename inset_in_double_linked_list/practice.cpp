@@ -741,16 +741,195 @@
 // -------------------------------------------------------------------------------------------------------------------------------
 
 // Q: Add and remove before and after head ?
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int val;
+//     Node *next;
+//     Node *back;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {};
+// };
+
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node *add_before_head(Node *head, int el)
+// {
+//     Node *newNode = new Node(el);
+//     newNode->next = head;
+//     head->back = newNode;
+//     head = newNode;
+//     return head;
+// }
+
+// Node *add_after_tail(Node *head, int el)
+// {
+//     Node *curr = head;
+//     Node *elm = new Node(el);
+//     while (curr->next != NULL)
+//     {
+//         curr = curr->next;
+//     }
+//     curr->next = elm;
+//     elm->back = curr;
+//     elm->next = nullptr;
+
+//     return head;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *ans = convert(arr);
+//     cout << "before doing anything: ";
+//     print(ans);
+//     ans = add_before_head(ans, 10);
+//     cout << "after adding element before head: ";
+//     print(ans);
+//     ans = add_after_tail(ans, 10);
+//     cout << "after add element after tail: ";
+//     print(ans);
+// }
+
+// --------------------------------------------------------------------------------------------------------
+
+// Add, remove at any number, replace any number;
+// before and after head, tail and any number;
+
+// ==> Insert before any number [][][][][]....!!!
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {};
+// };
+
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *new_Node = new Node(arr[i]);
+//         curr->next = new_Node;
+//         new_Node->back = curr;
+//         curr = new_Node;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << "->";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node *insert_before_given_num(Node *head, int position, int num)
+// {
+//     // Case 1: Inserting before the head
+//     if (position == 0)
+//     {
+//         Node *new_Node = new Node(num);
+//         new_Node->next = head;
+//         head->back = new_Node;
+//         return new_Node; // The new node becomes the new head
+//     }
+
+//     Node *curr = head;
+//     int count = 0;
+
+//     while (curr != NULL)
+//     {
+//         if (count == position)
+//         {
+//             // Create the new node
+//             Node *new_Node = new Node(num);
+
+//             // Adjust pointers
+//             new_Node->next = curr;
+//             new_Node->back = curr->back;
+
+//             // Update the previous node's next pointer
+//             if (curr->back != NULL)
+//             {
+//                 curr->back->next = new_Node;
+//             }
+
+//             // Update the current node's back pointer
+//             curr->back = new_Node;
+
+//             return head;
+//         }
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     return head; // If position is greater than list size, no change
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *res = convert(arr);
+//     cout << "Before doing anything" << endl;
+//     print(res);
+
+//     res = insert_before_given_num(res, 3, 19); // Insert 19 before the 2nd node
+//     cout << "After doing something" << endl;
+//     print(res);
+// }
+
+// --------------------------------------------------------------------------------------------------------
+
+// Insert After Any number...
+
 #include <bits/stdc++.h>
 using namespace std;
 
 class Node
 {
 public:
-    int val;
     Node *next;
     Node *back;
-    Node(int v) : val(v), next(nullptr), back(nullptr) {};
+    int val;
+    Node(int v) : val(v), back(nullptr), next(nullptr) {};
 };
 
 Node *convert(vector<int> arr)
@@ -772,50 +951,49 @@ void print(Node *head)
     Node *curr = head;
     while (curr != NULL)
     {
-        cout << curr->val << "->";
+        cout << curr->val << " -> ";
         curr = curr->next;
     }
     cout << "null" << endl;
 }
 
-Node *add_before_head(Node *head, int el)
-{
-    Node *newNode = new Node(el);
-    newNode->next = head;
-    head->back = newNode;
-    head = newNode;
-    return head;
-}
-
-Node *add_after_tail(Node *head, int el)
+Node *insert_after_any_number(Node *head, int position, int val)
 {
     Node *curr = head;
-    Node *elm = new Node(el);
-    while (curr->next != NULL)
+    int count = 0;
+
+    while (curr != NULL)
     {
-        curr= curr->next;
+        if (count == position)
+        {
+            Node *newNode = new Node(val);
+            newNode->next = curr->next;  // New node points to the next node of current
+            newNode->back = curr;        // New node points back to current node
+            
+            if (curr->next != NULL)      // If current node's next is not NULL, update the next node's back pointer
+            {
+                curr->next->back = newNode;
+            }
+            
+            curr->next = newNode;        // Current node points to the new node
+            return head;                 // Return as insertion is done
+        }
+
+        curr = curr->next;
+        count++;
     }
-        curr->next = elm;
-        elm->back = curr;
-        elm->next = nullptr;
-    
-    
-    return head;
+
+    return head;  // If position is out of bounds, return the unchanged list
 }
 
 int main()
 {
     vector<int> arr = {1, 2, 3, 4, 5, 6};
-    Node *ans = convert(arr);
-    cout << "before doing anything: ";
-    print(ans);
-    ans = add_before_head(ans, 10);
-    cout << "after adding element before head: ";
-    print(ans);
-    ans = add_after_tail(ans, 10);
-    cout << "after add element after tail: ";
-    print(ans);
-}
+    Node *res = convert(arr);
+    cout << "Before Doing Anything" << endl;
+    print(res);
 
-// Add, remove at any number, replace any number;
-// before and after head, tail and any number;
+    cout << "Before Doing Anything" << endl;
+    insert_after_any_number(res, 0, 19);
+    print(res);
+}

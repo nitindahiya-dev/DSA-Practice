@@ -920,80 +920,291 @@
 
 // Insert After Any number...
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-class Node
-{
-public:
-    Node *next;
-    Node *back;
-    int val;
-    Node(int v) : val(v), back(nullptr), next(nullptr) {};
-};
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), back(nullptr), next(nullptr) {};
+// };
 
-Node *convert(vector<int> arr)
-{
-    Node *head = new Node(arr[0]);
-    Node *curr = head;
-    for (int i = 1; i < arr.size(); i++)
-    {
-        Node *newNode = new Node(arr[i]);
-        curr->next = newNode;
-        newNode->back = curr;
-        curr = newNode;
-    }
-    return head;
-}
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
 
-void print(Node *head)
-{
-    Node *curr = head;
-    while (curr != NULL)
-    {
-        cout << curr->val << " -> ";
-        curr = curr->next;
-    }
-    cout << "null" << endl;
-}
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " -> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
 
-Node *insert_after_any_number(Node *head, int position, int val)
-{
-    Node *curr = head;
-    int count = 0;
+// Node *insert_after_any_number(Node *head, int position, int val)
+// {
+//     Node *curr = head;
+//     int count = 0;
 
-    while (curr != NULL)
-    {
-        if (count == position)
-        {
-            Node *newNode = new Node(val);
-            newNode->next = curr->next;  // New node points to the next node of current
-            newNode->back = curr;        // New node points back to current node
-            
-            if (curr->next != NULL)      // If current node's next is not NULL, update the next node's back pointer
-            {
-                curr->next->back = newNode;
-            }
-            
-            curr->next = newNode;        // Current node points to the new node
-            return head;                 // Return as insertion is done
-        }
+//     while (curr != NULL)
+//     {
+//         if (count == position)
+//         {
+//             Node *newNode = new Node(val);
+//             newNode->next = curr->next;  // New node points to the next node of current
+//             newNode->back = curr;        // New node points back to current node
 
-        curr = curr->next;
-        count++;
-    }
+//             if (curr->next != NULL)      // If current node's next is not NULL, update the next node's back pointer
+//             {
+//                 curr->next->back = newNode;
+//             }
 
-    return head;  // If position is out of bounds, return the unchanged list
-}
+//             curr->next = newNode;        // Current node points to the new node
+//             return head;                 // Return as insertion is done
+//         }
 
-int main()
-{
-    vector<int> arr = {1, 2, 3, 4, 5, 6};
-    Node *res = convert(arr);
-    cout << "Before Doing Anything" << endl;
-    print(res);
+//         curr = curr->next;
+//         count++;
+//     }
 
-    cout << "Before Doing Anything" << endl;
-    insert_after_any_number(res, 0, 19);
-    print(res);
-}
+//     return head;  // If position is out of bounds, return the unchanged list
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *res = convert(arr);
+//     cout << "Before Doing Anything" << endl;
+//     print(res);
+
+//     cout << "Before Doing Anything" << endl;
+//     insert_after_any_number(res, 0, 19);
+//     print(res);
+// }
+
+// ----------------------------------------------------------------------------------------------------
+
+// Replace any number in Double LL
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// class Node{
+//     public:
+//     Node* next;
+//     Node* back;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr){};
+// };
+
+// Node* convert(vector<int> arr){
+//     Node* head = new Node(arr[0]);
+//     Node* curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node* newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node* head){
+//     Node* curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " -> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+
+// }
+// Node* replace_any_number(Node* head, int pos, int val){
+//     Node* curr = head;
+//     int count = 0;
+
+//     while (curr != NULL) {
+//         if (count == pos) {
+//             Node* newNode = new Node(val);
+
+//             // Update new node's pointers
+//             newNode->next = curr->next;
+//             newNode->back = curr->back;
+
+//             // Link the previous node to the new node (if not head)
+//             if (curr->back != NULL) {
+//                 curr->back->next = newNode;
+//             } else {
+//                 // If replacing the head node
+//                 head = newNode;
+//             }
+
+//             // Link the next node to the new node (if not tail)
+//             if (curr->next != NULL) {
+//                 curr->next->back = newNode;
+//             }
+
+//             // Free the old node (optional if needed)
+//             delete curr;
+
+//             return head;
+//         }
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     return head;
+// }
+
+// int main(){
+//     vector<int> arr = {1,2,3,4,5,6};
+//     Node *res = convert(arr);
+//     cout << "Before Replacing anything ";
+//     print(res);
+//     replace_any_number(res, 1, 19);
+//     cout << "After Replacing any number ";
+//     print(res);
+
+// }
+
+// -------------------------------------------------------------------------------------------------------
+
+// Replacing any node and then change it's next node/?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {};
+// };
+
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " -> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node *replace_num(Node *head, int pos, int num)
+// {
+//     Node *curr = head;
+//     int count = 0;
+
+//     while (curr != NULL)
+//     {
+//         if (count == pos)
+//         {
+//             Node *newNode = new Node(num);
+
+//             newNode->next = curr->next;
+//             newNode->back = curr->back;
+//             if (curr->back == NULL)
+//             {
+//                 head = newNode;
+//             }
+//             else
+//             {
+//                 curr->back->next = newNode;
+//             }
+//             if (curr->next == NULL)
+//             {
+//                 curr->next->back = newNode;
+//             }
+//             delete curr;
+//             return head;
+//         }
+
+//         curr = curr->next;
+//         count++;
+//     }
+//     return head;
+// }
+
+// Node *add_next_num(Node *head, int target, int num)
+// {
+//     Node *curr = head;
+//     int count = 0;
+
+//     while (curr != NULL)
+//     {
+//         if (curr->val == target)
+//         {
+//             Node *newNode = new Node(num);
+//             Node *nextNode = curr->next;
+//             curr->next = newNode;
+//             newNode->next = nextNode;
+//             if (nextNode != NULL)
+//             {
+//                 nextNode->back = newNode;
+//             }
+
+//             newNode->back = curr;
+//             curr = newNode;
+//             return head;
+//         }
+
+//         curr = curr->next;
+//         count++;
+//     }
+//     return head;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *res = convert(arr);
+//     cout << "Original LinkList ";
+//     print(res);
+//     replace_num(res, 2, 19);
+//     cout << "Replace element in LinkList ";
+//     print(res);
+//     add_next_num(res, 19, 99);
+//     cout << " After adding next element to LinkList ";
+//     print(res);
+// }
+
+
+//------------------------------------------------------------------------------------------------------
+
+// first replace any element...second add element before and after that element in double LL?

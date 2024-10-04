@@ -1204,7 +1204,250 @@
 //     print(res);
 // }
 
-
 //------------------------------------------------------------------------------------------------------
 
 // first replace any element...second add element before and after that element in double LL?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), back(nullptr), next(nullptr) {}
+// };
+
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         newNode->back = curr;
+//         curr->next = newNode;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node *replace_elm(Node *head, int pos, int num)
+// {
+//     Node *curr = head;
+//     int count = 0;
+
+//     while (curr != NULL) // Fixed condition here to correctly iterate through the list
+//     {
+//         if (count == pos)
+//         {
+//             Node *newNode = new Node(num);
+
+//             newNode->back = curr->back;
+//             newNode->next = curr->next;
+
+//             if (curr->back == NULL)
+//             {
+//                 head = newNode; // Update head if replacing the first node
+//             }
+//             else
+//             {
+//                 curr->back->next = newNode;
+//             }
+
+//             if (curr->next != NULL) // Fix: ensure curr->next is not null before accessing its pointers
+//             {
+//                 curr->next->back = newNode;
+//             }
+
+//             delete curr; // Safely delete the old node after adjusting pointers
+//             return head;
+//         }
+//         curr = curr->next;
+//         count++;
+//     }
+//     return head;
+// }
+
+// Node *add_before_that_elm(Node *head, int target, int num)
+// {
+//     Node *curr = head;
+
+//     while (curr != NULL)
+//     {
+//         if (curr->val == target)
+//         {
+//             Node *newNode = new Node(num);
+//             newNode->next = curr;
+//             newNode->back = curr->back;
+
+//             if (curr->back != NULL)
+//             {
+//                 curr->back->next = newNode;
+//             }
+//             else
+//             {
+//                 head = newNode; // Update head if new node is inserted at the front
+//             }
+
+//             curr->back = newNode;
+//             return head;
+//         }
+//         curr = curr->next;
+//     }
+
+//     return head;
+// }
+
+// Node *add_after_that_elm(Node *head, int target, int num)
+// {
+//     Node *curr = head;
+
+//     while (curr != NULL)
+//     {
+//         if (curr->val == target)
+//         {
+//             Node *newNode = new Node(num);
+//             newNode->back = curr;
+//             newNode->next = curr->next;
+
+//             if (curr->next != NULL)
+//             {
+//                 curr->next->back = newNode;
+//             }
+
+//             curr->next = newNode;
+//             return head;
+//         }
+//         curr = curr->next;
+//     }
+
+//     return head;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *res = convert(arr);
+//     cout << "Before Doing AnyThing : ";
+//     print(res);
+
+//     res = replace_elm(res, 2, 19); // Ensure to assign the result back to 'res'
+//     cout << "After Replacing Any Elm : ";
+//     print(res);
+
+//     res = add_before_that_elm(res, 19, 99); // Ensure to assign the result back to 'res'
+//     cout << "Adding before that elm : ";
+//     print(res);
+
+//     res = add_after_that_elm(res, 19, 999); // Ensure to assign the result back to 'res'
+//     cout << "Adding after that elm : ";
+//     print(res);
+// }
+
+// --------------------------------------------------------------------------------------------------------
+
+// Find Elm and Replace it from the back ?
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    Node *next;
+    Node *back;
+    int val;
+    Node(int v) : val(v), back(nullptr), next(nullptr) {}
+};
+
+// Function to convert array to doubly linked list
+Node *convert(vector<int> arr)
+{
+    Node *head = new Node(arr[0]);
+    Node *curr = head;
+    for (int i = 1; i < arr.size(); i++)
+    {
+        Node *newNode = new Node(arr[i]);
+        newNode->back = curr;
+        curr->next = newNode;
+        curr = newNode;
+    }
+    return head;
+}
+
+// Function to print the doubly linked list
+void print(Node *head)
+{
+    Node *curr = head;
+    while (curr != NULL)
+    {
+        cout << curr->val << " <-> ";
+        curr = curr->next;
+    }
+    cout << "null" << endl;
+}
+
+// Function to find the element pos positions from the last
+int find_elm_from_last(Node *head, int pos)
+{
+    Node *curr = head;
+
+    // Traverse to the last node
+    while (curr->next != NULL)
+    {
+        curr = curr->next;
+    }
+
+    // Backtrack by pos positions
+    for (int i = 0; i < pos; i++)
+    {
+        if (curr->back == NULL) {
+            // If we try to backtrack past the head, return an error code
+            cout << "Position exceeds the length of the list." << endl;
+            return -1;
+        }
+        curr = curr->back;
+    }
+
+    // Return the value at the desired position
+    return curr->val;
+}
+
+int main()
+{
+    vector<int> arr = {1, 22, 3, 4, 5, 6};  // Doubly linked list: 1 <-> 22 <-> 3 <-> 4 <-> 5 <-> 6
+    Node *res = convert(arr);
+
+    cout << "Original DLL : ";
+    print(res);
+
+    int pos = 2;  // Find the 2nd element from the last
+    int result = find_elm_from_last(res, pos);
+    
+    if (result != -1)
+    {
+        cout << "Element " << pos << " positions from the last is: " << result << endl;
+    }
+
+    return 0;
+}
+
+
+// --------------------------------------------------------------------------------------------------------
+// Reverse the DLL ?
+
+// --------------------------------------------------------------------------------------------------------
+// Replace any number less than given number ?

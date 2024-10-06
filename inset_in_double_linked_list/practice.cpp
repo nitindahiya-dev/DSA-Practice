@@ -1361,93 +1361,290 @@
 // --------------------------------------------------------------------------------------------------------
 
 // Find Elm and Replace it from the back ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), back(nullptr), next(nullptr) {}
+// };
+
+// // Function to convert array to doubly linked list
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         newNode->back = curr;
+//         curr->next = newNode;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// // Function to print the doubly linked list
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// // Function to find the element pos positions from the last
+// int find_elm_from_last(Node *head, int pos)
+// {
+//     Node *curr = head;
+
+//     // Traverse to the last node
+//     while (curr->next != NULL)
+//     {
+//         curr = curr->next;
+//     }
+
+//     // Backtrack by pos positions
+//     for (int i = 0; i < pos; i++)
+//     {
+//         if (curr->back == NULL) {
+//             // If we try to backtrack past the head, return an error code
+//             cout << "Position exceeds the length of the list." << endl;
+//             return -1;
+//         }
+//         curr = curr->back;
+//     }
+
+//     // Return the value at the desired position
+//     return curr->val;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 22, 3, 4, 5, 6};  // Doubly linked list: 1 <-> 22 <-> 3 <-> 4 <-> 5 <-> 6
+//     Node *res = convert(arr);
+
+//     cout << "Original DLL : ";
+//     print(res);
+
+//     int pos = 2;  // Find the 2nd element from the last
+//     int result = find_elm_from_last(res, pos);
+
+//     if (result != -1)
+//     {
+//         cout << "Element " << pos << " positions from the last is: " << result << endl;
+//     }
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------------------
+// Reverse the DLL ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *back;
+//     Node *next;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {};
+// };
+
+// // Function to convert array into doubly linked list
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// // Function to print doubly linked list
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " -> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// // Function to reverse the doubly linked list
+// Node *reversed(Node *head)
+// {
+//     Node *curr = head;
+//     Node *prev = nullptr;
+
+//     // Traverse to the last node
+//     while (curr != NULL)
+//     {
+//         prev = curr;
+//         curr = curr->next;
+//     }
+
+//     // Start from the last node (prev) and reverse the pointers
+//     curr = prev; // Set curr to the last node
+
+//     while (curr != NULL)
+//     {
+//         // Swap next and back pointers for each node
+//         Node *temp = curr->next;
+//         curr->next = curr->back;
+//         curr->back = temp;
+
+//         // Move to the previous node
+//         curr = curr->next; // curr->next now points to the previous node in original order
+//     }
+
+//     // Return the new head, which is the last node of the original list
+//     return prev;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+
+//     // Convert array to doubly linked list
+//     Node *res = convert(arr);
+//     cout << "Original DLL: ";
+//     print(res);
+
+//     // Reverse the doubly linked list
+//     res = reversed(res);
+//     cout << "Reversed DLL: ";
+//     print(res);
+
+//     return 0;
+// }
+
+// --------------------------------------------------------------------------------------------------------
+// Replace any number less than given number ?
+
 #include <bits/stdc++.h>
 using namespace std;
 
 class Node
 {
 public:
-    Node *next;
     Node *back;
+    Node *next;
     int val;
-    Node(int v) : val(v), back(nullptr), next(nullptr) {}
+    Node(int v) : val(v), next(nullptr), back(nullptr) {};
 };
 
-// Function to convert array to doubly linked list
+// Function to convert array into doubly linked list
 Node *convert(vector<int> arr)
 {
     Node *head = new Node(arr[0]);
     Node *curr = head;
+
     for (int i = 1; i < arr.size(); i++)
     {
         Node *newNode = new Node(arr[i]);
-        newNode->back = curr;
         curr->next = newNode;
+        newNode->back = curr;
         curr = newNode;
     }
     return head;
 }
 
-// Function to print the doubly linked list
+// Function to print doubly linked list
 void print(Node *head)
 {
     Node *curr = head;
     while (curr != NULL)
     {
-        cout << curr->val << " <-> ";
+        cout << curr->val << " -> ";
         curr = curr->next;
     }
     cout << "null" << endl;
 }
 
-// Function to find the element pos positions from the last
-int find_elm_from_last(Node *head, int pos)
+Node *add_one(Node *head, int num)
 {
     Node *curr = head;
 
-    // Traverse to the last node
-    while (curr->next != NULL)
+    while (curr != NULL)
     {
+        if (curr->val < num)
+        {
+            curr->val = curr->val + 1;
+        }
         curr = curr->next;
     }
+    return head;
+}
 
-    // Backtrack by pos positions
-    for (int i = 0; i < pos; i++)
+Node *replace_it(Node *head, int num)
+{
+    Node *curr = head;
+
+    while (curr != NULL)
     {
-        if (curr->back == NULL) {
-            // If we try to backtrack past the head, return an error code
-            cout << "Position exceeds the length of the list." << endl;
-            return -1;
-        }
-        curr = curr->back;
-    }
+        if (curr->val == num)
+        {
+            Node *newNode = new Node(3);
+            newNode->next = curr->next;
+            newNode->back = curr->back;
 
-    // Return the value at the desired position
-    return curr->val;
+
+            if(curr->back != NULL){
+                curr->back->next = newNode;
+            } else {
+                head = newNode;
+            }
+
+            if( curr->next != NULL){
+                curr->next->back = newNode;
+            }
+
+        delete curr;
+        return head;
+        }
+        curr = curr->next;
+    }
+    return head;
 }
 
 int main()
 {
-    vector<int> arr = {1, 22, 3, 4, 5, 6};  // Doubly linked list: 1 <-> 22 <-> 3 <-> 4 <-> 5 <-> 6
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
     Node *res = convert(arr);
 
-    cout << "Original DLL : ";
+    cout << " Original DLL ";
     print(res);
 
-    int pos = 2;  // Find the 2nd element from the last
-    int result = find_elm_from_last(res, pos);
-    
-    if (result != -1)
-    {
-        cout << "Element " << pos << " positions from the last is: " << result << endl;
-    }
+    cout << " Add one to DLL ";
+    add_one(res, 3);
+    print(res);
 
-    return 0;
+    cout << " Replace it in DLL ";
+    replace_it(res, 4);
+    print(res);
+
+    
 }
 
+// ---------------------------------------------------------------------------------------------
 
-// --------------------------------------------------------------------------------------------------------
-// Reverse the DLL ?
-
-// --------------------------------------------------------------------------------------------------------
-// Replace any number less than given number ?
+// Merge two LL and add one LL to it..+ different operations +remove duplicate + add before and after

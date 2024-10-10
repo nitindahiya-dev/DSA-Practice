@@ -1540,111 +1540,235 @@
 // --------------------------------------------------------------------------------------------------------
 // Replace any number less than given number ?
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-class Node
-{
-public:
-    Node *back;
-    Node *next;
-    int val;
-    Node(int v) : val(v), next(nullptr), back(nullptr) {};
-};
+// class Node
+// {
+// public:
+//     Node *back;
+//     Node *next;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {};
+// };
 
 // Function to convert array into doubly linked list
-Node *convert(vector<int> arr)
-{
-    Node *head = new Node(arr[0]);
-    Node *curr = head;
 
-    for (int i = 1; i < arr.size(); i++)
-    {
-        Node *newNode = new Node(arr[i]);
-        curr->next = newNode;
-        newNode->back = curr;
-        curr = newNode;
-    }
-    return head;
-}
+// Node *convert(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
 
-// Function to print doubly linked list
-void print(Node *head)
-{
-    Node *curr = head;
-    while (curr != NULL)
-    {
-        cout << curr->val << " -> ";
-        curr = curr->next;
-    }
-    cout << "null" << endl;
-}
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
 
-Node *add_one(Node *head, int num)
-{
-    Node *curr = head;
+// // Function to print doubly linked list
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " -> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
 
-    while (curr != NULL)
-    {
-        if (curr->val < num)
-        {
-            curr->val = curr->val + 1;
-        }
-        curr = curr->next;
-    }
-    return head;
-}
+// Node *add_one(Node *head, int num)
+// {
+//     Node *curr = head;
 
-Node *replace_it(Node *head, int num)
-{
-    Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         if (curr->val < num)
+//         {
+//             curr->val = curr->val + 1;
+//         }
+//         curr = curr->next;
+//     }
+//     return head;
+// }
 
-    while (curr != NULL)
-    {
-        if (curr->val == num)
-        {
-            Node *newNode = new Node(3);
-            newNode->next = curr->next;
-            newNode->back = curr->back;
+// Node *replace_it(Node *head, int num)
+// {
+//     Node *curr = head;
 
+//     while (curr != NULL)
+//     {
+//         if (curr->val == num)
+//         {
+//             Node *newNode = new Node(3);
+//             newNode->next = curr->next;
+//             newNode->back = curr->back;
 
-            if(curr->back != NULL){
-                curr->back->next = newNode;
-            } else {
-                head = newNode;
-            }
+//             if(curr->back != NULL){
+//                 curr->back->next = newNode;
+//             } else {
+//                 head = newNode;
+//             }
 
-            if( curr->next != NULL){
-                curr->next->back = newNode;
-            }
+//             if( curr->next != NULL){
+//                 curr->next->back = newNode;
+//             }
 
-        delete curr;
-        return head;
-        }
-        curr = curr->next;
-    }
-    return head;
-}
+//         delete curr;
+//         return head;
+//         }
+//         curr = curr->next;
+//     }
+//     return head;
+// }
 
-int main()
-{
-    vector<int> arr = {1, 2, 3, 4, 5, 6};
-    Node *res = convert(arr);
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     Node *res = convert(arr);
 
-    cout << " Original DLL ";
-    print(res);
+//     cout << " Original DLL ";
+//     print(res);
 
-    cout << " Add one to DLL ";
-    add_one(res, 3);
-    print(res);
+//     cout << " Add one to DLL ";
+//     add_one(res, 3);
+//     print(res);
 
-    cout << " Replace it in DLL ";
-    replace_it(res, 4);
-    print(res);
+//     cout << " Replace it in DLL ";
+//     replace_it(res, 4);
+//     print(res);
 
-    
-}
+// }
 
 // ---------------------------------------------------------------------------------------------
 
 // Merge two LL and add one LL to it..+ different operations +remove duplicate + add before and after
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// // Definition of the Node class for the doubly linked list
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// // Function to convert a vector to a doubly linked list
+// Node *convert(const vector<int> &arr)
+// {
+//     if (arr.empty()) return nullptr; // Handle empty vector
+
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (size_t i = 1; i < arr.size(); ++i)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// // Function to print the doubly linked list
+// void printList(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != nullptr)
+//     {
+//         cout << curr->val;
+//         if (curr->next != nullptr)
+//             cout << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << " -> null" << endl;
+// }
+
+// // Function to merge two doubly linked lists
+// Node *mergeLL(Node *head1, Node *head2)
+// {
+//     if (!head1) return head2; // If first list is empty
+//     if (!head2) return head1; // If second list is empty
+
+//     Node *curr1 = head1;
+
+//     // Traverse to the end of the first list
+//     while (curr1->next != nullptr)
+//     {
+//         curr1 = curr1->next;
+//     }
+
+//     // Connect the end of the first list to the head of the second list
+//     curr1->next = head2;
+//     head2->back = curr1;
+
+//     return head1; // Return the head of the merged list
+// }
+
+// // Function to reverse a doubly linked list
+// Node *reverseList(Node *head)
+// {
+//     if (!head) return nullptr; // Handle empty list
+
+//     Node *current = head;
+//     Node *temp = nullptr;
+
+//     // Traverse the list and swap next and back pointers for each node
+//     while (current != nullptr)
+//     {
+//         // Swap the next and back pointers
+//         temp = current->back;
+//         current->back = current->next;
+//         current->next = temp;
+
+//         // Move to the next node in the original list, which is 'back' after swap
+//         current = current->back;
+//     }
+
+//     // After reversing, 'temp' will be pointing to the previous node
+//     if (temp != nullptr)
+//     {
+//         head = temp->back; // Update head to the new first node
+//     }
+
+//     return head;
+// }
+
+// int main()
+// {
+//     // Initialize two vectors
+//     vector<int> arr1 = {1, 2, 3, 4, 5, 6};
+//     vector<int> arr2 = {7, 8, 9, 10, 11, 12};
+
+//     // Convert vectors to doubly linked lists
+//     Node *res1 = convert(arr1);
+//     Node *res2 = convert(arr2);
+
+//     // Print the original lists
+//     cout << "First Linked List: ";
+//     printList(res1);
+
+//     cout << "Second Linked List: ";
+//     printList(res2);
+
+//     // Reverse the second linked list
+//     res2 = reverseList(res2);
+//     cout << "Reversed Second Linked List: ";
+//     printList(res2);
+
+//     // Merge the two linked lists
+//     Node *mergedLL = mergeLL(res1, res2);
+//     cout << "Merged Linked List: ";
+//     printList(mergedLL);
+
+//     return 0;
+// }

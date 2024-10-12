@@ -1861,36 +1861,179 @@
 
 // inorder binary tree
 
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// struct Node{
+//     int val;
+//     struct Node* left;
+//     struct Node* right;
+
+//     Node(int v): val(v), left(nullptr), right(nullptr){};
+// };
+
+
+// void inorderTraversal(struct Node* node) {
+//     if (node == nullptr) {
+//         return;
+//     }
+//     inorderTraversal(node->left);   // Visit left subtree
+//     cout << node->val << " ";     // Print node data
+//     inorderTraversal(node->right);  // Visit right subtree
+// }
+
+// int main() {
+//     struct Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->right = new Node(5);
+
+//     cout << "In-order traversal of the binary tree: ";
+//     inorderTraversal(root);
+//     cout << endl;
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// preorder binary tree
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// struct Node{
+//     int val;
+//     struct Node* left;
+//     struct Node* right;
+//     Node(int v): val(v), left(nullptr), right(nullptr){};
+// };
+
+// void preOrder(struct Node* head){
+
+//     if (head == nullptr) return;  // Base case: if the node is null, return
+
+
+//     cout << head->val<< " ";
+//     preOrder(head->left);
+//     preOrder(head->right);
+// }
+
+// int main(){
+//     struct Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right= new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+
+//     cout << "pre Order traversal ";
+//     preOrder(root);
+//     cout << endl;
+
+//     return 0; 
+
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// struct Node{
+//     struct Node* left;
+//     struct Node* right;
+//     int val;
+//     Node(int v): val(v), left(nullptr), right(nullptr){};
+// };
+
+// void postorder(struct Node* head){
+//     if(head == NULL) return;
+
+//     postorder(head->left);
+//     postorder(head->right);
+//     cout << head->val << " ";
+// }
+
+// int main(){
+//     struct Node* head = new Node(1);
+//     head->left = new Node(2);
+//     head->right = new Node(3);
+//     head->left->left = new Node(4);
+//     head->left->right = new Node(5);
+//     head->right->left = new Node(6);
+//     head->right->right = new Node(7);
+// cout << "post order b t ";
+// postorder(head);
+// cout << endl;
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
 #include<bits/stdc++.h>
 using namespace std;
 
 struct Node{
-    int val;
     struct Node* left;
     struct Node* right;
-
+    int val;
     Node(int v): val(v), left(nullptr), right(nullptr){};
 };
 
+// Function to perform level-order traversal
+vector<vector<int>> levelOrder(Node* head){
+    vector<vector<int>> ans;
+    if (head == nullptr) return ans;
 
-void inorderTraversal(struct Node* node) {
-    if (node == nullptr) {
-        return;
+    queue<Node*> q;
+    q.push(head);
+
+    // Process each level
+    while (!q.empty()) {
+        int size = q.size();  // Store the current size of the queue (level size)
+        vector<int> lvl;
+
+        for (int i = 0; i < size; i++) {
+            Node* curr = q.front();
+            q.pop();
+            
+            // Add current node's value to the level vector
+            lvl.push_back(curr->val);
+
+            // Add left and right children to the queue if they exist
+            if (curr->left != nullptr) q.push(curr->left);
+            if (curr->right != nullptr) q.push(curr->right);
+        }
+
+        // Add this level's values to the final result
+        ans.push_back(lvl);
     }
-    inorderTraversal(node->left);   // Visit left subtree
-    cout << node->val << " ";     // Print node data
-    inorderTraversal(node->right);  // Visit right subtree
+
+    return ans;
 }
 
 int main() {
-    struct Node* root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->right = new Node(5);
+    // Building the binary tree
+    struct Node* head = new Node(1);
+    head->left = new Node(2);
+    head->right = new Node(3);
+    head->left->left = new Node(4);
+    head->left->right = new Node(5);
+    head->right->left = new Node(6);
+    head->right->right = new Node(7);
 
-    cout << "In-order traversal of the binary tree: ";
-    inorderTraversal(root);
-    cout << endl;
+    // Perform level-order traversal
+    vector<vector<int>> result = levelOrder(head);
+
+    // Output the result
+    cout << "Level Order Traversal:" << endl;
+    for (const auto& level : result) {
+        for (int val : level) {
+            cout << val << " ";
+        }
+        cout << endl;
+    }
 
     return 0;
 }

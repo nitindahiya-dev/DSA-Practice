@@ -1857,7 +1857,7 @@
 //     return 0;
 // }
 
-// ------------------------------------------------------------------------------------------------------   
+// ------------------------------------------------------------------------------------------------------
 
 // inorder binary tree
 
@@ -1871,7 +1871,6 @@
 
 //     Node(int v): val(v), left(nullptr), right(nullptr){};
 // };
-
 
 // void inorderTraversal(struct Node* node) {
 //     if (node == nullptr) {
@@ -1913,7 +1912,6 @@
 
 //     if (head == nullptr) return;  // Base case: if the node is null, return
 
-
 //     cout << head->val<< " ";
 //     preOrder(head->left);
 //     preOrder(head->right);
@@ -1932,7 +1930,7 @@
 //     preOrder(root);
 //     cout << endl;
 
-//     return 0; 
+//     return 0;
 
 // }
 
@@ -2000,7 +1998,7 @@
 //         for (int i = 0; i < size; i++) {
 //             Node* curr = q.front();
 //             q.pop();
-            
+
 //             // Add current node's value to the level vector
 //             lvl.push_back(curr->val);
 
@@ -2170,63 +2168,173 @@
 // ------------------------------------------------------------------------------------------------
 
 // postorder iterative travesal
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node {
+//     struct Node* left;
+//     struct Node* right;
+//     int val;
+//     Node(int v): val(v), left(nullptr), right(nullptr) {}
+// };
+
+// vector<int> postOrder(Node* head) {
+//     stack<Node*> st;
+//     vector<int> res;
+//     Node* curr = head;
+//     Node* lastVisited = nullptr;
+
+//     while (curr != NULL || !st.empty()) {
+//         if (curr != NULL) {
+//             // Traverse the left subtree
+//             st.push(curr);
+//             curr = curr->left;
+//         } else {
+//             Node* temp = st.top();
+//             // Check if right subtree exists or was already visited
+//             if (temp->right == NULL || temp->right == lastVisited) {
+//                 res.push_back(temp->val);
+//                 st.pop();
+//                 lastVisited = temp;
+//             } else {
+//                 // Traverse the right subtree
+//                 curr = temp->right;
+//             }
+//         }
+//     }
+//     return res;
+// }
+
+// int main() {
+//     // Building the binary tree
+//     struct Node* head = new Node(1);
+//     head->left = new Node(2);
+//     head->right = new Node(3);
+//     head->left->left = new Node(4);
+//     head->left->right = new Node(5);
+//     head->right->left = new Node(6);
+//     head->right->right = new Node(7);
+
+//     // Perform post-order traversal
+//     vector<int> result = postOrder(head);
+
+//     // Output the result
+//     cout << "Post Order Traversal:" << endl;
+//     for (int val : result) {
+//         cout << val << " ";
+//     }
+//     cout << endl;
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// pre / post / and in order in one traversal
+
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
-    struct Node* left;
-    struct Node* right;
+struct Node
+{
     int val;
-    Node(int v): val(v), left(nullptr), right(nullptr) {}
+    struct Node *left;
+    struct Node *right;
+    Node(int v) : val(v), left(nullptr), right(nullptr) {};
 };
 
-vector<int> postOrder(Node* head) {
-    stack<Node*> st;
-    vector<int> res;
-    Node* curr = head;
-    Node* lastVisited = nullptr;
+// Function to perform preorder, inorder, and postorder traversals
+vector<vector<int>> traversal(Node *head)
+{
+    // Stack to simulate recursive tree traversal
+    stack<pair<Node *, int>> st;
+    st.push({head, 1});
+    
+    // Vectors to store preorder, inorder, and postorder traversals
+    vector<int> pre, in, post;
+    
+    // If the head is NULL, return empty traversal lists
+    if (head == NULL)
+        return {pre, in, post};
 
-    while (curr != NULL || !st.empty()) {
-        if (curr != NULL) {
-            // Traverse the left subtree
-            st.push(curr);
-            curr = curr->left;
-        } else {
-            Node* temp = st.top();
-            // Check if right subtree exists or was already visited
-            if (temp->right == NULL || temp->right == lastVisited) {
-                res.push_back(temp->val);
-                st.pop();
-                lastVisited = temp;
-            } else {
-                // Traverse the right subtree
-                curr = temp->right;
+    // Iterating through the tree using a stack
+    while (!st.empty())
+    {
+        // Extracting the current node and its state from the stack
+        auto it = st.top();
+        st.pop();
+
+        // Preorder traversal (state == 1)
+        if (it.second == 1)
+        {
+            pre.push_back(it.first->val);   // Add node value to preorder list
+            it.second++;                    // Increment state
+            st.push(it);                    // Push the node back with updated state
+
+            // Push left child to the stack if it exists
+            if (it.first->left != NULL)
+            {
+                st.push({it.first->left, 1});
             }
         }
+        // Inorder traversal (state == 2)
+        else if (it.second == 2)
+        {
+            in.push_back(it.first->val);    // Add node value to inorder list
+            it.second++;                    // Increment state
+            st.push(it);                    // Push the node back with updated state
+
+            // Push right child to the stack if it exists
+            if (it.first->right != NULL)
+            {
+                st.push({it.first->right, 1});
+            }
+        }
+        // Postorder traversal (state == 3)
+        else
+        {
+            post.push_back(it.first->val);  // Add node value to postorder list
+        }
     }
-    return res;
+
+    // Return all three traversals
+    return {pre, in, post};
 }
 
-int main() {
-    // Building the binary tree
-    struct Node* head = new Node(1);
-    head->left = new Node(2);
-    head->right = new Node(3);
-    head->left->left = new Node(4);
-    head->left->right = new Node(5);
-    head->right->left = new Node(6);
-    head->right->right = new Node(7);
+// Helper function to create a binary tree
+Node* createSampleTree()
+{
+    Node *root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+    root->right->left = new Node(6);
+    root->right->right = new Node(7);
+    return root;
+}
 
-    // Perform post-order traversal
-    vector<int> result = postOrder(head);
+// Main function
+int main()
+{
+    Node *root = createSampleTree();
+    vector<vector<int>> result = traversal(root);
 
-    // Output the result
-    cout << "Post Order Traversal:" << endl;
-    for (int val : result) {
+    // Displaying the results of the three traversals
+    cout << "Preorder: ";
+    for (int val : result[0])
         cout << val << " ";
-    }
+    cout << endl;
+
+    cout << "Inorder: ";
+    for (int val : result[1])
+        cout << val << " ";
+    cout << endl;
+
+    cout << "Postorder: ";
+    for (int val : result[2])
+        cout << val << " ";
     cout << endl;
 
     return 0;
 }
-// re - watch and understand properly

@@ -436,35 +436,94 @@
 // }
 
 // tabulation
-#include <iostream>
-#include <vector>
+// #include <iostream>
+// #include <vector>
+// using namespace std;
+
+// int unique_path(int m, int n) {
+//     vector<int> prev(n, 0);
+
+//     for (int i = 0; i < m; i++) {
+//         vector<int> cur(n, 0);
+//         for (int j = 0; j < n; j++) {
+//             if (i == 0 && j == 0) {
+//                 cur[j] = 1;
+//             } else {
+//                 int up = 0;
+//                 int left = 0;
+//                 if (i > 0) up = prev[j];
+//                 if (j > 0) left = cur[j - 1];
+//                 cur[j] = up + left;
+//             }
+//         }
+//         prev = cur;
+//     }
+
+//     // The answer is in the bottom-right cell
+//     return prev[n - 1];
+// }
+
+// int main() {
+//     int m = 3, n = 3;
+//     cout << unique_path(m, n) << endl;  // Output should be 6
+//     return 0;
+// }
+
+// -------------------------------------------------------------------------------------------------------
+
+// Create fibonacci series to a specific length ?
+
+// recursive method
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int fun(int n, vector<int> &dp){
+//     // Base cases for Fibonacci sequence
+//     if(n <= 1) return n;
+
+//     // If the result is already computed, return it from dp array
+//     if(dp[n] != -1) return dp[n];
+
+//     // Memoize the result by storing it in dp array
+//     return dp[n] = fun(n-1, dp) + fun(n-2, dp);
+// }
+
+// int main(){
+//     int n;
+//     cin >> n;
+
+//     // Initialize dp vector with -1 to indicate uncomputed values
+//     vector<int> dp(n+1, -1);
+
+//     // Output the result of the fun function
+//     cout << fun(n, dp) << endl;
+
+//     return 0;
+// }
+
+// tabulation method
+
+#include<bits/stdc++.h>
 using namespace std;
 
-int unique_path(int m, int n) {
-    vector<int> prev(n, 0);
 
-    for (int i = 0; i < m; i++) {
-        vector<int> cur(n, 0);
-        for (int j = 0; j < n; j++) {
-            if (i == 0 && j == 0) {
-                cur[j] = 1;
-            } else {
-                int up = 0;
-                int left = 0;
-                if (i > 0) up = prev[j];
-                if (j > 0) left = cur[j - 1];
-                cur[j] = up + left;
-            }
-        }
-        prev = cur;
+
+int main(){
+    int n;
+    cin >> n;
+
+    int prev2 = 0;
+    int prev = 1;
+
+    for (auto i = 2; i <=n; i++)
+    {
+        int previ = prev + prev2;
+        prev2 = prev;
+        prev = previ;
     }
+    
+    cout << prev;
 
-    // The answer is in the bottom-right cell
-    return prev[n - 1];
-}
-
-int main() {
-    int m = 3, n = 3;
-    cout << unique_path(m, n) << endl;  // Output should be 6
     return 0;
 }

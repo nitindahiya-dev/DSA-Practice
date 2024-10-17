@@ -2232,109 +2232,207 @@
 
 // pre / post / and in order in one traversal
 
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-struct Node
-{
-    int val;
-    struct Node *left;
-    struct Node *right;
-    Node(int v) : val(v), left(nullptr), right(nullptr) {};
-};
+// struct Node
+// {
+//     int val;
+//     struct Node *left;
+//     struct Node *right;
+//     Node(int v) : val(v), left(nullptr), right(nullptr) {};
+// };
 
-// Function to perform preorder, inorder, and postorder traversals
-vector<vector<int>> traversal(Node *head)
-{
-    // Stack to simulate recursive tree traversal
-    stack<pair<Node *, int>> st;
-    st.push({head, 1});
+// // Function to perform preorder, inorder, and postorder traversals
+// vector<vector<int>> traversal(Node *head)
+// {
+//     // Stack to simulate recursive tree traversal
+//     stack<pair<Node *, int>> st;
+//     st.push({head, 1});
     
-    // Vectors to store preorder, inorder, and postorder traversals
-    vector<int> pre, in, post;
+//     // Vectors to store preorder, inorder, and postorder traversals
+//     vector<int> pre, in, post;
     
-    // If the head is NULL, return empty traversal lists
-    if (head == NULL)
-        return {pre, in, post};
+//     // If the head is NULL, return empty traversal lists
+//     if (head == NULL)
+//         return {pre, in, post};
 
-    // Iterating through the tree using a stack
-    while (!st.empty())
-    {
-        // Extracting the current node and its state from the stack
-        auto it = st.top();
-        st.pop();
+//     // Iterating through the tree using a stack
+//     while (!st.empty())
+//     {
+//         // Extracting the current node and its state from the stack
+//         auto it = st.top();
+//         st.pop();
 
-        // Preorder traversal (state == 1)
-        if (it.second == 1)
-        {
-            pre.push_back(it.first->val);   // Add node value to preorder list
-            it.second++;                    // Increment state
-            st.push(it);                    // Push the node back with updated state
+//         // Preorder traversal (state == 1)
+//         if (it.second == 1)
+//         {
+//             pre.push_back(it.first->val);   // Add node value to preorder list
+//             it.second++;                    // Increment state
+//             st.push(it);                    // Push the node back with updated state
 
-            // Push left child to the stack if it exists
-            if (it.first->left != NULL)
-            {
-                st.push({it.first->left, 1});
-            }
-        }
-        // Inorder traversal (state == 2)
-        else if (it.second == 2)
-        {
-            in.push_back(it.first->val);    // Add node value to inorder list
-            it.second++;                    // Increment state
-            st.push(it);                    // Push the node back with updated state
+//             // Push left child to the stack if it exists
+//             if (it.first->left != NULL)
+//             {
+//                 st.push({it.first->left, 1});
+//             }
+//         }
+//         // Inorder traversal (state == 2)
+//         else if (it.second == 2)
+//         {
+//             in.push_back(it.first->val);    // Add node value to inorder list
+//             it.second++;                    // Increment state
+//             st.push(it);                    // Push the node back with updated state
 
-            // Push right child to the stack if it exists
-            if (it.first->right != NULL)
-            {
-                st.push({it.first->right, 1});
-            }
-        }
-        // Postorder traversal (state == 3)
-        else
-        {
-            post.push_back(it.first->val);  // Add node value to postorder list
-        }
-    }
+//             // Push right child to the stack if it exists
+//             if (it.first->right != NULL)
+//             {
+//                 st.push({it.first->right, 1});
+//             }
+//         }
+//         // Postorder traversal (state == 3)
+//         else
+//         {
+//             post.push_back(it.first->val);  // Add node value to postorder list
+//         }
+//     }
 
-    // Return all three traversals
-    return {pre, in, post};
-}
+//     // Return all three traversals
+//     return {pre, in, post};
+// }
 
-// Helper function to create a binary tree
-Node* createSampleTree()
-{
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
-    return root;
-}
+// // Helper function to create a binary tree
+// Node* createSampleTree()
+// {
+//     Node *root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+//     root->right->left = new Node(6);
+//     root->right->right = new Node(7);
+//     return root;
+// }
 
-// Main function
-int main()
-{
-    Node *root = createSampleTree();
-    vector<vector<int>> result = traversal(root);
+// // Main function
+// int main()
+// {
+//     Node *root = createSampleTree();
+//     vector<vector<int>> result = traversal(root);
 
-    // Displaying the results of the three traversals
-    cout << "Preorder: ";
-    for (int val : result[0])
-        cout << val << " ";
-    cout << endl;
+//     // Displaying the results of the three traversals
+//     cout << "Preorder: ";
+//     for (int val : result[0])
+//         cout << val << " ";
+//     cout << endl;
 
-    cout << "Inorder: ";
-    for (int val : result[1])
-        cout << val << " ";
-    cout << endl;
+//     cout << "Inorder: ";
+//     for (int val : result[1])
+//         cout << val << " ";
+//     cout << endl;
 
-    cout << "Postorder: ";
-    for (int val : result[2])
-        cout << val << " ";
-    cout << endl;
+//     cout << "Postorder: ";
+//     for (int val : result[2])
+//         cout << val << " ";
+//     cout << endl;
 
-    return 0;
-}
+//     return 0;
+// }
+
+// // ------------------------------------------------------------------------------------------------
+
+// // Find the maximum depth of Binary Tree
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node
+// {
+//     int val;
+//     struct Node *left;
+//     struct Node *right;
+//     Node(int v) : val(v), left(nullptr), right(nullptr) {}
+// };
+
+// // Function to find the maximum depth of the binary tree
+// int maxDepth(Node* head){
+//     if(head == NULL) return 0;
+
+//     int lh = maxDepth(head->left);  // Calculate the left subtree depth
+//     int rh = maxDepth(head->right); // Calculate the right subtree depth
+
+//     return 1 + max(lh, rh);  // Return 1 (for the current node) plus the maximum of left and right depths
+// }
+
+// // Main function
+// int main()
+// {
+//     // Example to test the code
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+    
+//     cout << "Maximum depth of the tree is: " << maxDepth(root) << endl;
+    
+//     return 0;
+// }
+
+
+// // ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+
+// Find the maximum depth of Binary Tree
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// struct Node
+// {
+//     int val;
+//     struct Node *left;
+//     struct Node *right;
+//     Node(int v) : val(v), left(nullptr), right(nullptr) {}
+// };
+
+// // Helper function to calculate the height of the tree and check if it's balanced
+// int dfsHeight(Node* head){
+//     if(head == NULL) return 0;  // Fixed this line
+
+//     int lh = dfsHeight(head->left);
+//     if(lh == -1) return -1;
+
+//     int rh = dfsHeight(head->right);
+//     if (rh == -1) return -1;
+
+//     if(abs(lh - rh) > 1) return -1;  // Unbalanced tree
+//     return max(lh, rh) + 1;          // Balanced tree, return height
+// }
+
+// // Function to check if the tree is balanced
+// bool isBalanced(Node* head){
+//     return dfsHeight(head) != -1;
+// }
+
+// // Main function
+// int main()
+// {
+//     // Example to test the code
+//     Node* root = new Node(1);
+//     root->left = new Node(2);
+//     root->right = new Node(3);
+//     root->left->left = new Node(4);
+//     root->left->right = new Node(5);
+    
+//     if (isBalanced(root)) {
+//         cout << "The tree is balanced." << endl;
+//     } else {
+//         cout << "The tree is not balanced." << endl;
+//     }
+    
+//     return 0;
+// }
+
+// // ------------------------------------------------------------------------------------------------

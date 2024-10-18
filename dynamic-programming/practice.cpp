@@ -504,26 +504,74 @@
 
 // tabulation method
 
-#include<bits/stdc++.h>
-using namespace std;
+// #include<bits/stdc++.h>
+// using namespace std;
 
 
 
-int main(){
-    int n;
-    cin >> n;
+// int main(){
+//     int n;
+//     cin >> n;
 
-    int prev2 = 0;
-    int prev = 1;
+//     int prev2 = 0;
+//     int prev = 1;
 
-    for (auto i = 2; i <=n; i++)
-    {
-        int previ = prev + prev2;
-        prev2 = prev;
-        prev = previ;
-    }
+//     for (auto i = 2; i <=n; i++)
+//     {
+//         int previ = prev + prev2;
+//         prev2 = prev;
+//         prev = previ;
+//     }
     
-    cout << prev;
+//     cout << prev;
 
-    return 0;
-}
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int fn(int n){
+//     if( n == 0) return 1;
+//     if( n == 1) return 0;
+
+//     int left = fn(n-1);
+//     int right = fn(n-2);
+
+//     return left + right;
+// }
+
+// int main(){
+//     int n;
+//     cin >> n;
+
+//     cout << fn(n);
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int fn(int n){
+//     if( n == 0) return 1;
+//     if( n == 1) return 0;
+
+//     int left = fn(n-1);
+//     int right = fn(n-2);
+
+//     return left + right;
+// }
+
+// int main(){
+//     int n;
+//     cin >> n;
+
+//     cout << fn(n);
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------

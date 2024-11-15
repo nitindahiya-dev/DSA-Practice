@@ -45,11 +45,29 @@
 
 //  Longest Substring Without Repeating Characters
 
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    vector<string> arr = {'a','f','s','d','w','r','s','d'}
+int lengthOfLongestSubstring(string s) {
+    int n = s.length();
+    int maxlen = 0;
+    int l = 0, r = 0;
+    int arr[255];
+    memset(arr, -1, sizeof(arr));
+    while (r < n) {
+        if (arr[s[r]] != -1 && arr[s[r]] >= l) {
+            l = arr[s[r]] + 1;
+        }
+        arr[s[r]] = r;
+        maxlen = max(maxlen, r - l + 1);
+        r++;
+    }
+    return maxlen;
+}
 
-    int ans = str(arr);
+int main() {
+    string s = "afsdwrsd";  // Input string
+    int result = lengthOfLongestSubstring(s);
+    cout << "Length of the longest substring without repeating characters: " << result << endl;
+    return 0;
 }

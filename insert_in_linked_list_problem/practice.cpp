@@ -666,3 +666,253 @@
 
 // ----------------------------------------------------------------------------------------------------------
 
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// class Node{
+//     public:
+//     Node* back;
+//     Node* next;
+//     int val;
+//     Node(int v): val(v), back(nullptr), next(nullptr){}
+// };
+
+// Node* convert(vector<int> arr){
+//     Node* head = new Node(arr[0]);
+//     Node* curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node* newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node* head){
+//     Node* curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " -> ";
+//         curr = curr->next;
+//     }
+
+//     cout << "Null"<< endl;
+// }
+
+// int main(){
+//     vector<int> arr = {1,2,3,4,5,6};
+//     Node* ans = convert(arr);
+//     print(ans);
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// Q: Insert element at specific location in Double linklist ?
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// Node *insert_it(Node *head, int pos, int num)
+// {
+//     Node *newNode = new Node(num);
+
+//     // Insert at the head
+//     if (pos == 0)
+//     {
+//         newNode->next = head;
+//         if (head)
+//             head->back = newNode;
+//         head = newNode;
+//         return head;
+//     }
+
+//     Node *curr = head;
+//     int count = 0;
+
+//     // Traverse to the position before where insertion is needed
+//     while (curr != NULL && count < pos - 1)
+//     {
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     // If position is invalid (beyond the end)
+//     if (curr == NULL)
+//     {
+//         cout << "Position out of bounds!" << endl;
+//         return head;
+//     }
+
+//     // Insert in the middle or at the end
+//     newNode->next = curr->next;
+//     newNode->back = curr;
+//     if (curr->next)
+//     {
+//         curr->next->back = newNode;
+//     }
+//     curr->next = newNode;
+
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     cout << "Before inserting: ";
+//     Node *convert = convert_it(arr);
+//     print(convert);
+
+//     cout << "After inserting: ";
+//     Node *insert = insert_it(convert, 2, 99); // Insert 99 at position 2
+//     print(insert);
+
+//     return 0;
+// }
+// ------------------------------------------------------------------------------------------------
+
+// Q: replace element at specific location in Double linklist ?
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    Node *next;
+    Node *back;
+    int val;
+    Node(int v) : val(v), next(nullptr), back(nullptr) {}
+};
+
+Node *convert_it(vector<int> arr)
+{
+    Node *head = new Node(arr[0]);
+    Node *curr = head;
+
+    for (int i = 1; i < arr.size(); i++)
+    {
+        Node *newNode = new Node(arr[i]);
+        curr->next = newNode;
+        newNode->back = curr;
+        curr = newNode;
+    }
+    return head;
+}
+
+Node *replace_it(Node *head, int pos, int num)
+{
+    // Create a new node with the value `num`
+    Node *newNode = new Node(num);
+    
+    // Traverse to the position of the node to be replaced
+    Node *curr = head;
+    int count = 0;  // Start counting from 0, not 1
+    
+    // Traverse the list to find the node at position `pos`
+    while (curr != NULL && count < pos) {
+        curr = curr->next;
+        count++;
+    }
+
+    // If `curr` is NULL, the position is out of bounds
+    if (curr == NULL) {
+        cout << "Position out of bounds!" << endl;
+        return head;
+    }
+
+    // If we are replacing the node at position `pos`
+    if (curr != NULL) {
+        // If there's a next node, adjust its back pointer to point to the new node
+        if (curr->next != NULL)
+            curr->next->back = newNode;
+
+        // Set the next pointer of `newNode` to the next node of `curr`
+        newNode->next = curr->next;
+
+        // Set the back pointer of `newNode` to the current node's back
+        newNode->back = curr->back;
+
+        // If the current node has a previous node, update its next pointer to the new node
+        if (curr->back != NULL)
+            curr->back->next = newNode;
+        
+        // Update the head if we are replacing the first node
+        if (curr == head) {
+            head = newNode;
+        }
+
+        // Finally, delete the old node
+        delete curr;
+    }
+
+    return head;
+}
+
+
+void print(Node *head)
+{
+    Node *curr = head;
+    while (curr != NULL)
+    {
+        cout << curr->val << " <-> ";
+        curr = curr->next;
+    }
+    cout << "null" << endl;
+}
+
+int main()
+{
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    cout << "Before inserting: ";
+    Node *convert = convert_it(arr);
+    print(convert);
+
+    cout << "After replace: ";
+    Node *replace = replace_it(convert, 2, 99);
+    print(replace);
+
+    return 0;
+}
+
+// ------------------------------------------------------------------------------------------------
+
+// Q : add before and after the given location
+// Q: add before and after the given number

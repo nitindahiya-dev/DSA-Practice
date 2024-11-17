@@ -810,6 +810,251 @@
 
 // Q: replace element at specific location in Double linklist ?
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// Node *replace_it(Node *head, int pos, int num)
+// {
+//     // Create a new node with the value `num`
+//     Node *newNode = new Node(num);
+
+//     // Traverse to the position of the node to be replaced
+//     Node *curr = head;
+//     int count = 0;  // Start counting from 0, not 1
+
+//     // Traverse the list to find the node at position `pos`
+//     while (curr != NULL && count < pos) {
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     // If `curr` is NULL, the position is out of bounds
+//     if (curr == NULL) {
+//         cout << "Position out of bounds!" << endl;
+//         return head;
+//     }
+
+//     // If we are replacing the node at position `pos`
+//     if (curr != NULL) {
+//         // If there's a next node, adjust its back pointer to point to the new node
+//         if (curr->next != NULL)
+//             curr->next->back = newNode;
+
+//         // Set the next pointer of `newNode` to the next node of `curr`
+//         newNode->next = curr->next;
+
+//         // Set the back pointer of `newNode` to the current node's back
+//         newNode->back = curr->back;
+
+//         // If the current node has a previous node, update its next pointer to the new node
+//         if (curr->back != NULL)
+//             curr->back->next = newNode;
+
+//         // Update the head if we are replacing the first node
+//         if (curr == head) {
+//             head = newNode;
+//         }
+
+//         // Finally, delete the old node
+//         delete curr;
+//     }
+
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     cout << "Before inserting: ";
+//     Node *convert = convert_it(arr);
+//     print(convert);
+
+//     cout << "After replace: ";
+//     Node *replace = replace_it(convert, 2, 99);
+//     print(replace);
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// Q : add before and after the given location
+// Q: add before and after the given number
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node *add_before(Node *head, int number, int pos)
+// {
+//     Node *nodeToAdd = new Node(number);
+
+//     // If adding at the head (pos == 1)
+//     if (pos == 1)
+//     {
+//         nodeToAdd->next = head;
+//         if (head)
+//             head->back = nodeToAdd; // Update back pointer of the old head
+//         head = nodeToAdd;           // Update head to new node
+//         return head;
+//     }
+
+//     Node *curr = head;
+//     int count = 1;
+
+//     // Traverse to the (pos - 1)-th node
+//     while (curr != NULL && count < pos - 1)
+//     {
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     // If position is invalid
+//     if (curr == NULL || curr->next == NULL && count < pos - 1)
+//     {
+//         cout << "Position out of bounds!" << endl;
+//         return head;
+//     }
+
+//     // Insert node before the desired position
+//     Node *nextNode = curr->next;
+//     nodeToAdd->next = nextNode;
+//     nodeToAdd->back = curr;
+
+//     if (nextNode != NULL)
+//         nextNode->back = nodeToAdd;
+
+//     curr->next = nodeToAdd;
+
+//     return head;
+// }
+
+// Node *add_after(Node *head, int number, int pos)
+// {
+//     Node *AfterNode = new Node(number); // Step 1: Create the new node
+//     Node *curr = head;
+//     int count = 1;
+
+//     // Traverse to the position `pos`
+//     while (curr != NULL && count < pos + 1)
+//     {
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     // If position is invalid (pos is out of bounds)
+//     if (curr == NULL)
+//     {
+//         cout << "Position out of bounds!" << endl;
+//         return head;
+//     }
+
+//     // Save the node currently after `pos`
+//     Node *nextNode = curr->next;
+
+//     // Link the new node to the correct position
+//     AfterNode->next = nextNode;  // New node points to the next node
+//     AfterNode->back = curr;      // New node points back to the current node
+
+//     if (nextNode != NULL)        // If there's a node after the current, update its back pointer
+//         nextNode->back = AfterNode;
+
+//     curr->next = AfterNode;      // Current node points to the new node
+
+//     return head;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     cout << "Normal list : ";
+//     Node *convert = convert_it(arr);
+//     print(convert);
+
+//     cout << "Before adding to list : ";
+//     Node *add1 = add_before(convert, 19, 2);
+//     print(add1);
+
+//     cout << "After adding to list : ";
+//     Node *add2 = add_after(convert, 19, 2);
+//     print(add2);
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -837,59 +1082,10 @@ Node *convert_it(vector<int> arr)
     return head;
 }
 
-Node *replace_it(Node *head, int pos, int num)
-{
-    // Create a new node with the value `num`
-    Node *newNode = new Node(num);
-    
-    // Traverse to the position of the node to be replaced
-    Node *curr = head;
-    int count = 0;  // Start counting from 0, not 1
-    
-    // Traverse the list to find the node at position `pos`
-    while (curr != NULL && count < pos) {
-        curr = curr->next;
-        count++;
-    }
-
-    // If `curr` is NULL, the position is out of bounds
-    if (curr == NULL) {
-        cout << "Position out of bounds!" << endl;
-        return head;
-    }
-
-    // If we are replacing the node at position `pos`
-    if (curr != NULL) {
-        // If there's a next node, adjust its back pointer to point to the new node
-        if (curr->next != NULL)
-            curr->next->back = newNode;
-
-        // Set the next pointer of `newNode` to the next node of `curr`
-        newNode->next = curr->next;
-
-        // Set the back pointer of `newNode` to the current node's back
-        newNode->back = curr->back;
-
-        // If the current node has a previous node, update its next pointer to the new node
-        if (curr->back != NULL)
-            curr->back->next = newNode;
-        
-        // Update the head if we are replacing the first node
-        if (curr == head) {
-            head = newNode;
-        }
-
-        // Finally, delete the old node
-        delete curr;
-    }
-
-    return head;
-}
-
-
 void print(Node *head)
 {
     Node *curr = head;
+
     while (curr != NULL)
     {
         cout << curr->val << " <-> ";
@@ -898,21 +1094,58 @@ void print(Node *head)
     cout << "null" << endl;
 }
 
+Node *remove_before(Node *head, int pos)
+{
+    if (pos <= 1 || head == nullptr || head->next == nullptr)
+    {
+        // No node exists before the given position
+        cout << "Invalid position for removal!" << endl;
+        return head;
+    }
+
+    Node *curr = head;
+    int count = 1;
+
+    // Traverse to the node at position `pos - 1`
+    while (curr->next != nullptr && count < pos - 1)
+    {
+        curr = curr->next;
+        count++;
+    }
+
+    // If we're at the head, special handling is needed
+    if (curr == head)
+    {
+        Node *toDelete = head;
+        head = head->next;    // Move the head forward
+        head->back = nullptr; // Update the new head's back pointer
+        delete toDelete;
+        return head;
+    }
+
+    // Unlink the node before `curr`
+    Node *toDelete = curr->back;
+    Node *prevNode = toDelete->back;
+
+    if (prevNode != nullptr)
+        prevNode->next = curr;
+    curr->back = prevNode;
+
+    // Free the memory of the node
+    delete toDelete;
+
+    return head;
+}
+
 int main()
 {
     vector<int> arr = {1, 2, 3, 4, 5, 6};
-    cout << "Before inserting: ";
+    cout << "Normal list : ";
     Node *convert = convert_it(arr);
     print(convert);
 
-    cout << "After replace: ";
-    Node *replace = replace_it(convert, 2, 99);
-    print(replace);
-
+    cout << "After before removal : ";
+    Node *remove1 = remove_before(convert, 2);
+print(remove1);
     return 0;
 }
-
-// ------------------------------------------------------------------------------------------------
-
-// Q : add before and after the given location
-// Q: add before and after the given number

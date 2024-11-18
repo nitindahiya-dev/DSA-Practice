@@ -1055,6 +1055,246 @@
 
 // ------------------------------------------------------------------------------------------------
 
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     Node *back;
+//     int val;
+//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         newNode->back = curr;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node *remove_before(Node *head, int pos)
+// {
+//     if (pos <= 1 || head == nullptr || head->next == nullptr)
+//     {
+//         // No node exists before the given position
+//         cout << "Invalid position for removal!" << endl;
+//         return head;
+//     }
+
+//     Node *curr = head;
+//     int count = 1;
+
+//     // Traverse to the node at position `pos - 1`
+//     while (curr->next != nullptr && count < pos - 1)
+//     {
+//         curr = curr->next;
+//         count++;
+//     }
+
+//     // If we're at the head, special handling is needed
+//     if (curr == head)
+//     {
+//         Node *toDelete = head;
+//         head = head->next;    // Move the head forward
+//         head->back = nullptr; // Update the new head's back pointer
+//         delete toDelete;
+//         return head;
+//     }
+
+//     // Unlink the node before `curr`
+//     Node *toDelete = curr->back;
+//     Node *prevNode = toDelete->back;
+
+//     if (prevNode != nullptr)
+//         prevNode->next = curr;
+//     curr->back = prevNode;
+
+//     // Free the memory of the node
+//     delete toDelete;
+
+//     return head;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     cout << "Normal list : ";
+//     Node *convert = convert_it(arr);
+//     print(convert);
+
+//     cout << "After before removal : ";
+//     Node *remove1 = remove_before(convert, 2);
+// print(remove1);
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// Reverse single LL...!!
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     int val;
+//     Node(int v) : val(v), next(nullptr){}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// Node* reverse_it(Node* head){
+//     Node* curr = head;
+//     Node* prev = nullptr;
+//     Node* next = nullptr;
+//     while (curr != NULL)
+//     {
+//         next = curr->next;
+//         curr->next = prev;
+//         prev = curr;
+//         curr = next;
+//     }
+//     return prev;
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     cout << "Normal list : ";
+//     Node *convert = convert_it(arr);
+//     print(convert);
+//     cout << "Reverse list : ";
+
+//     Node* rev = reverse_it(convert);
+//     print(rev);
+
+//     return 0;
+// }
+
+// // ------------------------------------------------------------------------------------------------
+
+// // Determine if a given linked list contains a cycle using Floyd’s Cycle Detection Algorithm...!!
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     Node *next;
+//     int val;
+//     Node(int v) : val(v), next(nullptr){}
+// };
+
+// Node *convert_it(vector<int> arr)
+// {
+//     Node *head = new Node(arr[0]);
+//     Node *curr = head;
+
+//     for (int i = 1; i < arr.size(); i++)
+//     {
+//         Node *newNode = new Node(arr[i]);
+//         curr->next = newNode;
+//         curr = newNode;
+//     }
+//     return head;
+// }
+
+// void print(Node *head)
+// {
+//     Node *curr = head;
+
+//     while (curr != NULL)
+//     {
+//         cout << curr->val << " <-> ";
+//         curr = curr->next;
+//     }
+//     cout << "null" << endl;
+// }
+
+// bool check_circle(Node* head){
+//     Node* slow = head;
+//     Node* fast = head;
+
+//     while (fast != nullptr && slow->next != nullptr)
+//     {
+//         slow = slow->next;
+//         fast = fast->next->next;
+
+//         if(slow == fast){
+//             return true;
+//         }
+//     }
+//     return false;
+
+// }
+
+// int main()
+// {
+//     vector<int> arr = {1, 2, 3, 4, 5, 6};
+//     cout << "Normal list : ";
+//     Node *convert = convert_it(arr);
+//     print(convert);
+//     cout << "Reverse list : ";
+
+//     bool check = check_circle(convert);
+//     cout << check;
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+
+// Write a function to find the middle element of a linked list...!!
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -1062,9 +1302,8 @@ class Node
 {
 public:
     Node *next;
-    Node *back;
     int val;
-    Node(int v) : val(v), next(nullptr), back(nullptr) {}
+    Node(int v) : val(v), next(nullptr) {}
 };
 
 Node *convert_it(vector<int> arr)
@@ -1076,7 +1315,6 @@ Node *convert_it(vector<int> arr)
     {
         Node *newNode = new Node(arr[i]);
         curr->next = newNode;
-        newNode->back = curr;
         curr = newNode;
     }
     return head;
@@ -1093,59 +1331,35 @@ void print(Node *head)
     }
     cout << "null" << endl;
 }
-
-Node *remove_before(Node *head, int pos)
+Node *check_middle(Node *head)
 {
-    if (pos <= 1 || head == nullptr || head->next == nullptr)
+    if (head == nullptr) return nullptr; // Edge case: empty list
+
+    Node *slow = head;
+    Node *fast = head;
+
+    // Move slow one step and fast two steps
+    while (fast != nullptr && fast->next != nullptr)
     {
-        // No node exists before the given position
-        cout << "Invalid position for removal!" << endl;
-        return head;
+        slow = slow->next;
+        fast = fast->next->next;
     }
 
-    Node *curr = head;
-    int count = 1;
-
-    // Traverse to the node at position `pos - 1`
-    while (curr->next != nullptr && count < pos - 1)
-    {
-        curr = curr->next;
-        count++;
-    }
-
-    // If we're at the head, special handling is needed
-    if (curr == head)
-    {
-        Node *toDelete = head;
-        head = head->next;    // Move the head forward
-        head->back = nullptr; // Update the new head's back pointer
-        delete toDelete;
-        return head;
-    }
-
-    // Unlink the node before `curr`
-    Node *toDelete = curr->back;
-    Node *prevNode = toDelete->back;
-
-    if (prevNode != nullptr)
-        prevNode->next = curr;
-    curr->back = prevNode;
-
-    // Free the memory of the node
-    delete toDelete;
-
-    return head;
+    return slow; // Slow is now pointing to the middle node
 }
 
 int main()
 {
     vector<int> arr = {1, 2, 3, 4, 5, 6};
-    cout << "Normal list : ";
+    cout << "Normal list: ";
     Node *convert = convert_it(arr);
     print(convert);
 
-    cout << "After before removal : ";
-    Node *remove1 = remove_before(convert, 2);
-print(remove1);
+    Node *middle = check_middle(convert);
+    if (middle != nullptr)
+        cout << "Middle of the list: " << middle->val << endl;
+
     return 0;
 }
+
+// ------------------------------------------------------------------------------------------------

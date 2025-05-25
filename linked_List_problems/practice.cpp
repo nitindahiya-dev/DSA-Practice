@@ -1,82 +1,4 @@
-// Q: Reverse the linkList ?
-// #include <iostream>
-// #include <vector>
-// using namespace std;
-
-// class Node
-// {
-// public:
-//     int val;
-//     Node *next;
-//     Node *back;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
-// };
-
-// Node *change_it(vector<int> arr)
-// {
-//     if (arr.empty())
-//         return NULL;
-//     Node *head = new Node(arr[0]);
-//     Node *prev = head;
-//     for (int i = 1; i < arr.size(); i++)
-//     {
-//         Node *temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// Node* reverse_it(Node* head){
-//     if (head == nullptr || head->next == nullptr)
-//     {
-//         return head;
-//     }
-
-//     Node* current = head;
-//     Node* last = nullptr;
-
-//     while (current != nullptr)
-//     {
-//         last = current->back; // null
-//         current->back = current->next;
-
-//         current->next = last;
-//         current = current->back;
-//     }
-
-//     // Before returning the new head of the reversed list
-//     if (last != nullptr)
-//     {
-//         head = last->back;
-//     }
-
-//     return head;
-// }
-
-// void print(Node *head)
-// {
-//     while (head != nullptr)
-//     {
-//         cout << head->val << "->";
-//         head = head->next;
-//     }
-//     cout << "null" << endl;
-// }
-
-// int main()
-// {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node *head = change_it(arr);
-//     print(head);
-//     head = reverse_it(head); // Correctly update head to the new head of the reversed list
-//     print(head);
-// }
-
-// ----------------------------------------------------------------------------------------------------
-
-// Q: Add 2 link list ?
+// Find Middle of the Linked List
 
 // #include <bits/stdc++.h>
 // using namespace std;
@@ -84,923 +6,342 @@
 // class Node
 // {
 // public:
-//     int val;
+//     int data;
 //     Node *next;
-//     Node *back;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+
+//     Node(int x)
+//     {
+//         this->data = x;
+//         this->next = nullptr;
+//     }
 // };
 
-// Node *convert_it_1(vector<int> arr)
-// {
-//     if (arr.empty())
-//         return nullptr;
-//     Node *head = new Node(arr[0]);
-//     Node *prev = head;
-//     for (int i = 1; i < arr.size(); i++)
-//     {
-//         Node *temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// Node *convert_it_2(vector<int> arr)
-// {
-//     if (arr.empty())
-//         return nullptr;
-//     Node *head = new Node(arr[0]);
-//     Node *prev = head;
-//     for (int i = 1; i < arr.size(); i++)
-//     {
-//         Node *temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// Node *Add_them(Node *num1, Node *num2)
-// {
-//     Node *dummy_node = new Node(-1);
-//     Node *curr = dummy_node;
-//     Node *temp1 = num1;
-//     Node *temp2 = num2;
-//     int carry = 0;
-
-//     while (temp1 != nullptr || temp2 != nullptr)
-//     {
-//         int sum = carry;
-//         if (temp1 != nullptr)
-//         {
-//             sum = sum + temp1->val;
-//             temp1 = temp1->next; // 1
-//         }
-//         if (temp2 != nullptr)
-//         {
-//             sum = sum + temp2->val;
-//             temp2 = temp2->next; // 1
-//         }
-//         Node *newNode = new Node(sum % 10);
-//         carry = sum / 10;
-
-//         curr->next = newNode;
-//         newNode->back = curr;
-//         curr = curr->next;
-//     }
-//     if (carry)
-//     {
-//         Node *newNode = new Node(carry);
-//         curr->next = newNode;
-//         newNode->back = curr;
-//     }
-//     return dummy_node->next;
-// }
-
-// void print(Node *head)
-// {
-//     while (head != nullptr)
-//     {
-//         cout << head->val << "->";
-//         head = head->next;
-//     }
-//     cout << "null" << endl;
-// }
-
-// int main()
-// {
-//     vector<int> arr_1 = {1, 2, 3, 4, 5, 6};
-//     vector<int> arr_2 = {1, 2, 3, 4, 5, 6};
-//     Node *head_1 = convert_it_1(arr_1);
-//     cout << "LinkedList 1 : ";
-//     print(head_1);
-//     Node *head_2 = convert_it_2(arr_2);
-//     cout << "LinkedList 2 : ";
-//     print(head_2);
-//     Node *head_3 = Add_them(head_1, head_2);
-//     cout << "LinkedList 1 + LinkedList 2 : ";
-//     print(head_3);
-// }
-
-// --------------------------------------------------------------------------------------------------
-
-// Q: find the middle node of the linkdedlist?
-
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// class Node
-// {
-// public:
-//     int val;
-//     Node *next;
-//     Node *back;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
-// };
-
-// Node* convert_it(vector<int> arr){
-//     if(arr.empty()) return NULL;
-//     Node* head = new Node(arr[0]);
-//     Node* prev = head;
-//     for (int i = 1; i < arr.size(); i++)
-//     {
-//         Node* temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// Node* find_middle(Node* head){
-
-// Node* slow = head;
-// Node* fast = head;
-// while (fast != nullptr && fast->next != nullptr)
-// {
-//     slow = slow->next;
-//     fast = fast->next->next;
-// }
-// return slow;
-
-// }
-
-// void print(Node* head){
-//     while (head != nullptr)
-//     {
-//         cout << head->val << "->";
-//         head = head->next;
-//     }
-//     cout << "null" << endl;
-// }
-
-// int main()
-// {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node* head = convert_it(arr);
-//     cout << "Linked List: ";
-//     print(head);
-
-//     Node* middle = find_middle(head);
-//     if (middle != nullptr)
-//     {
-//         cout << "Middle Node: " << middle->val << endl;
-//     }
-//     else
-//     {
-//         cout << "The list is empty." << endl;
-//     }
-
-//     return 0;
-// }
-
-// ----------------------------------------------------------------------------------------------------
-
-// Q: reverse the link list?
-
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// class Node
-// {
-// public:
-//     int val;
-//     Node *next;
-//     Node *back;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
-// };
-
-// Node* convert_it(vector<int> arr){
-//     if(arr.empty()) return NULL;
-//     Node* head = new Node(arr[0]);
-//     Node* prev = head;
-//     for (int i = 1; i < arr.size(); i++)
-//     {
-//         Node* temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// -------------------- brute force --------------------
-
-// Node* reverse_it(Node* head){
-//     Node* temp = head;
-//     stack<int> st;
-//     while (temp != nullptr) {
-//         st.push(temp->val);
-//         temp = temp->next;
-//     }
-//     temp = head;
-
-//     while (temp != nullptr) {
-//         temp->val = st.top();
-//         st.pop();
-//         temp = temp->next;
-//     }
-// }
-
-// -------------------- brute force --------------------
-// -------------------- Optimal approach --------------------
-
-// Node* reverse_it(Node* head){
-//     if (head == nullptr || head->next == nullptr)
-//     {
-//         return head;
-//     }
-
-//     Node* current = head;
-//     Node* last = nullptr;
-
-//     while (current != nullptr)
-//     {
-//         last = current->back; // null
-//         current->back = current->next;
-
-//         current->next = last;
-//         current = current->back;
-//     }
-
-//     // Before returning the new head of the reversed list
-//     if (last != nullptr)
-//     {
-//         head = last->back;
-//     }
-
-//     return head;
-// }
-
-// -------------------- Optimal approach --------------------
-
-// void print(Node* head){
-//     while (head != nullptr)
-//     {
-//         cout << head->val << "->";
-//         head = head->next;
-//     }
-//     cout << "null" << endl;
-// }
-
-// int main()
-// {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node* head = convert_it(arr);
-//     cout << "Linked List: ";
-//     print(head);
-
-// brute force
-//  reverse_it(head);
-// cout << "reverse Linked List: ";
-// print(head);
-// //optimal apporach
-//     head = reverse_it(head);
-//     cout << "reverse Linked List: ";
-//     print(head);
-//}
-
-// --------------------------------------------------------------------------------------------------
-
-// Q: Detect a Cycle in a Linked List?
-
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// class Node
-// {
-// public:
-//     int val;
-//     Node *next;
-//     Node *back;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
-// };
-
-// Node *convert_it(vector<int> arr)
-// {
-//     if (arr.empty())
-//         return NULL;
-//     Node *head = new Node(arr[0]);
-//     Node *prev = head;
-//     for (int i = 1; i < arr.size(); i++) // Start from index 1
-//     {
-//         Node *temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// bool check_loop(Node *head)
+// int getMiddle(Node *head)
 // {
 //     Node *slow = head;
 //     Node *fast = head;
 
-//     while (fast != nullptr && fast->next != nullptr) // Correct condition
+//     while (fast != NULL && fast->next != NULL)
 //     {
-//         slow = slow->next;
 //         fast = fast->next->next;
-
-//         if (slow == fast) return true;
+//         slow = slow->next;
 //     }
-//     return false;
+//     return slow->data;
 // }
 
 // int main()
 // {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node *head = convert_it(arr);
-//     bool ans = check_loop(head);
-//     if(ans)
-//     {
-//         cout << "Yes, it is a loop" << endl;
-//     }
-//     else
-//     {
-//         cout << "No, it isn't a loop" << endl;
-//     }
-//     return 0; // Proper return statement
+//     Node *head = new Node(10);
+//     head->next = new Node(20);
+//     head->next->next = new Node(30);
+//     head->next->next->next = new Node(40);
+//     head->next->next->next->next = new Node(50);
+
+//     cout << getMiddle(head);
+//     return 0;
 // }
 
 // ------------------------------------------------------------------------------------------------
 
-// Q: find the starting point of the loop in linkedList ?
-
+// Reverse a Linked List
 // #include <bits/stdc++.h>
 // using namespace std;
 
 // class Node
 // {
 // public:
-//     int val;
+//     int data;
 //     Node *next;
-//     Node *back;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
+
+//     Node(int x)
+//     {
+//         this->data = x;
+//         this->next = nullptr;
+//     }
 // };
 
-// Node *convert_it(vector<int> arr)
+// Node* revLL(Node *head)
 // {
-//     if (arr.empty())
-//         return NULL;
-//     Node *head = new Node(arr[0]);
-//     Node *prev = head;
-//     for (int i = 1; i < arr.size(); i++) // Start from index 1
+//     stack<Node *> s;
+//     Node *temp = head;
+
+//     // Push all nodes onto the stack
+//     while (temp != nullptr)
 //     {
-//         Node *temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
+//         s.push(temp);
+//         temp = temp->next;
 //     }
-//     return head;
-// }
 
-// Node *find_node(Node *head)
-// {
-//     Node *slow = head;
-//     Node *fast = head;
+//     // If the stack is empty, return nullptr
+//     if (s.empty()) return nullptr;
 
-//     // Check for loop condition
-//     while (fast != nullptr && fast->next != nullptr)
+//     // Pop from the stack to reverse the linked list
+//     head = s.top(); // The new head of the reversed list
+//     s.pop();
+//     temp = head; // Start with the new head
+
+//     while (!s.empty())
 //     {
-//         slow = slow->next;
-//         fast = fast->next->next;
-
-//         if (slow == fast)
-//         {
-//             // Loop detected
-//             slow = head;
-//             while (slow != fast)
-//             {
-//                 slow = slow->next;
-//                 fast = fast->next;
-//             }
-//             // Return the starting node of the loop
-//             return slow;
-//         }
+//         temp->next = s.top();
+//         s.pop();
+//         temp = temp->next;
 //     }
 
-//     // No loop detected
-//     return NULL;
+//     temp->next = nullptr; // Set the next of the last node to nullptr
+//     return head; // Return the new head of the reversed list
 // }
 
-// int main()
-// {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node *head = convert_it(arr);
-
-//     Node *loopStartNode = find_node(head);
-
-//     if (loopStartNode)
-//     {
-//         cout << "Loop detected. Starting node of the loop is: " << loopStartNode->val << endl;
-//     }
-//     else
-//     {
-//         cout << "No loop detected in the linked list." << endl;
-//     }
-
-//     return 0; // Proper return statement
-// }
-
-// ----------------------------------------------------------------------------------------------------
-
-// Q: find the length of linkedList?
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// class Node
-// {
-// public:
-//     Node *next;
-//     Node *back;
-//     int val;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
-// };
-
-// Node *convert_it(vector<int> arr)
-// {
-//     if (arr.empty())
-//         return NULL;
-//     Node *head = new Node(arr[0]);
-//     Node *prev = head;
-
-//     for (int i = 1; i < arr.size(); i++)
-//     {
-//         Node *temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// int find_length(Node *head)
-// {
-//     Node *slow = head;
-//     Node *fast = head;
-//     while (fast != nullptr && fast->next != nullptr)
-//     {
-//         slow = slow->next;
-//         fast = fast->next->next;
-
-//         if (slow == fast)
-//         {
-//             int counter = 1;
-//             Node *temp = slow;
-//             while (temp->next != slow)
-//             {
-//                 counter++;
-//                 temp = temp->next;
-//             }
-//             return counter;
-//         }
-//     }
-//     return 0; // No loop
-// }
-
-// int main()
-// {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node *head = convert_it(arr);
-
-//     // Creating a loop for testing
-//     head->next->next->next->next->next->next = head->next->next;
-
-//     int length = find_length(head);
-//     if (length > 0)
-//     {
-//         cout << "Loop detected. Length of the loop is: " << length << endl;
-//     }
-//     else
-//     {
-//         cout << "No loop detected in the linked list." << endl;
-//     }
-
-//     return 0; // Proper return statement
-// }
-
-// --------------------------------------------------------------------------------------------------
-
-// Q: Check if a LinkedList is Palindrome or Not ?
-// eg: 1 - 2 - 3 - 3 - 2 - 1;
-// eg: 1 - 2 - 3 - 2 - 1;
-
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// class Node {
-// public:
-//     int val;
-//     Node *next;
-//     Node *back;
-//     Node(int v) : val(v), next(nullptr), back(nullptr) {}
-// };
-
-// // Function to reverse a linked list and return the new head
-// Node* reverse(Node* head) {
-//     Node* prev = nullptr;
-//     Node* current = head;
-//     while (current != nullptr) {
-//         Node* next = current->next;
-//         current->next = prev;
-//         prev = current;
-//         current = next;
-//     }
-//     return prev;
-// }
-
-// Node* convert_it(vector<int> arr) {
-//     if (arr.empty()) return NULL;
-//     Node* head = new Node(arr[0]);
-//     Node* prev = head;
-
-//     for (int i = 1; i < arr.size(); i++) {
-//         Node* temp = new Node(arr[i]);
-//         prev->next = temp;
-//         temp->back = prev;
-//         prev = temp;
-//     }
-//     return head;
-// }
-
-// bool is_palindrome(Node* head) {
-//     if (!head || !head->next) return true;
-
-//     // Find the middle of the linked list
-//     Node* slow = head;
-//     Node* fast = head;
-//     while (fast->next != nullptr && fast->next->next != nullptr) {
-//         slow = slow->next;
-//         fast = fast->next->next;
-//     }
-
-//     // Reverse the second half
-//     Node* second_half = reverse(slow->next);
-
-//     // Compare the first half and the reversed second half
-//     Node* first_half = head;
-//     Node* second_half_copy = second_half;
-//     bool palindrome = true;
-//     while (second_half_copy != nullptr) {
-//         if (first_half->val != second_half_copy->val) {
-//             palindrome = false;
-//             break;
-//         }
-//         first_half = first_half->next;
-//         second_half_copy = second_half_copy->next;
-//     }
-
-//     // Restore the original list (reverse the second half back)
-//     slow->next = reverse(second_half);
-
-//     return palindrome;
-// }
-
-// int main() {
-//     vector<int> arr = {1, 2, 3, 2, 1};
-//     Node* head = convert_it(arr);
-
-//     if (is_palindrome(head)) {
-//         cout << "Yes, it is a palindrome" << endl;
-//     } else {
-//         cout << "No, it isn't a palindrome" << endl;
-//     }
-//     return 0;
-// }
-
-// --------------------------------------------------------------------------------------------------
-
-// Q: seperate it in odd and even linkedlist?
-
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// class Node
-// {
-// public:
-//     int val;
-//     Node *next;
-//     Node(int v) : val(v), next(nullptr) {}
-// };
-
-// Node *convert_it(vector<int> arr)
-// {
-//     if (arr.empty())
-//         return NULL;
-
-//     Node *head = new Node(arr[0]);
-//     Node *current = head;
-//     for (int i = 1; i < arr.size(); i++)
-//     {
-//         current->next = new Node(arr[i]);
-//         current = current->next;
-//     }
-//     return head;
-// }
-
-// Node *fix_it(Node *head)
-// {
-//     if (head == nullptr || head->next == nullptr)
-//         return NULL;
-
-//     Node *odd = head;
-//     Node *even = head->next;
-//     Node *newHead = even;
-//     while (even != nullptr && even->next != nullptr)
-//     {
-//         odd->next = odd->next->next;
-//         even->next = even->next->next;
-
-//         odd = odd->next;
-//         even = even->next;
-//     }
-
-//     odd->next = newHead;
-
-//     return head;
-// }
-
-// void print(Node *head)
+// void printLL(Node *head)
 // {
 //     while (head != nullptr)
 //     {
-//         cout << head->val << "->";
+//         cout << head->data << " ";
 //         head = head->next;
 //     }
-//     cout << "null" << endl;
+//     cout << endl;
 // }
 
 // int main()
 // {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node *head = convert_it(arr);
-//     print(head);
-//     Node *ans = fix_it(head);
-//     print(ans);
+//     Node *head = new Node(10);
+//     head->next = new Node(20);
+//     head->next->next = new Node(30);
+//     head->next->next->next = new Node(40);
+//     head->next->next->next->next = new Node(50);
+
+//     cout << "Print original LL: ";
+//     printLL(head);
+
+//     head = revLL(head); // Update head to the new reversed list
+//     cout << "Print reversed LL: ";
+//     printLL(head);
+
+//     return 0;
 // }
 
-// ----------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 
-// Q: delete the nth node from the end?
+// Reverse a Doubly Linked List
 
-// #include<bits/stdc++.h>
+// #include <bits/stdc++.h>
 // using namespace std;
 
-// class Node{
-//     public :
+// class Node
+// {
+// public:
 //     int data;
-//     Node* next;
-//     Node(int d) : data(d), next(nullptr){}
+//     Node *next;
+//     Node *prev;
+//     Node(int x)
+//     {
+//         this->data = x;
+//         this->next = nullptr;
+//         this->prev = nullptr;
+//     }
 // };
 
-// Node* convert_it(vector<int> arr){
-//     Node* head = new Node(arr[0]);
-//     Node* current = head;
-//     for (int i = 1; i < arr.size(); i++)
+// void printDLL(Node *head)
+// {
+//     while (head != nullptr)
 //     {
-//         current->next = new Node(arr[i]);
-//         current = current->next;
+//         cout << head->data;
+//         if (head->next != nullptr)
+//         {
+//             cout << "<->";
+//         }
+//         head = head->next;
 //     }
-//     return head;
-
+//     cout << " NULL" << endl;
 // }
 
-// Node* fix_it(Node* head, int N) {
-//     // Create two pointers, fast and slow
-//     Node* fast = head;
-//     Node* slow = head;
+// Node *revDLL(Node *head)
+// {
+//     if (head == nullptr)
+//         return nullptr;
 
-//     // Move the fast pointer N nodes ahead
-//     for (int i = 0; i < N; i++)
-//         fast = fast->next;
+//     Node *currNode = head;
+//     Node *temp = nullptr;
 
-//     // If fast becomes NULL,
-//     // the Nth node from the end is the head
-//     if (fast == NULL)
-//         return head->next;
+//     while (currNode != nullptr)
+//     {
+//         temp = currNode->prev;
+//         currNode->prev = currNode->next;
+//         currNode->next = temp;
 
-//     // Move both pointers until fast reaches the end
-//     while (fast->next != NULL) {
-//         fast = fast->next;
-//         slow = slow->next;
+//         currNode = currNode->prev;
 //     }
 
-//     // Delete the Nth node from the end
-//     Node* delNode = slow->next;
-//     slow->next = slow->next->next;
-//     delete delNode;
-//     return head;
+//     return temp->prev;
 // }
 
-// void print(Node* head){
+// int main()
+// {
+//     Node *head = new Node(10);
+//     head->next = new Node(20);
+//     head->next->prev = head;
+//     head->next->next = new Node(30);
+//     head->next->next->prev = head->next;
+//     head->next->next->next = new Node(40);
+//     head->next->next->next->prev = head->next->next;
+//     head->next->next->next->next = new Node(50);
+//     head->next->next->next->next->prev = head->next->next->next;
+//     head->next->next->next->next->next = new Node(60);
+//     head->next->next->next->next->next->prev = head->next->next->next->next;
+
+//     // Set the last node's next to nullptr
+//     head->next->next->next->next->next->next = nullptr;
+
+//     cout << "Printing DLL: ";
+//     printDLL(head);
+
+//     head = revDLL(head); // Update head to the new head after reversal
+
+//     cout << "Reversed DLL: ";
+//     printDLL(head);
+
+//     return 0;
+// }
+
+// ------------------------------------------------------------------------------------------------
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int data;
+//     Node *next;
+//     Node(int x)
+//     {
+//         this->data = x;
+//         this->next = nullptr;
+//     }
+// };
+
+// void printll(Node *head)
+// {
 //     while (head != nullptr)
 //     {
 //         cout << head->data << "->";
 //         head = head->next;
 //     }
-//     cout << "null" << endl;
+//     cout << "NULL" << endl;
 // }
 
-// int main(){
-//     vector<int> arr = {1,2,3,4,5,6};
-//     Node* head = convert_it(arr);
-//     print(head);
-//     Node* ans = fix_it(head,3);
-//     print(ans);
-// }
-
-// ----------------------------------------------------------------------------------------------------
-
-// Q: convert linkedlist into array ?
-
-// #include <bits/stdc++.h>
-// using namespace std;
-
-// class Node
+// Node *revll(Node *head)
 // {
-// public:
-//     int val;
-//     Node *next;
-//     Node(int v) : val(v), next(nullptr) {}
-// };
+//     if (head == nullptr)
+//         return nullptr; // Return nullptr if the list is empty
 
-// Node *convert_it(vector<int> arr)
-// {
-//     if (arr.empty())
-//         return NULL;
+//     Node *curr = head;
+//     Node *prev = nullptr; // Initialize previous node as nullptr
 
-//     Node *head = new Node(arr[0]);
-//     Node *current = head;
-//     for (int i = 1; i < arr.size(); i++)
+//     while (curr != nullptr)
 //     {
-//         current->next = new Node(arr[i]);
-//         current = current->next;
+//         Node *temp = curr->next; // Store the next node
+//         curr->next = prev;       // Reverse the current node's pointer
+//         prev = curr;             // Move prev to current node
+//         curr = temp;             // Move to the next node
 //     }
 
-//     return head;
-// }
-
-// vector<int> convert_back(Node *head)
-// {
-//     vector<int> arr;
-//     while (head != NULL)
-//     {
-//         arr.push_back(head->val);
-//         head = head->next;
-//     }
-//     return arr;
-    
-// }
-
-// void print(Node *head)
-// {
-//     while (head != nullptr)
-//     {
-//         cout << head->val << "->";
-//         head = head->next;
-//     }
-//     cout << "null" << endl;
+//     return prev; // Return the new head of the reversed list
 // }
 
 // int main()
 // {
-//     vector<int> arr = {1, 2, 3, 4, 5, 6};
-//     Node *head = convert_it(arr);
-//     print(head);
-//     vector<int> ans = convert_back(head);
-//         for (int i = 0; i < ans.size(); i++)
-//         {
-//             cout << ans[i] << " ";
-//         }
-//         cout << endl;
-// }
+//     Node *head = new Node(10);
+//     head->next = new Node(20);
+//     head->next->next = new Node(30);
+//     head->next->next->next = new Node(40);
+//     head->next->next->next->next = new Node(50);
 
-// --------------------------------------------------------------------------------------------------
+//     cout << "Original Linked List: ";
+//     printll(head);
 
+//     head = revll(head); // Reverse the linked list and update head
 
-// #include <iostream>
-// #include <queue>
-
-// using namespace std;
-
-// // Definition of the Node class
-// class Node {
-// public:
-//     int val;
-//     Node *right, *down;
-//     Node(int value) : val(value), right(nullptr), down(nullptr) {}
-// };
-
-// // Function to create a 2D linked list
-// void create2DLinkedList(Node*& root) {
-//     // First row
-//     root = new Node(3);
-//     root->right = new Node(5);
-//     root->right->right = new Node(7);
-
-//     // Second row
-//     root->down = new Node(4);
-//     root->down->right = new Node(6);
-//     root->down->right->right = new Node(8);
-
-//     // Third row
-//     root->down->down = new Node(1);
-//     root->down->down->right = new Node(2);
-//     root->down->down->right->right = new Node(9);
-// }
-
-// // Function to print the 2D linked list
-// void print2DLinkedList(Node* root) {
-//     while (root != nullptr) {
-//         Node* col = root;
-//         while (col != nullptr) {
-//             cout << col->val;
-//             if (col->right != nullptr) cout << " -> ";
-//             col = col->right;
-//         }
-//         cout << endl;
-//         root = root->down;
-//     }
-// }
-
-// // Function to flatten the 2D linked list into a single linked list
-// Node* flatten2DLinkedList(Node* root) {
-//     if (root == nullptr) return nullptr;
-
-//     Node* flatHead = nullptr;
-//     Node* flatTail = nullptr;
-
-    
-//     while (root != nullptr) {
-//         while (root != nullptr) {
-//             Node* newNode = new Node(root->val);
-//             if (flatHead == nullptr) {
-//                 flatHead = flatTail = newNode;
-//             } else {
-//                 flatTail->right = newNode;
-//                 flatTail = newNode;
-//             }
-//             root = root->right;
-//         }
-//         root = root->down;
-//     }
-
-//     return flatHead;
-// }
-
-// // Function to print the flattened linked list
-// void printFlattenedLinkedList(Node* head) {
-//     while (head != nullptr) {
-//         cout << head->val;
-//         if (head->right != nullptr) cout << " -> ";
-//         head = head->right;
-//     }
-//     cout << endl;
-// }
-
-// // Function to sort the flattened linked list using a min-heap
-// Node* sortFlattenedLinkedList(Node* head) {
-//     if (head == nullptr) return nullptr;
-
-//     priority_queue<int, vector<int>, greater<int>> minHeap;
-
-//     Node* current = head;
-//     while (current != nullptr) {
-//         minHeap.push(current->val);
-//         current = current->right;
-//     }
-
-//     Node* sortedHead = new Node(minHeap.top());
-//     minHeap.pop();
-//     Node* sortedTail = sortedHead;
-
-//     while (!minHeap.empty()) {
-//         Node* newNode = new Node(minHeap.top());
-//         minHeap.pop();
-//         sortedTail->right = newNode;
-//         sortedTail = newNode;
-//     }
-
-//     return sortedHead;
-// }
-
-// int main() {
-//     Node* root;
-//     create2DLinkedList(root);
-
-//     cout << "Original 2D Linked List:" << endl;
-//     print2DLinkedList(root);
-
-//     Node* flatHead = flatten2DLinkedList(root);
-//     cout << "Flattened Linked List:" << endl;
-//     printFlattenedLinkedList(flatHead);
-
-//     Node* sortedHead = sortFlattenedLinkedList(flatHead);
-//     cout << "Sorted Flattened Linked List:" << endl;
-//     printFlattenedLinkedList(sortedHead);
+//     cout << "Reversed Linked List: ";
+//     printll(head);
 
 //     return 0;
 // }
+
+// ------------------------------------------------------------------------------------------------
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    int data;
+    Node *next;
+    Node(int x)
+    {
+        this->data = x;
+        this->next = nullptr;
+    }
+};
+
+void printll(Node *head)
+{
+    while (head != nullptr)
+    {
+        cout << head->data << "->";
+        head = head->next;
+    }
+    cout << "NULL" << endl;
+}
+
+Node *rotatell(Node *head, int k)
+{
+    if (k == 0 || head == nullptr)
+        return head;
+
+    // Step 1: Count the number of nodes in the list
+    int count = 1; // Start with 1 to count the head
+    Node *temp = head;
+    while (temp->next != nullptr)
+    {
+        count++;
+        temp = temp->next;
+    }
+
+    // Step 2: Make the list circular
+    temp->next = head; // Connect the last node to the head
+
+    // Step 3: Find the new head position
+    int target = k % count; // Effective rotations
+    int breakPoint = count - target; // Find the break point
+    Node *newTail = head;
+
+    // Step 4: Traverse to the new tail
+    for (int i = 1; i < breakPoint; i++)
+    {
+        newTail = newTail->next;
+    }
+
+    // Step 5: Set the new head and break the circular link
+    Node *newHead = newTail->next; // New head is the (breakPoint + 1)th node
+    newTail->next = nullptr; // Break the circular link
+
+    return newHead; // Return the new head of the rotated list
+}
+
+int main()
+{
+    Node *head = new Node(10);
+    head->next = new Node(20);
+    head->next->next = new Node(30);
+    head->next->next->next = new Node(40);
+    head->next->next->next->next = new Node(50);
+
+    cout << "Original Linked List: ";
+    printll(head);
+
+    head = rotatell(head, 4); // Rotate the linked list to the left by 4 places
+
+    cout << "Rotated Linked List: ";
+    printll(head);
+
+    return 0;
+}

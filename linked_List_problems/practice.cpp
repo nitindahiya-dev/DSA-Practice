@@ -724,86 +724,86 @@
 // }
 
 // ------------------------------------------------------------------------------------------------
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-class Node
-{
-public:
-    int data;
-    Node *next;
-    Node(int x)
-    {
-        this->data = x;
-        this->next = nullptr;
-    }
-};
+// class Node
+// {
+// public:
+//     int data;
+//     Node *next;
+//     Node(int x)
+//     {
+//         this->data = x;
+//         this->next = nullptr;
+//     }
+// };
 
-Node *deleteNodesAfterSkipping(Node *head, int nodesToSkip, int nodesToDelete)
-{
-    if (head == nullptr || head->next == nullptr || nodesToSkip <= 0)
-    {
-        return head;
-    }
+// Node *deleteNodesAfterSkipping(Node *head, int nodesToSkip, int nodesToDelete)
+// {
+//     if (head == nullptr || head->next == nullptr || nodesToSkip <= 0)
+//     {
+//         return head;
+//     }
 
-    Node *curr = head;
+//     Node *curr = head;
 
-    while (curr != nullptr)
-    {
-        for (int i = 1; i < nodesToSkip && curr != nullptr; i++)
-        {
-            curr = curr->next; 
-        }
+//     while (curr != nullptr)
+//     {
+//         for (int i = 1; i < nodesToSkip && curr != nullptr; i++)
+//         {
+//             curr = curr->next; 
+//         }
 
-        if (curr == nullptr) // 
-            break;
+//         if (curr == nullptr) // 
+//             break;
 
         
-        Node *temp = curr->next;
-        for (int i = 0; i < nodesToDelete && temp != nullptr; i++)
-        {
-            Node *toDelete = temp; 
-            temp = temp->next; 
-            delete toDelete; 
-        }
+//         Node *temp = curr->next;
+//         for (int i = 0; i < nodesToDelete && temp != nullptr; i++)
+//         {
+//             Node *toDelete = temp; 
+//             temp = temp->next; 
+//             delete toDelete; 
+//         }
 
-        curr->next = temp; 
-        curr = temp;
+//         curr->next = temp; 
+//         curr = temp;
+//     }
+//     return head;
+// }
 
-    return head;
-}
+// void printll(Node *head)
+// {
+//     while (head != nullptr)
+//     {
+//         cout << head->data << "->";
+//         head = head->next;
+//     }
+//     cout << "NULL" << endl;
+// }
 
-void printll(Node *head)
-{
-    while (head != nullptr)
-    {
-        cout << head->data << "->";
-        head = head->next;
-    }
-    cout << "NULL" << endl;
-}
+// int main()
+// {
+//     Node *head = new Node(10);
+//     head->next = new Node(20);
+//     head->next->next = new Node(30);
+//     head->next->next->next = new Node(40);
+//     head->next->next->next->next = new Node(50);
+//     head->next->next->next->next->next = new Node(60);
+//     head->next->next->next->next->next->next = new Node(70);
+//     head->next->next->next->next->next->next->next = new Node(80);
 
-int main()
-{
-    Node *head = new Node(10);
-    head->next = new Node(20);
-    head->next->next = new Node(30);
-    head->next->next->next = new Node(40);
-    head->next->next->next->next = new Node(50);
-    head->next->next->next->next->next = new Node(60);
-    head->next->next->next->next->next->next = new Node(70);
-    head->next->next->next->next->next->next->next = new Node(80);
+//     cout << "Original Linked List: ";
+//     printll(head);
 
-    cout << "Original Linked List: ";
-    printll(head);
+//     int nodesToSkip = 2;    // Number of nodes to skip
+//     int nodesToDelete = 3;  // Number of nodes to delete
+//     head = deleteNodesAfterSkipping(head, nodesToSkip, nodesToDelete);
 
-    int nodesToSkip = 2;    // Number of nodes to skip
-    int nodesToDelete = 3;  // Number of nodes to delete
-    head = deleteNodesAfterSkipping(head, nodesToSkip, nodesToDelete);
+//     cout << "Modified Linked List after deletion: ";
+//     printll(head);
 
-    cout << "Modified Linked List after deletion: ";
-    printll(head);
-
-    return 0;
-}
+//     return 0;
+// }
 
